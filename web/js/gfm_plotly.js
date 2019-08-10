@@ -6,7 +6,7 @@ function plotCannedMaterialProperty() {
   var frameWidth=window.innerWidth;
 
   var plotWidth= Math.round(frameWidth*0.5);
-  var plotHeight= Math.round(0.6 * frameHeight);
+  var plotHeight= Math.round(0.5 * frameHeight);
 
   var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
   var urls = [];
@@ -92,6 +92,7 @@ function plotCannedMaterialProperty() {
 var layout = {
   width: plotWidth,
   height: plotHeight,
+  title: "Canned data",
   scene: {
    aspectratio : { x:1.0, y:1.0, z:0.1 },
     camera: {
@@ -104,7 +105,7 @@ var layout = {
     l: 5,
     r: 5,
     b: 30,
-    t: 30,
+    t: 60,
   }
 };
 
