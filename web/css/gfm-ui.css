@@ -1,0 +1,89 @@
+/* required styles */
+
+hr { 
+  display: block;
+  margin-top: 0.3em;
+  margin-bottom: 0.4em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 2px;
+}
+
+table { width: 100%; border-collapse: collapse;}
+table, td, th { border: 1px solid grey; padding: 2px;}
+th {text-align: left;}
+
+.gfm-top-small-btn {
+          background: white; 
+          padding: 6px 6px;
+          font-size: 14px;
+          color: blue;
+          width: 3vw;
+          height: 3vh;
+          display: inline-block;
+          border-radius: 2px;
+          }
+
+.gfm-small-btn {
+          background: transparent ; 
+          color: blue;
+          border: none; 
+          display: inline-block;
+          }
+
+.gfm-small-btn:disabled {
+         color: white;
+        }
+
+.gfm-table {
+          max-height: 67vh;
+          border: 1px solid grey;
+          overflow: auto;
+        }
+
+.gfm-top-btn {
+          background: #D5D5D5; 
+          padding: 1px 3px;
+          border: 2px solid #D5D5D5;
+          color: blue;
+          width: 15vw;
+          height: 5vh;
+          display: inline-block;
+        }
+
+.gfm-btn {
+          background: white; 
+          border: 0px solid #D5D5D5;
+          color: blue;
+          width: 5em;
+          height: 3vh;
+          display: inline-block;
+        }
+
+
+.gfm-btn:disabled {
+         color: white;
+        }
+
+.gfm-div {
+        position:relative;
+        left: 10px;
+        width:90%;
+        }
+
+select {
+    width: 100%;
+    border: 2px solid grey;
+    border-radius: 2px;
+}
+
+input[type=text] {
+    width: 140px;
+    padding: 0px 5px 0px 5px;
+}
+
+input:hover {
+    background-color: yellow;
+    }
+
