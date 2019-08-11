@@ -14,6 +14,10 @@ function propertyClick() {
     getMaterialPropertyByLatlon();
 }
 
+function propertyUCVMCClick() {
+    getUCVMCMaterialPropertyByLatlon();
+}
+
 function clearResultTable()
 {
     document.getElementById("searchResult").innerHTML = "";

@@ -7,6 +7,9 @@ function processSearchResult(rlist) {
     if (rlist == 'getMaterialPropertyByLatlon') {
         str = $('[data-side="materialPropertyByLatlon"]').data('params');
     }
+    if (rlist == 'getUCVMCMaterialPropertyByLatlon') {
+        str = $('[data-side="materialPropertyUCVMCByLatlon"]').data('params');
+    }
     if (rlist == 'getCanMaterialProperty') {
         str = $('[data-side="materialPropertyByCan"]').data('params');
         window.console.log("got the canned data..%s\n",str);

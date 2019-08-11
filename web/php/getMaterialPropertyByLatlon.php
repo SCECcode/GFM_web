@@ -10,14 +10,13 @@ $firstlon = ($_GET['firstlon']);
 $firstz = ($_GET['firstz']);
 $firstzmode = ($_GET['firstzmode']);
 
-$cmd = '../cvmh/bin/vx_lite -m ../cvmh/model -g ';
 $lstr = "-l ".$firstlat.",".$firstlon.",".$firstz;
 
-$query="../cvmh/bin/vx_lite -m ../cvmh/model -g ".$lstr;
+$query="../../model/cvmh_target/bin/vx_lite -m ../../model/cvmh_target/model -g ".$lstr;
 if ($firstzmode == 'e') 
-     $query="../cvmh/bin/vx_lite -m ../cvmh/model -g "."-z elev ".$lstr;
+     $query="../../model/cvmh_target/bin/vx_lite -m ../../model/cvmh_target/model -g "."-z elev ".$lstr;
 if ($firstzmode == 'd') 
-     $query="../cvmh/bin/vx_lite -m ../cvmh/model -g "."-z dep ".$lstr;
+     $query="../../model/cvmh_target/bin/vx_lite -m ../../model/cvmh_target/model -g "."-z dep ".$lstr;
 
 $result = exec(escapeshellcmd($query), $retval);
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export TOP_GFM_DIR=/home/mei/GFM
+#export TOP_GFM_DIR=/home/mei/GFM
+export TOP_GFM_DIR=/Users/mei/scec/GFM
 
 export UCVM_SRC_PATH=$TOP_GFM_DIR/model/UCVMC
 export UCVM_INSTALL_PATH=$TOP_GFM_DIR/web/model/UCVMC_TARGET
