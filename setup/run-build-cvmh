@@ -1,0 +1,26 @@
+#!/bin/bash
+
+source setup/setup_cvmh.sh
+
+rm -rf $TOP_GFM_DIR/model/cvmh
+rm -rf $TOP_GFM_DIR/web/model/cvmh_target
+mkdir -p $TOP_GFM_DIR/web/model/cvmh_target
+
+cd $TOP_GFM_DIR/model
+git clone https://github.com/SCECcode/cvmh.git -b forGFM cvmh 
+cd cvmh
+aclocal
+automake --add-missing
+autoconf
+./configure --prefix=$CVMH_INSTALL_PATH
+cd model
+./make_data_files.py -d cvmh1511 -u mei
+cp $TOP_GFM_DIR/model/GFM/GFM_box_10x10x1km_forPhil.vo $CVMH_SRC_PATH/model
+cp $TOP_GFM_DIR/model/GFM/GFM_box_10x10x1km_forPhil_regionID@@ $CVMH_SRC_PATH/model
+cp $TOP_GFM_DIR/model/GFM/GFM_box_10x10x1km_forPhil_temp_median@@ $CVMH_SRC_PATH/model
+
+cd $CVMH_SRC_PATH
+make
+make install
+
+ 
