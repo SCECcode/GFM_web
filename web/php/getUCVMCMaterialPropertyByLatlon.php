@@ -20,12 +20,7 @@ $query="../model/UCVMC_TARGET/bin/ucvm_query -m cvmh -f ../model/UCVMC_TARGET/co
 if ($firstzmode == 'e') 
      $query="../model/UCVMC_TARGET/bin/ucvm_query -m cvmh -f ../model/UCVMC_TARGET/conf/ucvm.conf -c ge -b ".$estr;
 
-
-echo $query;
-
 $result = exec(escapeshellcmd($query), $retval);
-
-echo $result;
 
 $resultstring = htmlspecialchars($result, ENT_QUOTES, 'UTF-8');
 echo "<div data-side=\"materialPropertyUCVMCByLatlon\" data-params=\""; 

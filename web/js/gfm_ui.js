@@ -6,7 +6,7 @@ function setup_viewer() {
 }
 
 function plotClick() {
-    getCannedMatrialProperty();
+    getCannedMaterialProperty();
 //    plotCannedMaterialProperty();
 }
 
