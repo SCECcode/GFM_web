@@ -10,6 +10,7 @@ $firstlon = ($_GET['firstlon']);
 $firstz = ($_GET['firstz']);
 $firstzmode = ($_GET['firstzmode']);
 
+
 $estr = " -l ".$firstlat.",".$firstlon.",".$firstz." ";
 
 $query="../model/UCVMC_TARGET/bin/ucvm_query -m cvmh -f ../model/UCVMC_TARGET/conf/ucvm.conf -c gd -b ".$estr;
