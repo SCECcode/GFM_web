@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#export TOP_GFM_DIR=/home/mei/GFM
-export TOP_GFM_DIR=/var/www/html/GFM
+export TOP_GFM_DIR=`pwd`
 
 export CVMH_SRC_PATH=$TOP_GFM_DIR/model/cvmh
 export CVMH_INSTALL_PATH=$TOP_GFM_DIR/web/model/cvmh_target

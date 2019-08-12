@@ -27,7 +27,7 @@ function makeResultTable(str)
 {
     var i;
     var blob;
-    if( str == undefined ) {
+    if( str == undefined || str == "" ) {
        alertify.error("ERROR: no return result");
        return;
     }
