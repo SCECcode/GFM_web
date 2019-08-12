@@ -26,10 +26,21 @@ function clearResultTable()
 function makeResultTable(str)
 {
     var i;
-    var keys=Object.keys(str);
-    var sz=(Object.keys(str).length);
+    var blob;
+    if( str == undefined ) {
+       alertify.error("ERROR: no return result");
+       return;
+    }
+    if( typeof str === 'string') { 
+       blob=JSON.parse(str);
+       } else {
+         blob=str;
+    }
 
-window.console.log(JSON.stringify(str));
+    var keys=Object.keys(blob);
+    var sz=(Object.keys(blob).length);
+
+window.console.log(JSON.stringify(blob));
 
     var html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
 
@@ -37,7 +48,7 @@ window.console.log(JSON.stringify(str));
 
     for( i=0; i<sz; i++) {
        var key=keys[i];
-       var val=str[key];
+       var val=blob[key];
        var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:30px\">"+val+"</td></tr>";
        html=html+t;
     }
