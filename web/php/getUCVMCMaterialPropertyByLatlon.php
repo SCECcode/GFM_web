@@ -10,11 +10,8 @@ $firstlon = ($_GET['firstlon']);
 $firstz = ($_GET['firstz']);
 $firstzmode = ($_GET['firstzmode']);
 
-<<<<<<< HEAD
-=======
 putenv("LD_LIBRARY_PATH=../model/UCVMC_TARGET/lib/euclid3/lib:../model/UCVMC_TARGET/lib/proj-5/lib");
 putenv("DYLD_LIBRARY_PATH=../model/UCVMC_TARGET/lib/euclid3/lib:../model/UCVMC_TARGET/lib/proj-5/lib");
->>>>>>> 6ee82904e85e3d833c642e74d686a99cce2a526d
 
 $estr = " -l ".$firstlat.",".$firstlon.",".$firstz." ";
 
