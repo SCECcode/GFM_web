@@ -6,8 +6,8 @@ function setup_viewer() {
 }
 
 function plotClick() {
-//    getCannedMatrialProperty();
-    plotCannedMaterialProperty();
+    getCannedMatrialProperty();
+//    plotCannedMaterialProperty();
 }
 
 function propertyClick() {
@@ -28,6 +28,8 @@ function makeResultTable(str)
     var i;
     var keys=Object.keys(str);
     var sz=(Object.keys(str).length);
+
+window.console.log(JSON.stringify(str));
 
     var html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
 

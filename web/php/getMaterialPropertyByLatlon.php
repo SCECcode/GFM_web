@@ -12,11 +12,11 @@ $firstzmode = ($_GET['firstzmode']);
 
 $lstr = "-l ".$firstlat.",".$firstlon.",".$firstz;
 
-$query="../../model/cvmh_target/bin/vx_lite -m ../../model/cvmh_target/model -g ".$lstr;
+$query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr;
 if ($firstzmode == 'e') 
-     $query="../../model/cvmh_target/bin/vx_lite -m ../../model/cvmh_target/model -g "."-z elev ".$lstr;
+     $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z elev ".$lstr;
 if ($firstzmode == 'd') 
-     $query="../../model/cvmh_target/bin/vx_lite -m ../../model/cvmh_target/model -g "."-z dep ".$lstr;
+     $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z dep ".$lstr;
 
 $result = exec(escapeshellcmd($query), $retval);
 

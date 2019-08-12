@@ -10,12 +10,12 @@ $firstlon = ($_GET['firstlon']);
 $firstz = ($_GET['firstz']);
 $firstzmode = ($_GET['firstzmode']);
 
-$estr = "echo '". $firstlat." ".$firstlon." ".$firstz."'";
+$estr = " -l ".$firstlat.",".$firstlon.",".$firstz." ";
 
-$query=$estr." | ../../model/UCVMC_TARGET/bin/ucvm_query -m cvmh -f ../../model/UCVMC_TARGET/conf/ucvm.conf -c gd";
+$query="../model/UCVMC_TARGET/bin/ucvm_query -m cvmh -f ../model/UCVMC_TARGET/conf/ucvm.conf -c gd -b ".$estr;
 
 if ($firstzmode == 'e') 
-     $query=$estr." | ../../model/UCVMC_TARGET/bin/ucvm_query -m cvmh -f ../../model/UCVMC_TARGET/conf/ucvm.conf -c ge "
+     $query="../model/UCVMC_TARGET/bin/ucvm_query -m cvmh -f ../model/UCVMC_TARGET/conf/ucvm.conf -c ge -b ".$estr;
 
 $result = exec(escapeshellcmd($query), $retval);
 
