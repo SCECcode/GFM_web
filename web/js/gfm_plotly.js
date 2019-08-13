@@ -9,6 +9,10 @@ function plotCannedMaterialProperty() {
   var plotHeight= Math.round(0.5 * frameHeight);
 
   var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
+  if(window.location.hostname == "asperity.scec.org") {
+      url="http://asperity.scec.org/GFM/web/data/complete_cvmh_canned.csv";
+  }
+
   var urls = [];
   urls.push(url);
 
