@@ -37,6 +37,45 @@ function chopForStub(url){
   return ss;
 }
 
+
+function process_csv(csv) {
+
+    var fline=csv.split('\n')[0];
+    var hdata=[];
+    var max_y_columns=0; // should use this to do sanity check, 
+    $.csv.toArray(fline, {}, function(err, data) {
+        hdata=data; 
+        initPlot_label.push(hdata);
+    });
+
+    $.csv.toArrays(csv, {}, function(err, data) {
+      if(data.length == 0) {
+        window.console.log("Fail: can not access data");
+        return 0;
+      }
+    // remove the header..
+    data.splice(0,1);
+
+    var ndata=[];
+    var dcnt=data.length;
+    window.console.log(data.length);
+        // need to subsample
+    var p=data[dcnt-1];
+    for(var i=0;i<dcnt;i++) {
+      if (i % 10 == 0) {
+        ndata.push(data[i]);
+      }
+    }
+
+    window.console.log("ndata's length\n");
+    window.console.log(ndata.length);
+    initPlot_data.push(ndata);
+    });
+
+    return 1;
+}
+
+
 // allow multiple csv data files with headers
 function loadAndProcessCSVfromFile(urls) {
   var nlist=[];
@@ -45,41 +84,11 @@ function loadAndProcessCSVfromFile(urls) {
   for( var urlidx=0; urlidx < cnt; urlidx++ ) {
       var url=urls[urlidx];
       var csv=ckExist(url);
-      var fline=csv.split('\n')[0];
-
-      var hdata=[];
-      var max_y_columns=0; // should use this to do sanity check, 
-      $.csv.toArray(fline, {}, function(err, data) {
-        hdata=data; 
-        initPlot_label.push(hdata);
-      });
-
-      $.csv.toArrays(csv, {}, function(err, data) {
-        if(data.length == 0) {
-          alertify.error("Fail: can not access ",url);
-          return nlist;
-        }
-        // remove the header..
-        data.splice(0,1);
-
-        var ndata=[];
-        var dcnt=data.length;
-        window.console.log(data.length);
-        // need to subsample
-        var p=data[dcnt-1];
-        for(var i=0;i<dcnt;i++) {
-           if (i % 10 == 0) {
-               ndata.push(data[i]);
-           }
-        }
-
-        window.console.log("ndata's length\n");
-        window.console.log(ndata.length);
-        initPlot_data.push(ndata);
-      });
-
-      var fstub=chopForStub(url);
-      nlist.push(fstub);
+      var n=process_csv(csv);
+      if(n) {
+        var fstub=chopForStub(url);
+        nlist.push(fstub);
+      }
   }
   return nlist;
 }
