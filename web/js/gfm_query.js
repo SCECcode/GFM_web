@@ -5,6 +5,7 @@
 
 // get material property blob by lat lon z zmode
 function getMaterialPropertyByLatlon() {
+    clearResultTable();
     var firstlatstr=document.getElementById("firstLatTxt").value;
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var firstzstr=document.getElementById("firstZTxt").value;
@@ -56,6 +57,7 @@ function getCannedMaterialProperty() {
 
 // get material property blob by lat lon z zmode
 function getUCVMCMaterialPropertyByLatlon() {
+    clearResultTable();
     var firstlatstr=document.getElementById("firstLatTxt").value;
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var firstzstr=document.getElementById("firstZTxt").value;

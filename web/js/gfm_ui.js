@@ -6,8 +6,8 @@ function setup_viewer() {
 }
 
 function plotClick() {
-    getCannedMaterialProperty();
-//    plotCannedMaterialProperty();
+//    getCannedMaterialProperty();
+    plotCannedMaterialProperty();
 }
 
 function propertyClick() {
@@ -28,8 +28,8 @@ function makeResultTable(str)
     var i;
     var blob;
     if( str == undefined || str == "" ) {
-       alertify.error("ERROR: no return result");
-       return;
+       window.console.log("ERROR: no return result");
+       return "";
     }
     if( typeof str === 'string') { 
        blob=JSON.parse(str);
