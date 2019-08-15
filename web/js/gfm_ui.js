@@ -33,8 +33,10 @@ function propertyUCVMCClick() {
 function plotPNG(str)
 {
     document.getElementById("searchResult").innerHTML = "";
+
     if( typeof str === 'string') { 
-       return str;
+       var html="<a href=\"../gfm/result/"+str+"\"><img src=\"smiley.gif\" alt=\"Smiley face\" height=\"42\" width=\"42\"></a>";
+       return html;
     }
     return "";
     

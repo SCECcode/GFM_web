@@ -25,6 +25,8 @@ if ($firstzmode == 'd')
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
+echo $status;
+
 if ( $status == 0 && file_exists($file)) {
     echo "plotCrossSection: Success!";
 
