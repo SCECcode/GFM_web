@@ -13,7 +13,7 @@ $firstzmode = ($_GET['firstzmode']);
 $secondlat = ($_GET['secondlat']);
 $secondlon = ($_GET['secondlon']);
 
-$file="../result/profile.png";
+$file="../result/vertical.png";
 
 $lstr = " -s ".$firstlat.",".$firstlon." -e ".$firstz;
 $qstub=" -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET -b 0 -d vs -c cvmh -o ".$file;
@@ -28,7 +28,7 @@ $result = exec(escapeshellcmd($query), $retval, $status);
 if ( $status == 0 && file_exists($file)) {
     echo "plotDepthProfile: Success!";
 
-    $resultstring = htmlspecialchars("horizontal.png", ENT_QUOTES, 'UTF-8');
+    $resultstring = htmlspecialchars("vertical.png", ENT_QUOTES, 'UTF-8');
     echo "<div data-side=\"verticalProfile\" data-params=\""; 
     echo $resultstring;
     echo "\" style=\"display:flex\"></div>";
