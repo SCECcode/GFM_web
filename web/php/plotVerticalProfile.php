@@ -33,7 +33,6 @@ if ( $status == 0 && file_exists($file)) {
     echo $resultstring;
     echo "\" style=\"display:flex\"></div>";
 }
-
 ?>
 </body>
 </html>
