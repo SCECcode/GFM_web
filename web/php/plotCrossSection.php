@@ -25,14 +25,14 @@ if ($firstzmode == 'd')
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
-if ( $status == 0 )
-   echo "plotCrossSection: Success!";
+if ( $status == 0 && file_exists($file)) {
+    echo "plotCrossSection: Success!";
 
-
-$resultstring = htmlspecialchars("cross.png", ENT_QUOTES, 'UTF-8');
-echo "<div data-side=\"crossSection\" data-params=\""; 
-echo $resultstring;
-echo "\" style=\"display:flex\"></div>";
+    $resultstring = htmlspecialchars("cross.png", ENT_QUOTES, 'UTF-8');
+    echo "<div data-side=\"crossSection\" data-params=\"";
+    echo $resultstring;
+    echo "\" style=\"display:flex\"></div>";
+}
 ?>
 </body>
 </html>
