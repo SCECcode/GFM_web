@@ -11,6 +11,9 @@ function getMaterialPropertyByLatlon() {
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
 
+    var secondlatstr=document.getElementById("secondLatTxt").value;
+    var secondlonstr=document.getElementById("secondLonTxt").value;
+
     if (firstlatstr == "" || firstlonstr=="") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -30,7 +33,7 @@ function getMaterialPropertyByLatlon() {
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         }
-        xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
+        xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr, true);
         xmlhttp.send();
     }
 }
@@ -63,6 +66,9 @@ function getUCVMCMaterialPropertyByLatlon() {
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
 
+    var secondlatstr=document.getElementById("secondLatTxt").value;
+    var secondlonstr=document.getElementById("secondLonTxt").value;
+
     if (firstlatstr == "" || firstlonstr=="") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -82,7 +88,110 @@ function getUCVMCMaterialPropertyByLatlon() {
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         }
-        xmlhttp.open("GET","php/getUCVMCMaterialPropertyByLatlon.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
+        xmlhttp.open("GET","php/getUCVMCMaterialPropertyByLatlon.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
+        xmlhttp.send();
+    }
+}
+
+function plotCrossSection() {
+    var firstlatstr=document.getElementById("firstLatTxt").value;
+    var firstlonstr=document.getElementById("firstLonTxt").value;
+    var firstzstr=document.getElementById("firstZTxt").value;
+    var firstzmodestr=document.getElementById("firstZmodeTxt").value;
+
+    var secondlatstr=document.getElementById("secondLatTxt").value;
+    var secondlonstr=document.getElementById("secondLonTxt").value;
+
+    if (firstlatstr == "" || firstlonstr=="" ||
+              secondlatstr == "" || secondlonstr=="" ) {
+        document.getElementById("searchResult").innerHTML = "";
+        return;
+    } else {
+
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str=processSearchResult("plotCrossSection");
+                document.getElementById("searchResult").innerHTML = plotPNG(str);
+            }
+        }
+        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
+        xmlhttp.send();
+    }
+}
+
+function plotVerticalProfile() {
+    var firstlatstr=document.getElementById("firstLatTxt").value;
+    var firstlonstr=document.getElementById("firstLonTxt").value;
+    var firstzstr=document.getElementById("firstZTxt").value;
+    var firstzmodestr=document.getElementById("firstZmodeTxt").value;
+
+    var secondlatstr=document.getElementById("secondLatTxt").value;
+    var secondlonstr=document.getElementById("secondLonTxt").value;
+
+    if (firstlatstr == "" || firstlonstr=="" ||
+              secondlatstr == "" || secondlonstr=="" ) {
+        document.getElementById("searchResult").innerHTML = "";
+        return;
+    } else {
+
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str=processSearchResult("plotVerticalProfile");
+                document.getElementById("searchResult").innerHTML = plotPNG(str);
+            }
+        }
+        xmlhttp.open("GET","php/plotVerticalProfile.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
+        xmlhttp.send();
+    }
+}
+
+
+function plotHorizontalSlice() {
+    var firstlatstr=document.getElementById("firstLatTxt").value;
+    var firstlonstr=document.getElementById("firstLonTxt").value;
+    var firstzstr=document.getElementById("firstZTxt").value;
+    var firstzmodestr=document.getElementById("firstZmodeTxt").value;
+
+    var secondlatstr=document.getElementById("secondLatTxt").value;
+    var secondlonstr=document.getElementById("secondLonTxt").value;
+
+    if (firstlatstr == "" || firstlonstr=="" ||
+              secondlatstr == "" || secondlonstr=="" ) {
+        document.getElementById("searchResult").innerHTML = "";
+        return;
+    } else {
+
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str=processSearchResult("plotHorizontalSlice");
+                document.getElementById("searchResult").innerHTML = plotPNG(str);
+            }
+        }
+        xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
         xmlhttp.send();
     }
 }

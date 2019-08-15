@@ -4,6 +4,18 @@
 ***/
 
 function processSearchResult(rlist) {
+    if (rlist == 'plotHorizontalSlice') {
+        str = $('[data-side="horizontalSlice"]').data('params');
+        window.console.log("from horizontal %s\n",str);
+    }
+    if (rlist == 'plotVerticalProfile') {
+        str = $('[data-side="verticalProfile"]').data('params');
+        window.console.log("from vertical %s\n",str);
+    }
+    if (rlist == 'plotCrossSection') {
+        str = $('[data-side="crossSection"]').data('params');
+        window.console.log("from cross %s\n",str);
+    }
     if (rlist == 'getMaterialPropertyByLatlon') {
         str = $('[data-side="materialPropertyByLatlon"]').data('params');
     }
