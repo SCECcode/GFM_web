@@ -5,7 +5,7 @@
 
 // get material property blob by lat lon z zmode
 function getMaterialPropertyByLatlon() {
-    clearResultTable();
+    clearSearchResult();
     var firstlatstr=document.getElementById("firstLatTxt").value;
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var firstzstr=document.getElementById("firstZTxt").value;
@@ -15,7 +15,6 @@ function getMaterialPropertyByLatlon() {
     var secondlonstr=document.getElementById("secondLonTxt").value;
 
     if (firstlatstr == "" || firstlonstr=="") {
-        document.getElementById("searchResult").innerHTML = "";
         return;
     } else {
 
@@ -39,7 +38,7 @@ function getMaterialPropertyByLatlon() {
 }
 
 function getCannedMaterialProperty() {
-    clearResultTable();
+    clearSearchResult();
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
@@ -60,7 +59,7 @@ function getCannedMaterialProperty() {
 
 // get material property blob by lat lon z zmode
 function getUCVMCMaterialPropertyByLatlon() {
-    clearResultTable();
+    clearSearchResult();
     var firstlatstr=document.getElementById("firstLatTxt").value;
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var firstzstr=document.getElementById("firstZTxt").value;
@@ -70,7 +69,6 @@ function getUCVMCMaterialPropertyByLatlon() {
     var secondlonstr=document.getElementById("secondLonTxt").value;
 
     if (firstlatstr == "" || firstlonstr=="") {
-        document.getElementById("searchResult").innerHTML = "";
         return;
     } else {
 
@@ -104,7 +102,7 @@ function plotCrossSection() {
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" ) {
-        document.getElementById("searchResult").innerHTML = "";
+        clearSearchResult();
         return;
     } else {
 
@@ -138,7 +136,7 @@ function plotVerticalProfile() {
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" ) {
-        document.getElementById("searchResult").innerHTML = "";
+        clearSearchResult();
         return;
     } else {
 
@@ -173,7 +171,7 @@ function plotHorizontalSlice() {
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" ) {
-        document.getElementById("searchResult").innerHTML = "";
+        clearSearchResult();
         return;
     } else {
 

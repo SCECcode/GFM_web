@@ -32,17 +32,29 @@ function propertyUCVMCClick() {
 
 function plotPNG(str)
 {
-    document.getElementById("searchResult").innerHTML = "";
+    var html="";
 
+    // just one
     if( typeof str === 'string') { 
-       var html="<a href=\"../gfm/result/"+str+"\"><img src=\"smiley.gif\" alt=\"Smiley face\" height=\"42\" width=\"42\"></a>";
+       html="<a href=\"../gfm/result/"+str+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
        return html;
     }
-    return "";
+
+    // a set of them,  obj['first'] and obj['second']
+    var keys=Object.keys(str);
+    var sz=(Object.keys(str).length);
+    var i;
+
+    for(i=0;i<sz;i++) {
+       var val=str[keys[i]]; 
+       html=html+"<a href=\"../gfm/result/"+val+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
+    }
+
+    return html;
     
 }
 
-function clearResultTable()
+function clearSearchResult()
 {
     document.getElementById("searchResult").innerHTML = "";
 }

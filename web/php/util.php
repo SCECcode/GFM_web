@@ -1,15 +1,16 @@
 <?php
-function makeObj($row) {
+function makeVerticalQuery($lat,$lon,$z,$zmode,$file) { 
 
-include ("declare.php");
+$lstr = " -s ".$lat.",".$lon." -e ".$z;
+$qstub=" -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET -b 0 -d vsvp,density -c cvmh -o ".$file;
 
-$myObj = new \stdClass();
+if ($zmode == 'e') { 
+     $query= "PATH=../model/UCVMC_TARGET/bin:/Users/mei/SCEC/anaconda2/bin:/usr/local/opt/libxml2/bin:/usr/local/opt/sqlite/bin:/usr/local/opt/libxml2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin PYTHONPATH=../model/UCVMC_TARGET/utilities/pycvm ../model/UCVMC_TARGET/utilities/plot_elevation_profile.py -v -100 ".$qstub.$lstr;
+}
+if ($zmode == 'd') { 
+     $query= "PATH=../model/UCVMC_TARGET/bin:/Users/mei/SCEC/anaconda2/bin:/usr/local/opt/libxml2/bin:/usr/local/opt/sqlite/bin:/usr/local/opt/libxml2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin PYTHONPATH=../model/UCVMC_TARGET/utilities/pycvm ../model/UCVMC_TARGET/utilities/plot_depth_profile.py -v 100 ".$qstub.$lstr;
+}
 
-$myObj->gid=$row[$gid];
-$myObj->name=$row[$name];
-
-$myJSON = json_encode($myObj);
-
-return $myJSON;
+return $query;
 }
 ?>

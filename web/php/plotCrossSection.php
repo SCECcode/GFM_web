@@ -28,7 +28,7 @@ $result = exec(escapeshellcmd($query), $retval, $status);
 echo $status;
 
 if ( $status == 0 && file_exists($file)) {
-    echo "plotCrossSection: Success!";
+    echo "\nplotCrossSection: Success!";
 
     $resultstring = htmlspecialchars("cross.png", ENT_QUOTES, 'UTF-8');
     echo "<div data-side=\"crossSection\" data-params=\"";
