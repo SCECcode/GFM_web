@@ -22,7 +22,6 @@ $query=makeVerticalQuery($firstlat,$firstlon,$firstz,$firstzmode,$file);
 $result = exec(escapeshellcmd($query), $retval, $status);
 
 if ( $status == 0 && file_exists($file)) {
-    echo "\nplotDepthProfile: 1st Success!";
     $itemlist->first="vertical.png";
 }
 
@@ -31,7 +30,6 @@ if ( $secondlat != "" && $secondlon !="" ) {
    $query2=makeVerticalQuery($secondlat,$secondlon,$firstz,$firstzmode,$file2);
    $result2 = exec(escapeshellcmd($query2), $retval2, $status2);
    if ( $status2== 0 && file_exists($file2)) {
-     echo "\nplotDepthProfile: 2nd set Success!";
      $itemlist->second="vertical2.png";
    }
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## setup mpi environment
+##setup mpi environment
 ##none, source /usr/usc/openmpi/1.8.8/setup.sh
 
 source setup/setup_UCVMC.sh

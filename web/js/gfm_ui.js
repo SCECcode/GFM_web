@@ -6,27 +6,33 @@ function setup_viewer() {
 }
 
 function horizontalSliceUCVMCClick() {
+    document.getElementById('horizontalSliceUCVMCBtn').style.color="#FF0000";
     plotHorizontalSlice();
 }
 
 function crossSectionUCVMCClick() {
+    document.getElementById('crossSectionUCVMCBtn').style.color="#FF0000";
     plotCrossSection();
 }
 
 function verticalProfileUCVMCClick() {
+    document.getElementById('verticalProfileUCVMCBtn').style.color="#FF0000";
     plotVerticalProfile();
 }
 
 function plotClick() {
+    document.getElementById('cannedBtn').style.color="#FF0000";
 //    getCannedMaterialProperty();
     plotCannedMaterialProperty();
 }
 
 function propertyClick() {
+    document.getElementById('propertyBtn').style.color="#FF0000";
     getMaterialPropertyByLatlon();
 }
 
 function propertyUCVMCClick() {
+    document.getElementById('propertyUCVMCBtn').style.color="#FF0000";
     getUCVMCMaterialPropertyByLatlon();
 }
 
@@ -36,7 +42,7 @@ function plotPNG(str)
 
     // just one
     if( typeof str === 'string') { 
-       html="<a href=\"../gfm/result/"+str+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
+       html="<br><a href=\"../gfm/result/"+str+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
        return html;
     }
 
@@ -47,7 +53,7 @@ function plotPNG(str)
 
     for(i=0;i<sz;i++) {
        var val=str[keys[i]]; 
-       html=html+"<a href=\"../gfm/result/"+val+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
+       html=html+"<br><a href=\"../gfm/result/"+val+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
     }
 
     return html;
