@@ -6,7 +6,6 @@ function makeEnvString() {
    } else { 
 	   $envstr="PROJ_LIB=/usr/local/anaconda2/share/proj PATH=/usr/local/anaconda2/bin:/usr/local/anaconda2/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin PYTHONPATH=../model/UCVMC_TARGET/utilities/pycvm";
    }
-
    return $envstr;
 }
 
