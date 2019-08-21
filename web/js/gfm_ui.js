@@ -42,7 +42,7 @@ function plotPNG(str)
 
     // just one
     if( typeof str === 'string') { 
-       html="<br><a href=\"../gfm/result/"+str+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
+       html="<br><a href=\"result/"+str+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
        return html;
     }
 
@@ -53,7 +53,7 @@ function plotPNG(str)
 
     for(i=0;i<sz;i++) {
        var val=str[keys[i]]; 
-       html=html+"<br><a href=\"../gfm/result/"+val+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
+       html=html+"<br><a href=\"result/"+val+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
     }
 
     return html;

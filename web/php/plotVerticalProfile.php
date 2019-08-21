@@ -15,6 +15,9 @@ $firstzmode = ($_GET['firstzmode']);
 $secondlat = ($_GET['secondlat']);
 $secondlon = ($_GET['secondlon']);
 
+$np="/usr/local/anaconda2/bin:/usr/local/anaconda2/condabin:".getenv("PATH");
+putenv("PATH=".$np);
+
 $itemlist = new \stdClass();
 
 $file="../result/vertical.png";
