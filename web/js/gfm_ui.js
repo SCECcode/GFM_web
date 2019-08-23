@@ -84,6 +84,7 @@ function makeResultTable(str)
     var sz=(Object.keys(blob).length);
 
 window.console.log(JSON.stringify(blob));
+    var justOne=0;
     if(sz != 2) {
        window.console.log("ERROR: expecting 2 set of material properties");
        return;
@@ -95,30 +96,37 @@ window.console.log(JSON.stringify(blob));
        blob1=JSON.parse(blob1);
     }
 
-    if( typeof blob2 === 'string') { 
+    if(blob2 == "") { 
+       justOne=1; 
+    }
+
+    if( !justOne && typeof blob2 === 'string') {
        blob2=JSON.parse(blob2);
     }
 
+    var html;
     keys=Object.keys(blob1);
     sz=(Object.keys(blob1).length);
 
-    var html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
+    html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
 
     html=html+"<div class=\"gfm-table\"><table><tbody>";
-
-    for( i=0; i<sz; i++) {
+  
+    for(i=0; i<sz; i++) {
        var key=keys[i];
        var val1=blob1[key];
-       var val2=blob2[key];
-       var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20px\">"+val1+"</td><td style=\"width:20px\">"+val2+"</td></tr>";
-       html=html+t;
+       if(!justOne) {
+         var val2=blob2[key];
+         var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20px\">"+val1+"</td><td style=\"width:20px\">"+val2+"</td></tr>";
+         html=html+t;
+         } else {
+           var t="<tr><td style=\"width:20px\">"+key+"</td><td style=\"width:30px\">"+val1+"</td></tr>";
+           html=html+t;
+       }
     }
     html=html+"</tbody></table></div>";
-
     return html;
 }
-
-
 
 function saveAsBlobFile(data, timestamp)
 {

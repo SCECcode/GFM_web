@@ -58,7 +58,6 @@ function process_csv(csv) {
 
     var ndata=[];
     var dcnt=data.length;
-    window.console.log(data.length);
         // need to subsample
     var p=data[dcnt-1];
     for(var i=0;i<dcnt;i++) {
@@ -67,8 +66,6 @@ function process_csv(csv) {
       }
     }
 
-    window.console.log("ndata's length\n");
-    window.console.log(ndata.length);
     initPlot_data.push(ndata);
     });
 

@@ -15,20 +15,25 @@ $secondlon = ($_GET['secondlon']);
 
 ## only use 1 z and 1 zmode
 $lstr = "-l ".$firstlat.",".$firstlon.",".$firstz;
-$lstr2 = "-l ".$secondlat.",".$secondlon.",".$firstz;
-
 $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr;
-$query2="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr2;
-
 if ($firstzmode == 'e') 
      $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z elev ".$lstr;
-     $query2="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z elev ".$lstr2;
 if ($firstzmode == 'd') 
      $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z dep ".$lstr;
-     $query2="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z dep ".$lstr2;
 
 $result = exec(escapeshellcmd($query), $retval);
-$result2 = exec(escapeshellcmd($query2), $retval);
+
+
+$result2="";
+if($secondlat != "" && $secondlon != "") { 
+  $lstr2 = "-l ".$secondlat.",".$secondlon.",".$firstz;
+  $query2="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr2;
+  if ($firstzmode == 'e') 
+     $query2="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z elev ".$lstr2;
+  if ($firstzmode == 'd') 
+     $query2="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z dep ".$lstr2;
+  $result2 = exec(escapeshellcmd($query2), $retval);
+}
 
 $itemlist = new \stdClass();
 $itemlist->first=$result;

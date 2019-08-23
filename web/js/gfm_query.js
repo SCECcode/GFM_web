@@ -11,8 +11,9 @@ function getMaterialPropertyByLatlon() {
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
 
-    var secondlatstr=document.getElementById("secondLatTxt").value;
-    var secondlonstr=document.getElementById("secondLonTxt").value;
+    // second set is optional..
+    var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
+    var secondlonstr=(document.getElementById("secondLonTxt"))?document.getElementById("secondLonTxt").value:"";
 
     if (firstlatstr == "" || firstlonstr=="") {
         return;
@@ -65,8 +66,8 @@ function getUCVMCMaterialPropertyByLatlon() {
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
 
-    var secondlatstr=document.getElementById("secondLatTxt").value;
-    var secondlonstr=document.getElementById("secondLonTxt").value;
+    var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
+    var secondlonstr=(document.getElementById("secondLonTxt"))?document.getElementById("secondLonTxt").value:"";
 
     if (firstlatstr == "" || firstlonstr=="") {
         return;
@@ -97,8 +98,8 @@ function plotCrossSection() {
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
 
-    var secondlatstr=document.getElementById("secondLatTxt").value;
-    var secondlonstr=document.getElementById("secondLonTxt").value;
+    var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
+    var secondlonstr=(document.getElementById("secondLonTxt"))?document.getElementById("secondLonTxt").value:"";
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" ) {
@@ -131,8 +132,9 @@ function plotVerticalProfile() {
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
 
-    var secondlatstr=document.getElementById("secondLatTxt").value;
-    var secondlonstr=document.getElementById("secondLonTxt").value;
+    // second set is optional..
+    var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
+    var secondlonstr=(document.getElementById("secondLonTxt"))?document.getElementById("secondLonTxt").value:"";
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" ) {
@@ -166,8 +168,9 @@ function plotHorizontalSlice() {
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
 
-    var secondlatstr=document.getElementById("secondLatTxt").value;
-    var secondlonstr=document.getElementById("secondLonTxt").value;
+    // second set is optional..
+    var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
+    var secondlonstr=(document.getElementById("secondLonTxt"))?document.getElementById("secondLonTxt").value:"";
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" ) {

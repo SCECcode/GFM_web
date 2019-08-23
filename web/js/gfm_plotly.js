@@ -78,7 +78,6 @@ function plotCannedMaterialProperty() {
   var data=[];
   var k;
   for(k=0; k<ucnt;k++ ) {
-     window.console.log(ucnt);
      var v= {
          x:x_list[k],
          y:y_list[k],
@@ -115,4 +114,5 @@ var layout = {
 
 Plotly.newPlot('GFM_view', data, layout);
 
+document.getElementById('cannedBtn').style.color="#0000FF";
 }
