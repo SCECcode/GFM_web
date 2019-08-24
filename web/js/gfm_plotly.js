@@ -95,7 +95,7 @@ function plotCannedMaterialProperty() {
 var layout = {
   width: plotWidth,
   height: plotHeight,
-  title: "Canned data",
+  title: "GFM baseline data",
   scene: {
    aspectratio : { x:1.0, y:1.0, z:0.1 },
     camera: {
