@@ -31,6 +31,7 @@ function getMaterialPropertyByLatlon() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("getMaterialPropertyByLatlon");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
+                document.getElementById('spinIcon').style.display = "none";
             }
         }
         xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr, true);
@@ -52,6 +53,7 @@ function getCannedMaterialProperty() {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             var str=processSearchResult("getCanMaterialProperty");
 //            document.getElementById("searchResult").innerHTML = makeResultTable(str);
+            document.getElementById('spinIcon').style.display = "none";
         }
     }
     xmlhttp.open("GET","php/getMaterialPropertyByCan.php",true);
@@ -85,6 +87,7 @@ function getUCVMCMaterialPropertyByLatlon() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("getUCVMCMaterialPropertyByLatlon");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
+                document.getElementById('spinIcon').style.display = "none";
             }
         }
         xmlhttp.open("GET","php/getUCVMCMaterialPropertyByLatlon.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
@@ -119,6 +122,7 @@ function plotCrossSection() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("plotCrossSection");
                 document.getElementById("searchResult").innerHTML = plotPNG(str);
+                document.getElementById('spinIcon').style.display = "none";
             }
         }
         xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
@@ -154,6 +158,7 @@ function plotVerticalProfile() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("plotVerticalProfile");
                 document.getElementById("searchResult").innerHTML = plotPNG(str);
+                document.getElementById('spinIcon').style.display = "none";
             }
         }
         xmlhttp.open("GET","php/plotVerticalProfile.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
@@ -190,6 +195,7 @@ function plotHorizontalSlice() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("plotHorizontalSlice");
                 document.getElementById("searchResult").innerHTML = plotPNG(str);
+                document.getElementById('spinIcon').style.display = "none";
             }
         }
         xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);

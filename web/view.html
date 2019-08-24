@@ -18,6 +18,8 @@
 
 <link rel="stylesheet" href="css/vendor/bootstrap.css">
 <link rel="stylesheet" href="css/vendor/jquery-ui.css">
+<link rel="stylesheet" href="css/vendor/animation.css">
+<link rel="stylesheet" href="css/vendor/fontello.css">
 <link rel="stylesheet" href="css/gfm-ui.css">
 
 <script type="text/javascript" src="js/vendor/plotly.js"></script>
@@ -44,6 +46,7 @@
     <div align="left" class="row col-md-3 col-xs-3" style="display:inline-block;">
       <button id="propertyBtn" class="btn gfm-top-btn" style="width:20vw" title="get material property" onclick="propertyClick();">
        <span class="glyphicon glyphicon-star"></span> Query material property</button>
+       <div id="spinIcon" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none"><i class="spin-icon animate-spin">&#xe839;</i></div>
     </div>
     <div class="row col-md-3 col-xs-3" style="display:inline-block;">
       <button id="cannedBtn" class="btn gfm-top-btn" style="width:15vw" title="plot canned data" onclick="plotClick();">

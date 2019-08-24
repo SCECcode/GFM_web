@@ -114,5 +114,4 @@ var layout = {
 
 Plotly.newPlot('GFM_view', data, layout);
 
-document.getElementById('cannedBtn').style.color="#0000FF";
 }
