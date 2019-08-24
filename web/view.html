@@ -28,6 +28,7 @@
 <script type='text/javascript' src='js/vendor/FileSaver.js'></script>
 <script type='text/javascript' src='js/vendor/jszip.js'></script>
 
+
 <!-- gfm js -->
 <script type="text/javascript" src="js/debug.js"></script>
 <script type="text/javascript" src="js/gfm_util.js"></script>
@@ -40,29 +41,13 @@
 <body>
 <div class="container-fluid">
   <div align="left" id="controlBlock" style="margin:10px 0px 10px 0px; width:100%;display:flex;">
-    <div align="left" class="row col-md-2 col-xs-2" style="display:inline-block;">
-      <button id="propertyBtn" class="btn gfm-top-btn" title="get material property" onclick="propertyClick();">
-       <span class="glyphicon glyphicon-star"></span> vx_lite</button>
+    <div align="left" class="row col-md-3 col-xs-3" style="display:inline-block;">
+      <button id="propertyBtn" class="btn gfm-top-btn" style="width:20vw" title="get material property" onclick="propertyClick();">
+       <span class="glyphicon glyphicon-star"></span> Query material property</button>
     </div>
-    <div class="row col-md-2 col-xs-2" style="display:inline-block;">
-      <button id="propertyUCVMCBtn" class="btn gfm-top-btn" title="get UCVMC" onclick="propertyUCVMCClick();">
-       <span class="glyphicon glyphicon-star"></span> ucvmc</button>
-    </div>
-    <div class="row col-md-2 col-xs-2" style="display:inline-block;">
-      <button id="crossSectionUCVMCBtn" class="btn gfm-top-btn" title="cross section/UCVMC" onclick="crossSectionUCVMCClick();">
-       <span class="glyphicon glyphicon-star"></span> cross</button>
-    </div>
-    <div class="row col-md-2 col-xs-2" style="display:inline-block;">
-      <button id="horizontalSliceUCVMCBtn" class="btn gfm-top-btn" "width:10vw" title="horizontal slice/UCVMC" onclick="horizontalSliceUCVMCClick();">
-       <span class="glyphicon glyphicon-star"></span> horizontal</button>
-    </div>
-    <div class="row col-md-2 col-xs-2" style="display:inline-block;">
-      <button id="verticalProfileUCVMCBtn" class="btn gfm-top-btn" style="width:10vw" title="depth profile/UCVMC" onclick="verticalProfileUCVMCClick();">
-       <span class="glyphicon glyphicon-star"></span> profile</button>
-    </div>
-    <div class="row col-md-2 col-xs-2" style="display:inline-block;">
-      <button id="cannedBtn" class="btn gfm-top-btn" style="width:10vw" title="plot canned data" onclick="plotClick();">
-       <span class="glyphicon glyphicon-star"></span> Canned data</button>
+    <div class="row col-md-3 col-xs-3" style="display:inline-block;">
+      <button id="cannedBtn" class="btn gfm-top-btn" style="width:15vw" title="plot canned data" onclick="plotClick();">
+       <span class="glyphicon glyphicon-star"></span> Show regions</button>
     </div>
    </div> <!-- controlBlock -->
 
@@ -72,7 +57,14 @@
 
   <div id='queryBlock' style="position:fixed; background-color:transparent;top:10vh; width:100%;">
 
- <div> Lat:<input type="text" id="firstLatTxt" title="first lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"><input type="text" id="secondLatTxt" title="second lat" value='35.6' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> Lon:<input type="text" id="firstLonTxt" title="first lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"><input type="text" id="secondLonTxt" title="second lat" value='-117.5' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> Z:<input type="text" id="firstZTxt" title="first Z" value="-32000" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">Zmode:<input type="text" id="firstZmodeTxt" title="first Zmode" value="e" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+ <div> Lat:<input type="text" id="firstLatTxt" title="first lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+ Lon:<input type="text" id="firstLonTxt" title="first lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+Z:<input type="text" id="firstZTxt" title="first Z" value="-32000" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+             <option value="e">elevation</option>
+             <option value="d">depth</option>
+       </select>
+        
 </div>
 
   </div><!-- queryBlock -->
