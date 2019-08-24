@@ -53,7 +53,7 @@ function getCannedMaterialProperty() {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             var str=processSearchResult("getCanMaterialProperty");
 //            document.getElementById("searchResult").innerHTML = makeResultTable(str);
-            document.getElementById('spinIcon').style.display = "none";
+            document.getElementById('spinIcon2').style.display = "none";
         }
     }
     xmlhttp.open("GET","php/getMaterialPropertyByCan.php",true);

@@ -21,6 +21,7 @@ function verticalProfileUCVMCClick() {
 }
 
 function plotClick() {
+    document.getElementById('spinIcon2').style.display = "block";	
 //    getCannedMaterialProperty();
     plotCannedMaterialProperty();
 }

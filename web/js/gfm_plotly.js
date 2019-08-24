@@ -114,4 +114,6 @@ var layout = {
 
 Plotly.newPlot('GFM_view', data, layout);
 
+document.getElementById('spinIcon2').style.display = "none";
+
 }
