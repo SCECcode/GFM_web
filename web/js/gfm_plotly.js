@@ -95,7 +95,7 @@ function plotCannedMaterialProperty() {
 var layout = {
   width: plotWidth,
   height: plotHeight,
-  title: "GFM baseline data",
+  title: "GFM Data v1.0 (Regions)",
   scene: {
    aspectratio : { x:1.0, y:1.0, z:0.1 },
     camera: {
@@ -114,6 +114,6 @@ var layout = {
 
 Plotly.newPlot('GFM_view', data, layout);
 
-document.getElementById('spinIcon2').style.display = "none";
+document.getElementById('spinIconForRegion').style.display = "none";
 
 }
