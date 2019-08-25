@@ -65,8 +65,8 @@ function plotCannedMaterialProperty() {
   for(var i=0;i<cnt;i++) {
     for(var j=0; j<ucnt; j++) {
        if(id_data[i] == uid_data[j]) {  // separate data by id
-          x_list[j].push(-1*x_data[i]);
-          y_list[j].push(-1*y_data[i]);
+          x_list[j].push(x_data[i]);
+          y_list[j].push(y_data[i]);
                 // because plotly's zaxis autorange is not implemented
           z_list[j].push(-1*z_data[i]); 
           id_list[j].push(id_data[i]);
@@ -98,14 +98,14 @@ var layout = {
   title: "GFM Data v1.0 (Regions)",
   scene: {
        xaxis: {
-          title: "new X values",
+          title: "XX values",
 //          range:[-123, -112]
-//        autorange: 'reversed'
+        autorange: 'reversed'
         },
        yaxis: {
-          title: "new Y values",
+          title: "YY values",
 //          range:[29, 38]
-//        autorange: 'reversed'
+        autorange: 'reversed'
        },
     aspectratio : { x:1.0, y:1.0, z:0.1 },
     camera: {
