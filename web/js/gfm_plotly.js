@@ -65,8 +65,8 @@ function plotCannedMaterialProperty() {
   for(var i=0;i<cnt;i++) {
     for(var j=0; j<ucnt; j++) {
        if(id_data[i] == uid_data[j]) {  // separate data by id
-          x_list[j].push(x_data[i]);
-          y_list[j].push(y_data[i]);
+          x_list[j].push(-1*x_data[i]);
+          y_list[j].push(-1*y_data[i]);
                 // because plotly's zaxis autorange is not implemented
           z_list[j].push(-1*z_data[i]); 
           id_list[j].push(id_data[i]);
@@ -95,9 +95,19 @@ function plotCannedMaterialProperty() {
 var layout = {
   width: plotWidth,
   height: plotHeight,
-  title: "GFM baseline data",
+  title: "GFM Data v1.0 (Regions)",
   scene: {
-   aspectratio : { x:1.0, y:1.0, z:0.1 },
+       xaxis: {
+          title: "new X values",
+//          range:[-123, -112]
+//        autorange: 'reversed'
+        },
+       yaxis: {
+          title: "new Y values",
+//          range:[29, 38]
+//        autorange: 'reversed'
+       },
+    aspectratio : { x:1.0, y:1.0, z:0.1 },
     camera: {
       up: { x: 0, y: 0, z: 1 },
       center: { x: 0, y: 0, z: 0 },
@@ -114,6 +124,6 @@ var layout = {
 
 Plotly.newPlot('GFM_view', data, layout);
 
-document.getElementById('spinIcon2').style.display = "none";
+document.getElementById('spinIconForRegion').style.display = "none";
 
 }

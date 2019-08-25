@@ -6,33 +6,33 @@ function setup_viewer() {
 }
 
 function horizontalSliceUCVMCClick() {
-    document.getElementById('spinIcon').style.display = "block";	
+    document.getElementById('spinIconForUCVMCHorizontal').style.display = "block";	
     plotHorizontalSlice();
 }
 
 function crossSectionUCVMCClick() {
-    document.getElementById('spinIcon').style.display = "block";	
+    document.getElementById('spinIconForUCVMCCross').style.display = "block";	
     plotCrossSection();
 }
 
 function verticalProfileUCVMCClick() {
-    document.getElementById('spinIcon').style.display = "block";	
+    document.getElementById('spinIconForUCVMCVertical').style.display = "block";	
     plotVerticalProfile();
 }
 
-function plotClick() {
-    document.getElementById('spinIcon2').style.display = "block";	
+function plotRegionClick() {
+    document.getElementById('spinIconForRegion').style.display = "block";	
 //    getCannedMaterialProperty();
     plotCannedMaterialProperty();
 }
 
 function propertyClick() {
-    document.getElementById('spinIcon').style.display = "block";	
+    document.getElementById('spinIconForProperty').style.display = "block";	
     getMaterialPropertyByLatlon();
 }
 
 function propertyUCVMCClick() {
-    document.getElementById('spinIcon').style.display = "block";	
+    document.getElementById('spinIconForUCVMCProperty').style.display = "block";	
     getUCVMCMaterialPropertyByLatlon();
 }
 
