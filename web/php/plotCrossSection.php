@@ -19,12 +19,12 @@ $envstr=makeEnvString();
 $file="../result/cross.png";
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$firstz;
-$qstub=" -h 100 -d vs -c cvmh -a d -s 3000 -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
+$qstub=" -h 500 -d vs -c cvmh -a d -s 3000 -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
 
 if ($firstzmode == 'e') 
-     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_cross_section.py -v -50 ".$qstub.$lstr;
+     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_cross_section.py -v -100 ".$qstub.$lstr;
 if ($firstzmode == 'd') 
-     $query= $enstr." ../model/UCVMC_TARGET/utilities/plot_cross_section.py -v 50 ".$qstub.$lstr;
+     $query= $enstr." ../model/UCVMC_TARGET/utilities/plot_cross_section.py -v 100 ".$qstub.$lstr;
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
