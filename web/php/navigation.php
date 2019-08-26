@@ -15,9 +15,9 @@ function getHeader($this_page) {
 	global $host_site_actual_path;
 
 	$all_pages = [
-//		$host_site_actual_path => "Viewer",
-		$disclaimer => "Disclaimer",
-		$contact => "Contact"
+                $host_site_actual_path => "Viewer",
+		"disclaimer" => "Disclaimer",
+		"contact" => "Contact"
 	];
 
 	$page_links_html = "";

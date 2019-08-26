@@ -23,6 +23,7 @@ $header=getHeader("Viewer")
 <link rel="stylesheet" href="css/vendor/animation.css">
 <link rel="stylesheet" href="css/vendor/fontello.css">
 <link rel="stylesheet" href="css/gfm-ui.css">
+<link rel="stylesheet" href="css/sidebar.css">
 
 <script type="text/javascript" src="js/vendor/plotly.js"></script>
 <script type='text/javascript' src='js/vendor/jquery.min.js'></script>

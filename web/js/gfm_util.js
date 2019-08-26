@@ -6,27 +6,21 @@
 function processSearchResult(rlist) {
     if (rlist == 'plotHorizontalSlice') {
         str = $('[data-side="horizontalSlice"]').data('params');
-        document.getElementById('horizontalSliceUCVMCBtn').style.color="#0000FF";
     }
     if (rlist == 'plotVerticalProfile') {
         str = $('[data-side="verticalProfile"]').data('params');
-        document.getElementById('verticalProfileUCVMCBtn').style.color="#0000FF";
     }
     if (rlist == 'plotCrossSection') {
         str = $('[data-side="crossSection"]').data('params');
-        document.getElementById('crossSectionUCVMCBtn').style.color="#0000FF";
     }
     if (rlist == 'getMaterialPropertyByLatlon') {
         str = $('[data-side="materialPropertyByLatlon"]').data('params');
-        document.getElementById('propertyBtn').style.color="#0000FF";
     }
     if (rlist == 'getUCVMCMaterialPropertyByLatlon') {
         str = $('[data-side="materialPropertyUCVMCByLatlon"]').data('params');
-        document.getElementById('propertyUCVMCBtn').style.color="#0000FF";
     }
     if (rlist == 'getCanMaterialProperty') {
         str = $('[data-side="materialPropertyByCan"]').data('params');
-        document.getElementById('cannedBtn').style.color="#0000FF";
     }
     if (rlist == undefined) {
        window.console.log("processSearchResult: BAD BAD BAD");
