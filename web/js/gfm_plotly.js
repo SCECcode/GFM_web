@@ -31,6 +31,7 @@ function plotCannedMaterialProperty() {
   var x_list=[];
   var y_list=[];
   var z_list=[];
+  var legend_list=[];
 
   var x_data=getDataByIndex(0,0);
   var y_data=getDataByIndex(0,1);
@@ -50,6 +51,8 @@ function plotCannedMaterialProperty() {
   var cnt=id_data.length;
   var ucnt=uid_data.length;
   window.console.log("ucnt for the uid length is ...", ucnt);
+  for(i=0; i<ucnt;i++)
+     window.console.log("uid value", uid_data[i]);
 
 //  var cnt=temp_data.length;
 //  var ucnt=utemp_data.length;
@@ -68,13 +71,19 @@ function plotCannedMaterialProperty() {
           x_list[j].push(x_data[i]);
           y_list[j].push(y_data[i]);
                 // because plotly's zaxis autorange is not implemented
-          z_list[j].push(-1*z_data[i]); 
+//          z_list[j].push(-1*z_data[i]); 
+          z_list[j].push(z_data[i]); 
           id_list[j].push(id_data[i]);
-          temp_list[j].push(temp_data[i]);
           break;
        }
     }
   }
+
+  for (var j=0; j<ucnt; j++) {
+      legend_list.push('region val('+uid_data[j]+')');
+  }
+window.console.log("legend list..");
+
   var data=[];
   var k;
   for(k=0; k<ucnt;k++ ) {
@@ -82,6 +91,7 @@ function plotCannedMaterialProperty() {
          x:x_list[k],
          y:y_list[k],
          z:z_list[k],
+         name:legend_list[k],
          mode:"markers",
          type: "scatter3d",
          colorscale: 'Viridis',
@@ -98,12 +108,12 @@ var layout = {
   title: "GFM Data v1.0 (Regions)",
   scene: {
        xaxis: {
-          title: "XX values",
+          title: "Lon",
 //          range:[-123, -112]
         autorange: 'reversed'
         },
        yaxis: {
-          title: "YY values",
+          title: "Lat",
 //          range:[29, 38]
         autorange: 'reversed'
        },
