@@ -1,3 +1,9 @@
+/****
+
+  gfm_plotly.js
+
+****/
+
 function plotCannedMaterialProperty() {
 
 // https://stackoverflow.com/questions/17303785/how-to-correctly-read-binary-floating-point-data-using-xmlhttprequest
@@ -5,8 +11,8 @@ function plotCannedMaterialProperty() {
   var frameHeight=window.innerHeight;
   var frameWidth=window.innerWidth;
 
-  var plotWidth= Math.round(frameWidth*0.5);
-  var plotHeight= Math.round(0.5 * frameHeight);
+  var plotWidth= Math.round(frameWidth*0.55);
+  var plotHeight= Math.round(0.7 * frameHeight);
 
   var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
   if(window.location.hostname == "asperity.scec.org") {
@@ -50,9 +56,8 @@ function plotCannedMaterialProperty() {
 
   var cnt=id_data.length;
   var ucnt=uid_data.length;
-  window.console.log("ucnt for the uid length is ...", ucnt);
-  for(i=0; i<ucnt;i++)
-     window.console.log("uid value", uid_data[i]);
+//  for(i=0; i<ucnt;i++)
+//     window.console.log("uid value", uid_data[i]);
 
 //  var cnt=temp_data.length;
 //  var ucnt=utemp_data.length;
@@ -80,9 +85,8 @@ function plotCannedMaterialProperty() {
   }
 
   for (var j=0; j<ucnt; j++) {
-      legend_list.push('region val('+uid_data[j]+')');
+      legend_list.push(getRegionNameWithID(uid_data[j]));
   }
-window.console.log("legend list..");
 
   var data=[];
   var k;
@@ -106,6 +110,8 @@ var layout = {
   width: plotWidth,
   height: plotHeight,
   title: "GFM Data v1.0 (Regions)",
+  showlegend: true,
+  legend: { x:1, y:0 },
   scene: {
        xaxis: {
           title: "Lon",
@@ -121,13 +127,13 @@ var layout = {
     camera: {
       up: { x: 0, y: 0, z: 1 },
       center: { x: 0, y: 0, z: 0 },
-      eye: { x:0, y:1, z:0.5 }
+      eye: { x:0, y:1.5, z:0.5 }
     }
   },
   margin: {
-    l: 5,
-    r: 5,
-    b: 30,
+    l: 10,
+    r: 20,
+    b: 50,
     t: 60,
   }
 };

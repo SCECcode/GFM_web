@@ -3,13 +3,11 @@ require_once("php/navigation.php");
 $header=getHeader("Viewer")
 ?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html>
 <head>
-
-<title>GFM Viewer</title>
-
+<title>Geological Framework Model Viewer</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- for aws
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -47,6 +45,7 @@ $header=getHeader("Viewer")
 </head>
 <body>
 <?php echo $header; ?>
+
 <div class="container-fluid">
   <div align="left" id="controlBlock" style="margin:10px 0px 10px 0px; width:100%;display:flex;">
     <div align="left" class="row col-md-3 col-xs-3" style="display:inline-block;">
@@ -61,16 +60,15 @@ $header=getHeader("Viewer")
     </div>
    </div> <!-- controlBlock -->
 
-<div class="row col-md-12 col-xs-12" style="position:absolute;display:inline-block;left:20px;top:20vh;">
+<div class="row col-md-12 col-xs-12" style="position:absolute;display:inline-block;left:20px;top:22vh;">
 
-  <div id='GFM_view' style="position:fixed;width:60%;height:70%;left:30%;border:solid 4px gray"></div>
+  <div id='GFM_view' style="position:fixed; width:60%;height:75%;left:30%;border:solid 4px gray"></div>
 
-  <div id='queryBlock' style="position:fixed; background-color:transparent;top:10vh; width:100%;">
-
- <div> Lat:<input type="text" id="firstLatTxt" title="first lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">
- Lon:<input type="text" id="firstLonTxt" title="first lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">
-Z:<input type="text" id="firstZTxt" title="first Z" value="-32000" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">
-Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+  <div id='queryBlock' style="position:fixed; background-color:transparent;top:18vh; width:100%;">
+ <div> Lat:<input type="text" id="firstLatTxt" title="first lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+ Lon:<input type="text" id="firstLonTxt" title="first lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+Z:<input type="text" id="firstZTxt" title="first Z" value="-32000" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
              <option value="e">elevation</option>
              <option value="d">depth</option>
        </select>
@@ -79,7 +77,7 @@ Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select" style="wid
 
   </div><!-- queryBlock -->
 
-<div id='resultBlock' style="position:fixed; top:15vh; left:30px;width:24%;height:100%;">
+<div id='resultBlock' style="top:20vh; left:30px;width:24%;height:100%; border:none">
   <div id="searchResult" class="table-responsive"></div>
   <div id="phpResponseTxt"></div>
 </div>
