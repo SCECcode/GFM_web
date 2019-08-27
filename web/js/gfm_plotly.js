@@ -12,7 +12,7 @@ function plotCannedMaterialProperty() {
   var frameWidth=window.innerWidth;
 
   var plotWidth= Math.round(frameWidth*0.55);
-  var plotHeight= Math.round(0.7 * frameHeight);
+  var plotHeight= Math.round(0.65 * frameHeight);
 
   var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
   if(window.location.hostname == "asperity.scec.org") {
@@ -76,7 +76,6 @@ function plotCannedMaterialProperty() {
           x_list[j].push(x_data[i]);
           y_list[j].push(y_data[i]);
                 // because plotly's zaxis autorange is not implemented
-//          z_list[j].push(-1*z_data[i]); 
           z_list[j].push(z_data[i]); 
           id_list[j].push(id_data[i]);
           break;
@@ -133,7 +132,7 @@ var layout = {
   margin: {
     l: 10,
     r: 20,
-    b: 50,
+    b: 40,
     t: 60,
   }
 };
