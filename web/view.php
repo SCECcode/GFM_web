@@ -46,7 +46,8 @@ $header=getHeader("Viewer")
 <div class="container main container-fluid">
   <div class="row">
         <div class="col-12">
-            <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer provides a browser access to GFM version 1.0 dataset. It can display a 3D visualization of the Geopogical Framework model in Plotly.  It also allows users to query for material property</p>
+            <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer provides a browser access to GFM version 1.0 dataset. It can display a 3D visualization of the Geopogical Framework model in 
+<a href="https://plot.ly/javascript/">Plotly</a>.  It also allows users to query for material property.</p>
         </div>
   </div>
 
