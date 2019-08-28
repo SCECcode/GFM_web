@@ -5,9 +5,6 @@
 ****/
 
 var GFM_tb={
-"property": [
-],{
-'id':x,
 "regions": [
 {'id':1,'name':'Asthenosphere','sliver':0,'state':1},
 {'id':2,'name':'Upper Mantle','sliver':0,'state':1},
