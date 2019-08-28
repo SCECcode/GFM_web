@@ -84,18 +84,27 @@ function plotCannedMaterialProperty() {
     }
   }
 
+  var llist=[];
   for (var j=0; j<ucnt; j++) {
-      legend_list.push(getRegionNameWithID(uid_data[j]));
+      //legend_list.push(getRegionNameWithID(uid_data[j]));
+      legend_list.push({'id':j,'name':getRegionNameWithID(uid_data[j])});
   }
 
+  legend_list.sort(sort_by('name', false, function(a){return a.toUpperCase()}));
   var data=[];
   var k;
+  var idx;
+  var rname;
+  var item;
   for(k=0; k<ucnt;k++ ) {
+     var item=legend_list[k];
+     var idx=item['id'];
+     var name=item['name'];
      var v= {
-         x:x_list[k],
-         y:y_list[k],
-         z:z_list[k],
-         name:legend_list[k],
+         x:x_list[idx],
+         y:y_list[idx],
+         z:z_list[idx],
+         name:name,
          mode:"markers",
          type: "scatter3d",
          colorscale: 'Viridis',
