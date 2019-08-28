@@ -87,7 +87,6 @@ function plotCannedMaterialProperty() {
   for (var j=0; j<ucnt; j++) {
       legend_list.push(getRegionNameWithID(uid_data[j]));
   }
-  legend_list.sort();
 
   var data=[];
   var k;
