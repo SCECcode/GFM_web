@@ -46,8 +46,7 @@ $header=getHeader("Viewer")
 <div class="container main container-fluid">
   <div class="row">
         <div class="col-12">
-            <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer provides a browser access to GFM version 1.0 dataset. It can display a 3D visualization of the Geopogical Framework model in 
-<a href="https://plot.ly/javascript/">Plotly</a>.  It also allows users to query for material property.</p>
+            <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer provides a browser access to GFM version 1.0 dataset. It can display a 3D visualization of the Geological Framework model.  It also allows users to query for material property.</p>
         </div>
   </div>
 
@@ -80,7 +79,9 @@ Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select" style="wid
 </div><!-- queryBlock -->
 
 <div class="row" id='resultBlock' style="top:10vh;left:30px;width:24%;overflow:hidden">
-  <div id='GFM_view' style="position:fixed;width:60%;height:70%;left:30%;border:solid 4px #D5D5D5"></div>
+  <div id='GFM_view' style="position:fixed;width:60%;height:70%;left:30%;border:solid 4px #D5D5D5">
+<div class="row" id='noteBlock' style="margin-left:20px;margin-top:20px;font-size:15pt;color:#212529;">Press 'Show regions' above to plot 3d Volume of GFM Regions</div>
+</div>
   <div id="searchResult" class="table-responsive"></div>
   <div id="phpResponseTxt"></div>
 </div>

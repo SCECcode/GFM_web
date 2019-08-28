@@ -5,6 +5,9 @@
 ****/
 
 var GFM_tb={
+"property": [
+],{
+'id':x,
 "regions": [
 {'id':1,'name':'Asthenosphere','sliver':0,'state':1},
 {'id':2,'name':'Upper Mantle','sliver':0,'state':1},
@@ -56,8 +59,12 @@ function getRegionNameWithID(id) {
    var i;
    for(i=0; i<cnt;i++) {
       var region=tb[i];
-      if(region['id'] == id) 
-        return region['name'];
+      if(region['id'] == id) {
+        var n= region['name']+'['+id+']';
+        if(region['sliver'])
+            n=n+"*";
+        return n;
+      }
    }
    return undefined;
 }

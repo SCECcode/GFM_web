@@ -7,6 +7,7 @@
 function plotCannedMaterialProperty() {
 
 // https://stackoverflow.com/questions/17303785/how-to-correctly-read-binary-floating-point-data-using-xmlhttprequest
+  document.getElementById('noteBlock').style.display = "none";
 
   var frameHeight=window.innerHeight;
   var frameWidth=window.innerWidth;
