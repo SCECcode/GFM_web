@@ -124,7 +124,7 @@ window.console.log(JSON.stringify(blob));
            var u=getUnitsWithLabel(key, parseInt(val1));
            if(u == undefined)
               u="";
-           var t="<tr><td style=\"width:20px\">"+key+"</td><td style=\"width:30px\">"+val1+"</td><td style=\"width:20px\">"+u+"</td></tr>";
+           var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20px\">"+val1+"</td><td style=\"width:30px\">"+u+"</td></tr>";
            html=html+t;
        }
     }
