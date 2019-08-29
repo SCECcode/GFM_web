@@ -17,7 +17,7 @@ function plotCannedMaterialProperty() {
 
   var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
   if(window.location.hostname == "asperity.scec.org") {
-      url="http://asperity.scec.org/GFM/web/data/complete_cvmh_canned.csv";
+      url="http://asperity.scec.org/GFM_web/web/data/complete_cvmh_canned.csv";
   }
 
   var urls = [];
