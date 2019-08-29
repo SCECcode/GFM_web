@@ -120,6 +120,10 @@ window.console.log(JSON.stringify(blob));
          var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20px\">"+val1+"</td><td style=\"width:20px\">"+val2+"</td></tr>";
          html=html+t;
          } else {
+           // access unit/extra handling
+           var u=getUnitsWithLabel(key, parseInt(val1));
+           if(u != undefined)
+              val1= val1+"("+u+")";
            var t="<tr><td style=\"width:20px\">"+key+"</td><td style=\"width:30px\">"+val1+"</td></tr>";
            html=html+t;
        }

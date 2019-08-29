@@ -87,7 +87,7 @@ function plotCannedMaterialProperty() {
   var llist=[];
   for (var j=0; j<ucnt; j++) {
       //legend_list.push(getRegionNameWithID(uid_data[j]));
-      legend_list.push({'id':j,'name':getRegionNameWithID(uid_data[j])});
+      legend_list.push({'id':j,'name':getRegionNameWithID(uid_data[j]),'color':getRegionColorWithID(uid_data[j])});
   }
 
   legend_list.sort(sort_by('name', false, function(a){return a.toUpperCase()}));
@@ -100,6 +100,7 @@ function plotCannedMaterialProperty() {
      var item=legend_list[k];
      var idx=item['id'];
      var name=item['name'];
+     var color=item['color'];
      var v= {
          x:x_list[idx],
          y:y_list[idx],
@@ -111,6 +112,7 @@ function plotCannedMaterialProperty() {
          marker: { size: 6, 
                    symbol: 'square',
                    color: k }
+//                   color: color }
         };
      data.push(v);
   }
