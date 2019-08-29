@@ -122,9 +122,9 @@ window.console.log(JSON.stringify(blob));
          } else {
            // access unit/extra handling
            var u=getUnitsWithLabel(key, parseInt(val1));
-           if(u != undefined)
-              val1= val1+"("+u+")";
-           var t="<tr><td style=\"width:20px\">"+key+"</td><td style=\"width:30px\">"+val1+"</td></tr>";
+           if(u == undefined)
+              u="";
+           var t="<tr><td style=\"width:20px\">"+key+"</td><td style=\"width:30px\">"+val1+"</td><td style=\"width:20px\">"+u+"</td></tr>";
            html=html+t;
        }
     }
