@@ -67,7 +67,7 @@ var GFM_tb={
 {'id':'tg','units':'NA'},
 {'id':'vp','units':'meters/sec'},
 {'id':'vs','units':'meters/sec'},
-{'id':'rho','units':'meters/sec'},
+{'id':'rho','units':'kg/m^3'},
 {'id':'regionID','units':'NA'},
 {'id':'temp','units':'degree C'}
 ]};
