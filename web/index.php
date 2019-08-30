@@ -71,17 +71,19 @@ $header=getHeader("Viewer")
    <div> Lat:<input type="text" id="firstLatTxt" title="first lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  Lon:<input type="text" id="firstLonTxt" title="first lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
 Z:<input type="text" id="firstZTxt" title="first Z" value="-32000" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
              <option value="e">Elevation</option>
              <option value="d">Depth</option>
        </select>
    </div>
 </div><!-- queryBlock -->
 
-<div class="row" id='resultBlock' style="top:10vh;left:30px;width:24%;overflow:hidden">
-  <div id='GFM_view' style="position:fixed;width:60%;height:70%;left:30%;border:solid 4px #D5D5D5">
-<div class="row" id='noteBlock' style="margin-left:20px;margin-top:20px;font-size:15pt;color:#212529;">Press 'Show regions' above to plot 3d Volume of GFM Regions</div>
+<div class="row">
+  <div class="row" id='noteBlock' style="margin-left:30%;font-size:15pt;color:#212529;">Press 'Show regions' above to plot 3d Volume of GFM Regions</div>
+  <div class="row" id='GFM_view' style="position:fixed;left:30%;background-color:#DDDDDD;width:60%;height:60%;top:30vh;"></div>
 </div>
+
+<div class="row" id='resultBlock' style="top:10vh;left:30px;width:24%;overflow:hidden">
   <div id="searchResult" class="table-responsive"></div>
   <div id="phpResponseTxt"></div>
 </div>

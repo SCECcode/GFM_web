@@ -12,8 +12,8 @@ function plotCannedMaterialProperty() {
   var frameHeight=window.innerHeight;
   var frameWidth=window.innerWidth;
 
-  var plotWidth= Math.round(frameWidth*0.55);
-  var plotHeight= Math.round(0.65 * frameHeight);
+  var plotWidth= Math.round(frameWidth*0.6);
+  var plotHeight= Math.round(0.6 * frameHeight);
 
   var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
   if(window.location.hostname == "asperity.scec.org") {
@@ -120,6 +120,7 @@ function plotCannedMaterialProperty() {
 var layout = {
   width: plotWidth,
   height: plotHeight,
+  paper_bgcolor: "#DDDDDD",
   title: "GFM Data v1.0 (Regions)",
   showlegend: true,
   legend: { x:1, y:0 },
@@ -143,8 +144,8 @@ var layout = {
   },
   margin: {
     l: 10,
-    r: 20,
-    b: 40,
+    r: 10,
+    b: 10,
     t: 60,
   }
 };
