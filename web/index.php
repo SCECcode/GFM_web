@@ -78,9 +78,9 @@ Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select custom-sele
    </div>
 </div><!-- queryBlock -->
 
-<div class="row">
-  <div class="row" id='noteBlock' style="margin-left:30%;font-size:15pt;color:#212529;">Press 'Show regions' above to plot 3d Volume of GFM Regions</div>
-  <div class="row" id='GFM_view' style="position:fixed;left:30%;background-color:#DDDDDD;width:60%;height:60%;top:30vh;"></div>
+<div class="row" style="position:fixed; margin-left:30%;width:60%;height:60%;">
+  <div class="row" id='noteBlock' style="font-size:15pt;color:#212529;">Press 'Show regions' above to plot 3d Volume of GFM Regions</div>
+  <div class="row" id='GFM_view' style="background-color:#DDDDDD;width:100%;height:100%;top:30vh;"></div>
 </div>
 
 <div class="row" id='resultBlock' style="top:10vh;left:30px;width:24%;overflow:hidden">
