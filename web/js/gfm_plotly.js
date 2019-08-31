@@ -4,9 +4,9 @@
 
 ****/
 
+// https://stackoverflow.com/questions/17303785/how-to-correctly-read-binary-floating-point-data-using-xmlhttprequest
 function plotCannedMaterialProperty() {
 
-// https://stackoverflow.com/questions/17303785/how-to-correctly-read-binary-floating-point-data-using-xmlhttprequest
   document.getElementById('noteBlock').style.visibility = "hidden";
 
   var frameHeight=window.innerHeight;
@@ -25,16 +25,6 @@ function plotCannedMaterialProperty() {
 
   var nlist=loadAndProcessCSVfromFile(urls);
 
-  var c_list=[ 'rgb(0,130,0)', 'rgb(0,0,130)', 'rgb(140,0,0)', 'rgb(0,140,0)',
-               'rgb(0,0,140)', 'rgb(150,0,0)', 'rgb(0,150,0)', 'rgb(0,0,150)',
-               'rgb(160,0,0)', 'rgb(0,160,0)', 'rgb(0,0,160)', 'rgb(170,0,0)',
-               'rgb(0,170,0)', 'rgb(0,0,170)', 'rgb(180,0,0)', 'rgb(0,180,0)',
-               'rgb(0,0,180)' ,'rgb(0,0,190)','rgb(0,190,0)','rgb(190,0,0)',
-               'rgb(0,0,200)','rgb(0,200,0)', 'rgb(200,0,0)','rgb(0,0,210)', 
-               'rgb(0,210,0)', 'rgb(210,0,0)','rgb(0,0,220)', 'rgb(0,220,0)',
-               'rgb(220,0,0)','rgb(0,0,230)', 'rgb(0,230,0)', 'rgb(230,0,0)',
-               'rgb(0,0,240)', 'rgb(0,240,0)', 'rgb(240,0,0)','rgb(0,0,250)', 
-               'rgb(0,250,0)','rgb(250,0,0)' ];
   var x_list=[];
   var y_list=[];
   var z_list=[];

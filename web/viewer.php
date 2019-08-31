@@ -33,12 +33,12 @@ $header=getHeader("Viewer")
 <!-- gfm js -->
 <script type="text/javascript" src="js/debug.js"></script>
 <script type="text/javascript" src="js/gfm_util.js"></script>
-<script type="text/javascript" src="js/gfm_ui.js"></script>
 <script type="text/javascript" src="js/gfm_main.js"></script>
 <script type="text/javascript" src="js/gfm_query.js"></script>
 <script type="text/javascript" src="js/gfm_viz.js"></script>
 <script type="text/javascript" src="js/gfm_plotly.js"></script>
 <script type="text/javascript" src="js/gfm_region.js"></script>
+<script type="text/javascript" src="js/gfm_ui.js"></script>
 </head>
 <body>
 <?php echo $header; ?>

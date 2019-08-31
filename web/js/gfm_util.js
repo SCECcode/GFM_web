@@ -27,20 +27,8 @@ var sort_by=function(field, reverse, primer){
 }
 
 function processSearchResult(rlist) {
-    if (rlist == 'plotHorizontalSlice') {
-        str = $('[data-side="horizontalSlice"]').data('params');
-    }
-    if (rlist == 'plotVerticalProfile') {
-        str = $('[data-side="verticalProfile"]').data('params');
-    }
-    if (rlist == 'plotCrossSection') {
-        str = $('[data-side="crossSection"]').data('params');
-    }
     if (rlist == 'getMaterialPropertyByLatlon') {
         str = $('[data-side="materialPropertyByLatlon"]').data('params');
-    }
-    if (rlist == 'getUCVMCMaterialPropertyByLatlon') {
-        str = $('[data-side="materialPropertyUCVMCByLatlon"]').data('params');
     }
     if (rlist == 'getCanMaterialProperty') {
         str = $('[data-side="materialPropertyByCan"]').data('params');

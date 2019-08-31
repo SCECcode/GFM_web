@@ -5,23 +5,8 @@
 function setup_viewer() {
 }
 
-function horizontalSliceUCVMCClick() {
-    document.getElementById('spinIconForUCVMCHorizontal').style.display = "block";	
-    plotHorizontalSlice();
-}
-
-function crossSectionUCVMCClick() {
-    document.getElementById('spinIconForUCVMCCross').style.display = "block";	
-    plotCrossSection();
-}
-
-function verticalProfileUCVMCClick() {
-    document.getElementById('spinIconForUCVMCVertical').style.display = "block";	
-    plotVerticalProfile();
-}
-
 function plotRegionClick() {
-    document.getElementById('spinIconForRegion').style.display = "block";	
+    document.getElementById('spinIconForRegion').style.display = "block";
 //    getCannedMaterialProperty();
     plotCannedMaterialProperty();
 }
@@ -29,35 +14,6 @@ function plotRegionClick() {
 function propertyClick() {
     document.getElementById('spinIconForProperty').style.display = "block";	
     getMaterialPropertyByLatlon();
-}
-
-function propertyUCVMCClick() {
-    document.getElementById('spinIconForUCVMCProperty').style.display = "block";	
-    getUCVMCMaterialPropertyByLatlon();
-}
-
-function plotPNG(str)
-{
-    var html="";
-
-    // just one
-    if( typeof str === 'string') { 
-       html="<br><a href=\"result/"+str+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
-       return html;
-    }
-
-    // a set of them,  obj['first'] and obj['second']
-    var keys=Object.keys(str);
-    var sz=(Object.keys(str).length);
-    var i;
-
-    for(i=0;i<sz;i++) {
-       var val=str[keys[i]]; 
-       html=html+"<br><a href=\"result/"+val+"\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
-    }
-
-    return html;
-    
 }
 
 function clearSearchResult()
