@@ -83,7 +83,7 @@ Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select custom-sele
   <div class="row" id='GFM_view' style="background-color:#DDDDDD;width:100%;height:100%;top:30vh;"></div>
 </div>
 
-<div class="row" id='resultBlock' style="top:10vh;left:30px;width:24%;overflow:hidden">
+<div class="row" id='resultBlock' style="top:10vh;left:30px;width:30%;overflow:hidden">
   <div id="searchResult" class="table-responsive"></div>
   <div id="phpResponseTxt"></div>
 </div>

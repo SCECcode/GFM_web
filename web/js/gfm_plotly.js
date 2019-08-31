@@ -111,8 +111,8 @@ function plotCannedMaterialProperty() {
          colorscale: 'Viridis',
          marker: { size: 6, 
                    symbol: 'square',
-                   color: k }
-//                   color: color }
+//                   color: k }
+                   color: color }
         };
      data.push(v);
   }

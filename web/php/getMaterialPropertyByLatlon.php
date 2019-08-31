@@ -23,7 +23,6 @@ if ($firstzmode == 'd')
 
 $result = exec(escapeshellcmd($query), $retval);
 
-
 $result2="";
 if($secondlat != "" && $secondlon != "") { 
   $lstr2 = "-l ".$secondlat.",".$secondlon.",".$firstz;
