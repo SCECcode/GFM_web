@@ -98,7 +98,7 @@ function plotCannedMaterialProperty() {
      var item=legend_list[k];
      var idx=item['id'];
      var name=item['name'];
-     var color= (useColor) : item['color']?k;
+     var color= (useColor) ? item['color']:k;
      var v= {
          x:x_list[idx],
          y:y_list[idx],
