@@ -21,7 +21,13 @@ if ($firstzmode == 'e')
 if ($firstzmode == 'd') 
      $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z dep ".$lstr;
 
-$result = exec(escapeshellcmd($query), $retval);
+echo $query;
+
+$result = exec(escapeshellcmd($query), $retval, $status);
+
+echo $retval;
+echo $result;
+echo $status;
 
 $result2="";
 if($secondlat != "" && $secondlon != "") { 

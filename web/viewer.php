@@ -75,6 +75,10 @@ Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select custom-sele
              <option value="e">Elevation</option>
              <option value="d">Depth</option>
        </select>
+color:<select id="colorTxt" title="color" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+             <option value="r">Rough</option>
+             <option value="f">Fine</option>
+       </select>
    </div>
 </div><!-- queryBlock -->
 

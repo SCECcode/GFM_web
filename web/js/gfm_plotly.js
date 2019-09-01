@@ -15,9 +15,17 @@ function plotCannedMaterialProperty() {
   var plotWidth= Math.round(frameWidth*0.6);
   var plotHeight= Math.round(0.6 * frameHeight);
 
+  var useColor=0;
+
   var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
   if(window.location.hostname == "asperity.scec.org") {
       url="http://asperity.scec.org/GFM_web/web/data/complete_cvmh_canned.csv";
+  }
+
+  var colorstr=document.getElementById("colorTxt").value;
+
+  if(colorstr == "r") { // use Michael's coloring
+    useColor=1;
   }
 
   var urls = [];
@@ -90,7 +98,7 @@ function plotCannedMaterialProperty() {
      var item=legend_list[k];
      var idx=item['id'];
      var name=item['name'];
-     var color=item['color'];
+     var color= (useColor) : item['color']?k;
      var v= {
          x:x_list[idx],
          y:y_list[idx],
