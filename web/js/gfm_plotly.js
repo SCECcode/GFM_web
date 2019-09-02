@@ -7,14 +7,9 @@
 // https://stackoverflow.com/questions/17303785/how-to-correctly-read-binary-floating-point-data-using-xmlhttprequest
 function plotCannedMaterialProperty() {
 
-  document.getElementById('noteBlock').style.visibility = "hidden";
-
-  var frameHeight=window.innerHeight;
-  var frameWidth=window.innerWidth;
-
-  var plotWidth= Math.round(frameWidth*0.6);
-  var plotHeight= Math.round(0.6 * frameHeight);
-
+  var plotWidth=jQuery("#GFM_view").width();
+  var plotHeight=jQuery("#GFM_view").height();
+  
   var useColor=0;
 
   var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
@@ -137,7 +132,7 @@ var layout = {
     camera: {
       up: { x: 0, y: 0, z: 1 },
       center: { x: 0, y: 0, z: 0 },
-      eye: { x:0, y:1.5, z:0.5 }
+      eye: { x:0, y:1, z:0.5 }
     }
   },
   margin: {

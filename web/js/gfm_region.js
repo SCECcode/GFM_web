@@ -138,7 +138,24 @@ function setRegionStateWithID(id,state) {
 }
 
 
-function getUnitsWithLabel(label,val) {
+function getUnitsWithLabel(label) {
+   var tb=GFM_tb['units'];
+   var cnt=tb.length;
+   var i;
+   for(i=0; i< cnt; i++) {
+       var u=tb[i];
+       if(u['id']==label) {
+          var n=u['units'];
+          if(n == 'NA') 
+            return undefined;
+          return n;
+       }
+   }
+   window.console.log("ERROR: can not find label %s",label);
+   return undefined;
+}
+
+function getUnitsWithLabelAndVal(label,val) {
    var tb=GFM_tb['units'];
    var cnt=tb.length;
    var i;
