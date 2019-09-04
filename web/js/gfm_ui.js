@@ -66,7 +66,7 @@ window.console.log(JSON.stringify(blob));
 
     html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
 
-    html=html+"<div class=\"gfm-table\"><table><tbody>";
+    html=html+"<table class=\"gfm-table\"><tbody>";
   
     for(i=0; i<sz; i++) {
        var key=keys[i];
