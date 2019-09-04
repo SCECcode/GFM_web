@@ -14,6 +14,12 @@ table { width: 100%; border-collapse: collapse;}
 table, td, th { border: 1px solid grey; padding: 2px;}
 th {text-align: left;}
 
+.gfm-table {
+          max-height: 67vh;
+          border: 1px solid grey;
+          overflow: auto;
+        }
+
 .gfm-top-small-btn {
           background: transparent; 
           padding: 6px 6px;

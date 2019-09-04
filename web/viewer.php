@@ -91,9 +91,6 @@ color:<select id="colorTxt" title="color" class="custom-select custom-select-sm"
    </div>
 </div><!--- queryBlock --->
 
-<!---
- <div class="row" style="position:fixed;margin-left:5%;width:90%;height:60%;">
---->
  <div class="row" style="margin-left:5%;width:90%;height:60%;">
   <div class="row" id='GFM_view' style="background-color:#DDDDDD;width:100%;height:100%;top:30vh;"></div>
  </div>
