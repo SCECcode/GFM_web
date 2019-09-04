@@ -36,12 +36,6 @@ th {text-align: left;}
          color: white;
         }
 
-.gfm-table {
-          max-height: 67vh;
-          border: 1px solid grey;
-          overflow: auto;
-        }
-
 .gfm-top-btn {
           background: #D5D5D5; 
           padding: 1px 3px;

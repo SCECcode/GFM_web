@@ -46,7 +46,12 @@ $header=getHeader("Viewer")
 <div class="container main container-fluid">
   <div class="row">
         <div class="col-12">
-            <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer provides a browser access to GFM version 1.0 dataset. It can display a 3D visualization of the Geological Framework model.  It also allows users to query for material property.</p>
+<p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1 and GFM v1.0 and also generate a 3D visualization of the Geological Framework model.</p>
+<p>
+<b>Query Material Properties:</b> Users can enter a latlon, elev/depth and the site will return the CVM-h and GFM properties for that point.
+<br>
+<b>Plot GFM Regions:</b> When users click this button, the GFM view will load a decimated, rotatable, 3D volume image of GFM v1.0. Users can click on geological regions of interest to turn on/turn off their display.
+</p>
         </div>
   </div>
 
@@ -76,10 +81,12 @@ Zmode:<select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm
              <option value="e">Elevation</option>
              <option value="d">Depth</option>
        </select>
+<!---
 color:<select id="colorTxt" title="color" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
              <option value="r">Rough</option>
              <option value="f">Fine</option>
        </select>
+--->
    </div>
    </div>
 </div><!--- queryBlock --->

@@ -17,7 +17,10 @@ function plotCannedMaterialProperty() {
       url="http://asperity.scec.org/GFM_web/web/data/complete_cvmh_canned.csv";
   }
 
+/*
   var colorstr=document.getElementById("colorTxt").value;
+*/
+  var colorstr="r";
 
   if(colorstr == "r") { // use Michael's coloring
     useColor=1;

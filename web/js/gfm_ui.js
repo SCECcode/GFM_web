@@ -73,7 +73,7 @@ window.console.log(JSON.stringify(blob));
        var val1=blob1[key];
        if(!justOne) {
          var val2=blob2[key];
-         var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20px\">"+val1+"</td><td style=\"width:20px\">"+val2+"</td></tr>";
+         var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20vw\">"+val1+"</td><td style=\"width:20px\">"+val2+"</td></tr>";
          html=html+t;
          } else {
            // access unit/extra handling
@@ -139,8 +139,8 @@ window.console.log(JSON.stringify(blob));
         var u=getUnitsWithLabel(key);
         if(u == undefined)
            u="";
-        labelline=labelline+"<td style=\"width:20px\">"+key+"</td>";
-        unitline=unitline+"<td style=\"width:20px\">"+u+"</td>";
+        labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
+        unitline=unitline+"<td style=\"width:24vw\">"+u+"</td>";
     }
     labelline=labelline+"</tr>";
     unitline=unitline+"</tr>";
@@ -164,7 +164,7 @@ window.console.log(JSON.stringify(blob));
                var u=getUnitsWithLabelAndVal(key2, parseInt(val2));
                val2=val2+'<br>('+u+')';
             }
-            mpline=mpline+"<td style=\"width:20px\">"+val2+"</td>";
+            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
          mpline=mpline+"</tr>";
          html=html+mpline+unitline;
