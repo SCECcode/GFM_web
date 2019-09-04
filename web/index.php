@@ -48,9 +48,9 @@ $header=getHeader("Viewer")
         <div class="col-12">
 <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1 and GFM v1.0 and also generate a 3D visualization of the Geological Framework model.</p>
 <p>
-*Query Material Properties: Users can enter a lat/lon elev/depth and the site will return the CVM-h and GFM properties for that point.
+<b>Query Material Properties:</b> Users can enter a latlon, elev/depth and the site will return the CVM-h and GFM properties for that point.
 <br>
-*Plot GFM Regions: When users click this button, the GFM view will load a decimated, rotatable, 3D volume image of GFM v1.0. Users can click on geological regions of interest to turn on/turn off their display.
+<b>Plot GFM Regions:</b> When users click this button, the GFM view will load a decimated, rotatable, 3D volume image of GFM v1.0. Users can click on geological regions of interest to turn on/turn off their display.
 </p>
         </div>
   </div>
@@ -91,9 +91,6 @@ color:<select id="colorTxt" title="color" class="custom-select custom-select-sm"
    </div>
 </div><!--- queryBlock --->
 
-<!---
- <div class="row" style="position:fixed;margin-left:5%;width:90%;height:60%;">
---->
  <div class="row" style="margin-left:5%;width:90%;height:60%;">
   <div class="row" id='GFM_view' style="background-color:#DDDDDD;width:100%;height:100%;top:30vh;"></div>
  </div>
