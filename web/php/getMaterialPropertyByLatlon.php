@@ -13,9 +13,9 @@ $zmode = ($_GET['zmode']);
 
 $lstr = "-l ".$lat.",".$lon.",".$z;
 $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr;
-if ($firstzmode == 'e') 
+if ($zmode == 'e') 
      $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z elev ".$lstr;
-if ($firstzmode == 'd') 
+if ($zmode == 'd') 
      $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z dep ".$lstr;
 
 $result = exec(escapeshellcmd($query), $retval, $status);
