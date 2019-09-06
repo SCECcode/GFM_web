@@ -49,28 +49,66 @@ var GFM_tb={
 {'id':41,'name':'Above Ground','sliver':0,'state':1,'color':'#FFFFFF'} 
 ],
 "units": [
-{'id':'X','units':'decimal degrees'},
-{'id':'Y','units':'decimal degrees'},
-{'id':'Z','units':'meters above/below sealevel (elevation),<br>meters below ground surface (depth)'},
-{'id':'utmX','units':'UTM_Zone_11S'},
-{'id':'utmY','units':'UTM_Zone_11S'},
-{'id':'elevX','units':'NA'},
-{'id':'elevY','units':'NA'},
-{'id':'topo','units':'DEM meters above/below sealevel'},
-{'id':'mtop','units':'top of model meters above/below sealevel'},
-{'id':'base','units':'meters relative to sealevel'},
-{'id':'moho','units':'meters relative to sealevel'},
-{'id':'src','units':'model providing data'},
-{'id':'cellX','units':'NA'},
-{'id':'cellY','units':'NA'},
-{'id':'cellZ','units':'NA'},
-{'id':'tg','units':'NA'},
-{'id':'vp','units':'meters/sec'},
-{'id':'vs','units':'meters/sec'},
-{'id':'rho','units':'kg/m^3'},
-{'id':'regionID','units':'NA'},
-{'id':'temp','units':'degree C'}
+{'id':'X','label':'X','units':'Input X (longitude or UTM coordinate)'},
+{'id':'Y','label':'Y','units':'Input Y (latitude or UTM coordinate)'},
+{'id':'Z','label':'Z','units':'Input Z (elevation, meters above sea level,ie.,positive up)<br>(depth, meters below surface, i.e., negative down)'},
+{'id':'utmX','label':'utmX','units':'UTM coordinate (zone 11), easting'},
+{'id':'utmY','label':'utmY','units':'UTM coordinate (zone 11), northing'},
+{'id':'elevX','label':'elevX','units':'X coordinate of center of the cell which provided data value for elevations'},
+{'id':'elevY','label':'elevY','units':'Y coordinate of center of the cell which provided data value for elevations'},
+{'id':'topo','label':'topo','units':'Topographic/bathymetric elevation in meters'},
+{'id':'mtop','label':'mtop','units':'Top of model in meters, below this depth there are data'},
+{'id':'base','label':'base','units':'Basement elevation in meters (generaly negative)'},
+{'id':'moho','label':'moho','units':'Moho elevation in meters (always negative)'},
+{'id':'src','label':'hr/lr/cm/nr','units':'Flag to indicate whetehr high-resolution(hr), low-resolution(lr) or <br>lower crust.mantle voxet was used(cm); or if no data available(nr)'},
+{'id':'cellX','label':'cellX','units':'X coordinate of center of cell which provided velocity data value'},
+{'id':'cellY','label':'cellY','units':'Y coordinate of center of cell which provided velocity data value'},
+{'id':'cellZ','label':'cellZ','units':'Z coordinate of center of cell which provided velocity data value'},
+{'id':'tg','label':'tg','units':'Provenance of data point'},
+{'id':'vp','label':'vp','units':'Compressional wave velocity in meters/sec'},
+{'id':'vs','label':'vs','units':'Shear wave velocity in meters/sec'},
+{'id':'rho','label':'rho','units':'Density in kg/m^3'},
+{'id':'regionID','label':'regionID','units':'GFM v1.0 region ID (see Region Name Table)'},
+{'id':'temp','label':'temp','units':'GFM v1.0 MedTemperature in degree C'}
 ]};
+
+function makeParametersTable() {
+   var tb=GFM_tb['units'];
+   var cnt=tb.length;
+   var i;
+   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">CVMH+GFM v1.0 Parameters Table</th></tr></tbody></table>";
+   tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
+   tbhtml=tbhtml+"<tr><td style=\"width:10vw\">Parameter</td><td style=\"width:50vw\">Description</td></tr>";
+   for( i=0; i<cnt; i++) {
+     var item=tb[i];
+     var label=item['label'];
+     var units=item['units'];
+     var t="<tr><td style=\"width:10vw\">"+label+"</td><td style=\"width:50vw\">"+units+"</td></tr>";
+     tbhtml=tbhtml+t;
+   }
+   tbhtml=tbhtml+"</tbody></table></div>";
+   return tbhtml;
+}
+
+
+function makeRegionsTable() {
+   var tb=GFM_tb['regions'];
+   var cnt=tb.length;
+   var i;
+   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">GFM v1.0 Region Name Table</th></tr></tbody></table>";
+   tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
+   tbhtml=tbhtml+"<tr><td style=\"width:10px\">Region ID</td><td style=\"width:20vw\">Region Name</td><td style=\"width:5px\">sliver</td></tr>";
+   for( i=0; i<cnt; i++) {
+     var item=tb[i];
+     var id=item['id']
+     var name=item['name'];
+     var sliver=item['sliver'];
+     var t="<tr><td style=\"width:10px\">"+id+"</td><td style=\"width:20vw\">"+name+"</td><td style=\"width:5px\">"+sliver+"</td></tr>";
+     tbhtml=tbhtml+t;
+   }
+   tbhtml=tbhtml+"</tbody></table></div>";
+   return tbhtml;
+}
 
 function getRegionNameWithID(id) {
    var tb=GFM_tb['regions'];

@@ -100,6 +100,11 @@ color:<select id="colorTxt" title="color" class="custom-select custom-select-sm"
   <div id="phpResponseTxt"></div>
 </div> <!--- result block --->
 
+ <div class="row" id='tableBlock' style="left:30px;margin-top:5vh;">
+  <div id="parametersTable" style="display:inline-block;"></div>
+  <div id="regionsTable" style="margin-left:30px; display:inline-block;"></div>
+</div> <!--- result block --->
+
 </div><!-- container-fluid -->
 
 </body>

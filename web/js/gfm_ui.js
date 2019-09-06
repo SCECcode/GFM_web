@@ -3,6 +3,8 @@
 ***/
 
 function setup_viewer() {
+    document.getElementById('parametersTable').innerHTML=makeParametersTable();
+    document.getElementById('regionsTable').innerHTML=makeRegionsTable();
 }
 
 function plotRegionClick() {
@@ -125,14 +127,12 @@ window.console.log(JSON.stringify(blob));
 
     // create the key and unit parts first
     var labelline="";
-    var unitline="";
     var key;
     
     var datakeys=Object.keys(datablob);
     var sz=(Object.keys(datablob).length);
 
     labelline="<tr>";
-    unitline="<tr>";
  
     for(i=0; i<sz; i++) {
         key=datakeys[i];
@@ -140,10 +140,8 @@ window.console.log(JSON.stringify(blob));
         if(u == undefined)
            u="";
         labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
-        unitline=unitline+"<td style=\"width:24vw\">"+u+"</td>";
     }
     labelline=labelline+"</tr>";
-    unitline=unitline+"</tr>";
 
     html=html+labelline;
 
@@ -167,7 +165,7 @@ window.console.log(JSON.stringify(blob));
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
          mpline=mpline+"</tr>";
-         html=html+mpline+unitline;
+         html=html+mpline;
     }
 
     html=html+"</tbody></table></div>";
