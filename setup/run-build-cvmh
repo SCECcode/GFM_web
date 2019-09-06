@@ -2,6 +2,8 @@
 
 source setup/setup_cvmh.sh
 
+uid=`whoami`
+
 rm -rf $TOP_GFM_DIR/model/cvmh
 rm -rf $TOP_GFM_DIR/web/model/cvmh_target
 mkdir -p $TOP_GFM_DIR/web/model/cvmh_target
@@ -14,7 +16,7 @@ automake --add-missing
 autoconf
 ./configure --prefix=$CVMH_INSTALL_PATH
 cd model
-./make_data_files.py -d cvmh1511 -u mei
+./make_data_files.py -d cvmh1511 -u $uid
 
 cd $CVMH_SRC_PATH
 make

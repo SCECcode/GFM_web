@@ -16,6 +16,24 @@ function propertyClick() {
     getMaterialPropertyByLatlon();
 }
 
+// it is filelist
+function selectLocalFiles(_urls) {
+    var dataObject={ "url":"", "filedata":"" };
+
+    if(_urls == undefined) {
+      throw new Error("must have an url!");
+    }
+    var _url=_urls[0];
+    if( _url instanceof File) {
+      readLocalFile(dataObject,_url);
+      dataObject['url']=_url.name;
+      var tmp=dataObject['filedata'];
+      getMaterialPropertyByLatlonList(dataObject);
+    } else {
+      throw new Error("local file must be a File object type!");
+    }
+}
+
 function clearSearchResult()
 {
     document.getElementById("searchResult").innerHTML = "";

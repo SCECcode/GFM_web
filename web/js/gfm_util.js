@@ -61,3 +61,14 @@ function ckExist(url) {
   }
 }
 
+//
+// Reading files using the HTML5 FileReader.
+//
+function readLocalFile(dataobj,fobj) {
+
+  var reader = new FileReader();
+  reader.readAsText(fobj);
+  dataobj['filedata'] = reader.result;
+
+};
+
