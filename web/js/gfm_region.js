@@ -81,7 +81,7 @@ function makeParametersTable() {
    tbhtml=tbhtml+"<tr><td style=\"width:6vw\">Parameter</td><td style=\"width:40vw\">Description</td></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
-     var label=item['label'];
+     var label=item['id'];
      var units=item['units'];
      var t="<tr><td style=\"width:6vw\">"+label+"</td><td style=\"width:40vw\">"+units+"</td></tr>";
      tbhtml=tbhtml+t;
