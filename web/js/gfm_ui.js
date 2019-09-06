@@ -2,9 +2,18 @@
    gfm_ui.js
 ***/
 
+var setup_tables_done=0;
+
 function setup_viewer() {
+}
+
+function setup_tables() {
+    if(setup_tables_done) { // just done it once.
+       return;
+    }
     document.getElementById('parametersTable').innerHTML=makeParametersTable();
     document.getElementById('regionsTable').innerHTML=makeRegionsTable();
+    setup_tables_done=1;
 }
 
 function plotRegionClick() {

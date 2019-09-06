@@ -97,7 +97,7 @@ function makeRegionsTable() {
    var i;
    var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">GFM v1.0 Region Name Table</th></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:10px\">Region ID</td><td style=\"width:20vw\">Region Name</td><td style=\"width:5px\">sliver</td></tr>";
+   tbhtml=tbhtml+"<tr><td style=\"width:10px\">ID</td><td style=\"width:20vw\">Region Name</td><td style=\"width:5px\">sliver</td></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var id=item['id']
