@@ -68,8 +68,8 @@ var GFM_tb={
 {'id':'vp','label':'vp','units':'Compressional wave velocity in meters/sec'},
 {'id':'vs','label':'vs','units':'Shear wave velocity in meters/sec'},
 {'id':'rho','label':'rho','units':'Density in kg/m^3'},
-{'id':'regionID','label':'regionID','units':'GFM v1.0 region ID (see Region Name Table)'},
-{'id':'temp','label':'temp','units':'GFM v1.0 MedTemperature in degree C'}
+{'id':'regionID','label':'regionID','units':'ID of the geological framework model region name as defined in GFM v1.0 Region Name Table'},
+{'id':'temp','label':'temp','units':'GFM v1.0 Temperature in degree Celsius'}
 ]};
 
 function makeParametersTable() {
@@ -78,12 +78,12 @@ function makeParametersTable() {
    var i;
    var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">CVMH+GFM v1.0 Parameters Table</th></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:10vw\">Parameter</td><td style=\"width:50vw\">Description</td></tr>";
+   tbhtml=tbhtml+"<tr><td style=\"width:6vw\">Parameter</td><td style=\"width:40vw\">Description</td></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var label=item['label'];
      var units=item['units'];
-     var t="<tr><td style=\"width:10vw\">"+label+"</td><td style=\"width:50vw\">"+units+"</td></tr>";
+     var t="<tr><td style=\"width:6vw\">"+label+"</td><td style=\"width:40vw\">"+units+"</td></tr>";
      tbhtml=tbhtml+t;
    }
    tbhtml=tbhtml+"</tbody></table></div>";
