@@ -79,7 +79,7 @@ $header=getHeader("Viewer")
    <div class="row col-md-12 col-xs-12" style="display:inline-block;">
    <div> Lat:<input type="text" id="LatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  Lon:<input type="text" id="LonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-Z:<input type="text" id="ZTxt" title="Z" value="-32000" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+Z:<input type="text" id="ZTxt" title="Z" value="-9700" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
 Zmode:<select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
              <option value="e">Elevation</option>
              <option value="d">Depth</option>
@@ -114,6 +114,11 @@ color:<select id="colorTxt" title="color" class="custom-select custom-select-sm"
  <div class="row" id='resultBlock' style="left:30px;margin-top:5vh;">
   <div id="searchResult" class="table-responsive"></div>
   <div id="phpResponseTxt"></div>
+</div> <!--- result block --->
+
+ <div class="row" id='tableBlock' style="left:30px;margin-top:5vh;">
+  <div id="parametersTable" style="display:inline-block;"></div>
+  <div id="regionsTable" style="margin-left:30px; display:inline-block;"></div>
 </div> <!--- result block --->
 
 </div><!-- container-fluid -->

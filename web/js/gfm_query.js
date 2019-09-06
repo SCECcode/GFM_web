@@ -28,6 +28,8 @@ function getMaterialPropertyByLatlon() {
                 var str=processSearchResult("getMaterialPropertyByLatlon");
                 document.getElementById("searchResult").innerHTML = makeHorizontalResultTable(str);
                 document.getElementById('spinIconForProperty').style.display = "none";
+                // display static tables
+                setup_tables();
             }
         }
         xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr, true);
