@@ -4,6 +4,9 @@ source setup/setup_cvmh.sh
 
 uid=`whoami`
 
+## open up ther permission on result directory
+chmod og+rw $TOP_GFM_DIR/web/result 
+
 rm -rf $TOP_GFM_DIR/model/cvmh
 rm -rf $TOP_GFM_DIR/web/model/cvmh_target
 mkdir -p $TOP_GFM_DIR/web/model/cvmh_target
@@ -23,4 +26,3 @@ cd $CVMH_SRC_PATH
 make
 make install
 
- 

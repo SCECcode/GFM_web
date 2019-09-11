@@ -5,7 +5,12 @@
 var setup_tables_done=0;
 
 function setup_viewer() {
+// 
+    setup_tables_done=0;
+    document.getElementById('parametersTable').innerHTML='';
+    document.getElementById('regionsTable').innerHTML='';
 }
+
 
 function setup_tables() {
     if(setup_tables_done) { // just done it once.
@@ -29,17 +34,14 @@ function propertyClick() {
 
 // it is filelist
 function selectLocalFiles(_urls) {
-    var dataObject={ "url":"", "filedata":"" };
+    document.getElementById('spinIconForListProperty').style.display = "block";	
 
     if(_urls == undefined) {
       throw new Error("must have an url!");
     }
     var _url=_urls[0];
     if( _url instanceof File) {
-      readLocalFile(dataObject,_url);
-      dataObject['url']=_url.name;
-      var tmp=dataObject['filedata'];
-      getMaterialPropertyByLatlonList(dataObject);
+      readAndProcessLocalFile(_url);
     } else {
       throw new Error("local file must be a File object type!");
     }
@@ -137,8 +139,6 @@ function makeHorizontalResultTable(str)
     var dkeys=Object.keys(blob); // dkeys: first, second
     var dsz=(Object.keys(blob).length); // 2
 
-window.console.log(JSON.stringify(blob));
-
     if(dsz < 1) {
        window.console.log("ERROR: expecting at least 1 set of material properties");
        return;
@@ -152,7 +152,7 @@ window.console.log(JSON.stringify(blob));
        datablob=JSON.parse(datablob);
     }
 
-    // create the key and unit parts first
+    // create the key first
     var labelline="";
     var key;
     
@@ -173,6 +173,7 @@ window.console.log(JSON.stringify(blob));
     html=html+labelline;
 
     // now adding the data part..
+    var mpline="";
     for(j=0; j< dsz; j++) {
         var datablob=blob[dkeys[j]];
         if(datablob == "")
@@ -180,15 +181,16 @@ window.console.log(JSON.stringify(blob));
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        var mpline="<tr>";
         mpline="<tr>";
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
+/*
             if( key2=='regionID') {
                var u=getUnitsWithLabelAndVal(key2, parseInt(val2));
                val2=val2+'<br>('+u+')';
             }
+*/
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
          mpline=mpline+"</tr>";
@@ -200,11 +202,140 @@ window.console.log(JSON.stringify(blob));
 }
 
 
-function saveAsBlobFile(data, timestamp)
+// takes 1 or more sets of result
+// of { 'first':{...}, 'second':{...}, ...}
+function makeHorizontalResultTable_start(str)
+{
+    var i;
+    var blob;
+    if( str == undefined || str == "" ) {
+       window.console.log("ERROR: no return result");
+       return "";
+    }
+    if( typeof str === 'string') { 
+       blob=JSON.parse(str);
+       } else {
+         blob=str;
+    }
+
+    var dkeys=Object.keys(blob); // dkeys: first, second
+    var dsz=(Object.keys(blob).length); // 2
+
+    if(dsz < 1) {
+       window.console.log("ERROR: expecting at least 1 set of material properties");
+       return;
+    }
+
+    var htmlstr="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
+    htmlstr=htmlstr+"<div class=\"gfm-table\"><table><tbody>";
+
+    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
+    if( typeof datablob === 'string') { 
+       datablob=JSON.parse(datablob);
+    }
+
+    // create the key first
+    var labelline="";
+    var key;
+    
+    var datakeys=Object.keys(datablob);
+    var sz=(Object.keys(datablob).length);
+
+    labelline="<tr>";
+ 
+    for(i=0; i<sz; i++) {
+        key=datakeys[i];
+        labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
+    }
+    labelline=labelline+"</tr>";
+
+    htmlstr=htmlstr+labelline;
+
+    // now adding the data part..
+    var mpline="";
+    for(j=0; j< dsz; j++) {
+        var datablob=blob[dkeys[j]];
+        if(datablob == "")
+           continue;
+        if( typeof datablob === 'string') { 
+           datablob=JSON.parse(datablob);
+        }
+        mpline="<tr>";
+        for(i=0; i<sz; i++) {
+            var key2=datakeys[i];
+            var val2=datablob[key2];
+            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
+         }
+         mpline=mpline+"</tr>";
+         htmlstr=htmlstr+mpline;
+    }
+
+    return htmlstr;
+}
+// make rows of the table
+function makeHorizontalResultTable_next(str)
+{
+    var htmlstr="";
+
+    if (str == undefined )
+      return htmlstr;
+
+    if( typeof str === 'string') { 
+       blob=JSON.parse(str);
+       } else {
+         blob=str;
+    }
+
+    var dkeys=Object.keys(blob); // dkeys: first, second
+    var dsz=(Object.keys(blob).length); // 2
+
+    if(dsz < 1) {
+       window.console.log("ERROR: expecting at least 1 set of material properties");
+       return;
+    }
+
+    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
+    if( typeof datablob === 'string') {
+       datablob=JSON.parse(datablob);
+    }
+
+    var datakeys=Object.keys(datablob);
+    var sz=(Object.keys(datablob).length);
+
+    // now adding the data part..
+    var mpline="";
+    for(j=0; j< dsz; j++) {
+        var datablob=blob[dkeys[j]];
+        if(datablob == "")
+           continue;
+        if( typeof datablob === 'string') { 
+           datablob=JSON.parse(datablob);
+        }
+        mpline="<tr>";
+        for(i=0; i<sz; i++) {
+            var key2=datakeys[i];
+            var val2=datablob[key2];
+            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
+         }
+         mpline=mpline+"</tr>";
+         htmlstr=htmlstr+mpline;
+    }
+
+    return htmlstr;
+}
+
+// last bit of the table
+function makeHorizontalResultTable_last() {
+    var html="</tbody></table></div>";
+    return html;
+}
+
+
+function saveAsCSVBlobFile(data, timestamp)
 {
 //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
 //   var rnd= Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    var fname="GFM_"+timestamp+".json";
+    var fname="GFM_"+timestamp+".csv";
     var blob = new Blob([data], {
         type: "text/plain;charset=utf-8"
     });
@@ -225,3 +356,13 @@ function saveAsURLFile(gid,url) {
   delete dload;
 }
 
+function linkDownload(str)
+{
+    var html="";
+    // just one
+    if( typeof str === 'string') { 
+       html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-eye-open\"></span></a></div>";
+       return html;
+    }
+    return html;
+}

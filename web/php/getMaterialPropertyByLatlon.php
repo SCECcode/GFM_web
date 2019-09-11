@@ -10,7 +10,6 @@ $lon = ($_GET['lon']);
 $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 
-
 $lstr = "-l ".$lat.",".$lon.",".$z;
 $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr;
 if ($zmode == 'e') 

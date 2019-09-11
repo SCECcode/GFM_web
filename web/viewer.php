@@ -71,11 +71,10 @@ $header=getHeader("Viewer")
        <div id="spinIconForRegion" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
       </div>
     </div>
-    </div>
 
    </div> <!-- controlBlock -->
 
-<div class="row" id="queryBlock" style="margin:10px 0px 30px 0px; width:100%;display:flex">
+<div class="row" id="queryBlock" style="margin:10px 0px 30px 0px; width:100%; display:flex">
    <div class="row col-md-12 col-xs-12" style="display:inline-block;">
    <div> Lat:<input type="text" id="LatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  Lon:<input type="text" id="LonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
@@ -84,27 +83,18 @@ Zmode:<select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm
              <option value="e">Elevation</option>
              <option value="d">Depth</option>
        </select>
-       <br>
-
-<!---
-color:<select id="colorTxt" title="color" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-             <option value="r">Rough</option>
-             <option value="f">Fine</option>
-       </select>
     </div>
---->
+    </div> 
 
-<!--- file object --->
-    <div class="row col-md-4 col-xs-4" style="display:inline-block;">
-      <div class="row">
+  <div class="row col-md-4 col-xs-4" id="fileBlock">
+    <div class="row">
       <input id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display: none;'></input>
       <button id="selectbtn" class="btn gfm-top-btn" style="width:20vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
-           <span class="glyphicon glyphicon-file"></span> Select file to open</button>
-       <div id="spinIconForFiles" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
-      </div>
+           <span class="glyphicon glyphicon-file"></span> Select file to open for query</button>
+      <div id="resultForMPQuery"></div>
     </div>
-
-   </div>
+    <div id="spinIconForListProperty" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+</div><!--- fileBlock --->
 </div><!--- queryBlock --->
 
  <div class="row" style="margin-left:5%;width:90%;height:50%;">
@@ -116,9 +106,9 @@ color:<select id="colorTxt" title="color" class="custom-select custom-select-sm"
   <div id="phpResponseTxt"></div>
 </div> <!--- result block --->
 
- <div class="row" id='tableBlock' style="left:30px;margin-top:5vh;">
-  <div id="parametersTable" style="display:inline-block;"></div>
-  <div id="regionsTable" style="margin-left:30px; display:inline-block;"></div>
+ <div class="row" id='tableBlock' style="left:30px;margin-top:5vh; display:inline-block;">
+  <div id="parametersTable" style="display:inline-block"></div>
+  <div id="regionsTable" style="margin-left:30px;display:inline-block"></div>
 </div> <!--- result block --->
 
 </div><!-- container-fluid -->

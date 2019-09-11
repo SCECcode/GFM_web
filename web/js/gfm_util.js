@@ -27,6 +27,14 @@ var sort_by=function(field, reverse, primer){
 }
 
 function processSearchResult(rlist) {
+    var str;
+
+    if (rlist == 'getMaterialPropertyByLatlonChunk') {
+        str = $('[data-side="materialPropertyByLatlonChunk"]').data('params');
+    }
+    if (rlist == 'getMaterialPropertyByLatlonList') {
+        str = $('[data-side="materialPropertyByLatlonList"]').data('params');
+    }
     if (rlist == 'getMaterialPropertyByLatlon') {
         str = $('[data-side="materialPropertyByLatlon"]').data('params');
     }
@@ -64,11 +72,38 @@ function ckExist(url) {
 //
 // Reading files using the HTML5 FileReader.
 //
-function readLocalFile(dataobj,fobj) {
+function readAndProcessLocalFile(fobj) {
 
   var reader = new FileReader();
-  reader.readAsText(fobj);
-  dataobj['filedata'] = reader.result;
 
+  reader.onload=function(event) {
+    var csv = event.target.result; 
+    var ffline = reader.result.split('\n');
+    var cnt=ffline.length;
+    var fdata=[];
+    for(i=0;i<cnt;i++) {
+       var fline=ffline[i];
+       $.csv.toArray(fline, {}, function(err, data) {
+          var v=data;
+          if( v != "" ) {
+            fdata.push(v);
+          }
+     }); 
+    }
+
+    var cnt=fdata.length;
+    var chunk_size=20;
+    var chunks=Math.ceil(cnt/chunk_size);
+    if(chunks == 1)
+       chunk_size=cnt;
+
+    // use timestamp as unique label
+    var ulabel=$.now();
+     
+    getMaterialPropertyByLatlonList(ulabel,fdata,0, chunks, chunk_size);
+  };
+  reader.readAsText(fobj);
+
+  
 };
 
