@@ -123,13 +123,13 @@ var layout = {
   scene: {
        xaxis: {
           title: "Lon",
-//          range:[-123, -112]
-        autorange: 'reversed'
+          range:[-123, -112]
+//        autorange: 'reversed'
         },
        yaxis: {
           title: "Lat",
-//          range:[29, 38]
-        autorange: 'reversed'
+          range:[29, 38]
+ //         autorange: 'reversed'
        },
     aspectratio : { x:1.0, y:1.0, z:0.1 },
     camera: {
@@ -145,6 +145,7 @@ var layout = {
     t: 60,
   }
 };
+
 
 Plotly.newPlot('GFM_view', data, layout);
 

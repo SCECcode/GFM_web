@@ -105,7 +105,7 @@ function getMaterialPropertyByLatlon() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("getMaterialPropertyByLatlon");
                 document.getElementById("searchResult").innerHTML = makeHorizontalResultTable(str);
-                document.getElementById('spinIconForProperty').style.display = "none";
+                document.getElementById('spinIconForQuery').style.display = "none";
                 // display static tables
                 setup_tables();
             }

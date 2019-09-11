@@ -28,7 +28,11 @@ function plotRegionClick() {
 }
 
 function propertyClick() {
-    document.getElementById('spinIconForProperty').style.display = "block";	
+    document.getElementById('queryBlock').style.display = "";	
+}
+
+function queryClick() {
+    document.getElementById('spinIconForQuery').style.display = "block";	
     getMaterialPropertyByLatlon();
 }
 
@@ -361,7 +365,7 @@ function linkDownload(str)
     var html="";
     // just one
     if( typeof str === 'string') { 
-       html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-eye-open\"></span></a></div>";
+       html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a></div>";
        return html;
     }
     return html;

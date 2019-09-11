@@ -48,7 +48,7 @@ $header=getHeader("Viewer")
         <div class="col-12">
 <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1 and GFM v1.0 and also generate a 3D visualization of the Geological Framework model.</p>
 <p>
-<b>Query Material Properties:</b> Users can enter a latlon, elev/depth and the site will return the CVM-h and GFM properties for that point.
+<b>Query Material Properties:</b> Users can enter a latlon, elev/depth and the site will return the CVM-h and GFM properties for that point, or upload a file with multiple latlons and elev/depth information, a downloadabled Material Properties file is generated along with display of initial set of result.
 <br>
 <b>Plot GFM Regions:</b> When users click this button, the GFM view will load a decimated, rotatable, 3D volume image of GFM v1.0. Users can click on geological regions of interest to turn on/turn off their display.
 </p>
@@ -60,7 +60,6 @@ $header=getHeader("Viewer")
       <div class="row">
        <button id="propertyBtn" class="btn gfm-top-btn" style="width:20vw;" title="get material property" onclick="propertyClick();">
        <span class="glyphicon glyphicon-star"></span> Query Material Property</button>
-       <div id="spinIconForProperty" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
        </div>
     </div>
 
@@ -74,19 +73,40 @@ $header=getHeader("Viewer")
 
    </div> <!-- controlBlock -->
 
-<div class="row" id="queryBlock" style="margin:10px 0px 30px 0px; width:100%; display:flex">
+<div class="row" id="queryBlock" style="margin:10px 0px 30px 0px; width:100%; display:none">
+
    <div class="row col-md-12 col-xs-12" style="display:inline-block;">
-   <div> Lat:<input type="text" id="LatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
- Lon:<input type="text" id="LonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-Z:<input type="text" id="ZTxt" title="Z" value="-9700" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-Zmode:<select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+
+   <div class="row"> Zmode:
+      <select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
              <option value="e">Elevation</option>
              <option value="d">Depth</option>
        </select>
-    </div>
-    </div> 
+   </div>
 
-  <div class="row col-md-4 col-xs-4" id="fileBlock">
+   <div class="row"> Query mode:
+      <select id="QuerymodeTxt" title="how to query" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+             <option value="point">a point</option>
+             <option value="file">a file</option>
+       </select>
+   </div>
+   <br>
+
+  <div class="row col-md-12 col-xs-12" id="pointBlock" style="display:">
+   <div class="row"> Lat:<input type="text" id="LatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+ Lon:<input type="text" id="LonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+Z:<input type="text" id="ZTxt" title="Z" value="-9700" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+    </div>
+    <div class="row col-md-4 col-xs-4" style="margin:0px 0px 0px 50px;display:inline-block;">
+      <div class="row">
+       <button id="queryBtn" class="btn gfm-top-btn" title="get material property" onclick="queryClick();">
+       <span class="glyphicon glyphicon-star"></span> Query</button>
+       <div id="spinIconForQuery" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+       </div>
+    </div>
+  </div><!--- pointBlock --->
+
+  <div class="row col-md-4 col-xs-4" id="fileBlock" style="display:none">
     <div class="row">
       <input id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display: none;'></input>
       <button id="selectbtn" class="btn gfm-top-btn" style="width:20vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
@@ -94,7 +114,10 @@ Zmode:<select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm
       <div id="resultForMPQuery"></div>
     </div>
     <div id="spinIconForListProperty" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
-</div><!--- fileBlock --->
+  </div><!--- fileBlock --->
+
+  </div>
+
 </div><!--- queryBlock --->
 
  <div class="row" style="margin-left:5%;width:90%;height:50%;">
