@@ -2,10 +2,17 @@
 
 source setup/setup_cvmh.sh
 
+## uid is used to extract cvmh model files from hypocenter,
 uid=`whoami`
 
 ## open up ther permission on result directory
 chmod og+rw $TOP_GFM_DIR/web/result 
+
+if [ $uid == "root" ]
+then
+  echo "uid can not be 'root', please edit run-build-cvmh "
+  exit
+fi
 
 rm -rf $TOP_GFM_DIR/model/cvmh
 rm -rf $TOP_GFM_DIR/web/model/cvmh_target
