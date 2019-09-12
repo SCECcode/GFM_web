@@ -12,7 +12,7 @@ var hold_htmlstr="";
 //      "n": { "lat":latvaln,"lon":lonvaln; "z":zn } }
 // get the material properties of the latlon locations
 //
-var MAX_CHUNKS_TO_DISPLAY=1;
+var MAX_CHUNKS_TO_DISPLAY=0;
 function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_chunks, chunk_step) {
     if(current_chunk == total_chunks) 
         return;
@@ -38,6 +38,28 @@ function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_c
     _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks,chunk_step);
            
 }
+
+// to be called by getMaterialPropertyByLatlonList
+function _getValuesFromJsonBlob(ulabel,xstr, ystr, zstr, targetstr) {
+
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+// XXX
+        }
+    }
+    xmlhttp.open("GET","php/getValuesFromJsonBlob.php?ulabel="+ulabel+"&xheader="+xstr+"&yheader="+ystr+"&zheader="+zstr+"&target="+targetstr, true);
+    xmlhttp.send();
+}
+
+
 
 // to be called by getMaterialPropertyByLatlonList
 function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
@@ -77,6 +99,7 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
 // XXX create a download link to the actual data file
                document.getElementById('resultForMPQuery').innerHTML=linkDownload("GFM_"+ulabel+".json");
                setup_tables();
+               _getValuesFromJsonBlob(ulabel,"X", "Y","Z","regionID");
             }
        }
     }

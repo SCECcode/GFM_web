@@ -81,14 +81,30 @@ function readAndProcessLocalFile(fobj) {
     var ffline = reader.result.split('\n');
     var cnt=ffline.length;
     var fdata=[];
+    if(cnt == 0) { 
+      window.console.log("ERROR, can not process the upload file ");
+      return;
+    }
+    var is_csv=0;
+    if(ffline[0].includes(",")) 
+      is_csv=1;
     for(i=0;i<cnt;i++) {
        var fline=ffline[i];
-       $.csv.toArray(fline, {}, function(err, data) {
-          var v=data;
-          if( v != "" ) {
-            fdata.push(v);
-          }
-     }); 
+        
+       if(is_csv) {
+         $.csv.toArray(fline, {}, function(err, data) {
+           var v=data;
+           if( v != "" ) {
+             fdata.push(v);
+           }
+         }); 
+       } else {
+// space separated format 
+           var v=fline.split(' ');
+           if( v != "" ) {
+             fdata.push(v);
+           }
+       }
     }
 
     var cnt=fdata.length;
