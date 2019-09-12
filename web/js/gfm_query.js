@@ -31,12 +31,16 @@ function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_c
     }
     var datastr=dataset.toString();
 
-    _getMaterialPropertyByLatlonChunk(ulabel,datastr, dataarray, current_chunk, total_chunks,chunk_step);
+    var skip=0; // skip the transfer of the result
+    if( current_chunk >= MAX_CHUNKS_TO_DISPLAY)
+      skip=1;
+
+    _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks,chunk_step);
            
 }
 
 // to be called by getMaterialPropertyByLatlonList
-function _getMaterialPropertyByLatlonChunk(ulabel,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
+function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
     if(current_chunk == 0)
         clearSearchResult();
     // extract content of a file
@@ -62,7 +66,7 @@ function _getMaterialPropertyByLatlonChunk(ulabel,datastr, dataarray, current_ch
                if( current_chunk < MAX_CHUNKS_TO_DISPLAY) {
                    htmlstr = makeHorizontalResultTable_next(str);
                    hold_htmlstr=hold_htmlstr+htmlstr;
-               }
+               } 
                getMaterialPropertyByLatlonList(ulabel,dataarray, current_chunk+1, total_chunks, chunk_step);
             }
             if(current_chunk==(total_chunks-1)) { // last one
@@ -76,7 +80,7 @@ function _getMaterialPropertyByLatlonChunk(ulabel,datastr, dataarray, current_ch
             }
        }
     }
-    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&ulabel="+ulabel+"&chunks="+total_chunks, true);
+    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&ulabel="+ulabel+"&chunks="+total_chunks+"&skip="+skip, true);
     xmlhttp.send();
 }
 

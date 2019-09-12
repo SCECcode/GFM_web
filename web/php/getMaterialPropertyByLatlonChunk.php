@@ -11,6 +11,7 @@ $zmode = ($_GET['zmode']);
 $chunkid = intVal($_GET['chunkid']);
 $ulabel = ($_GET['ulabel']);
 $lastchunks = intVal($_GET['chunks'])-1;
+$skip = intVal($_GET['skip']);
 
 /* if chunkid == 0, it is first chunk, create 
    the .json file in result/GFM_ulabel.json, 
@@ -66,7 +67,12 @@ for($i=0; $i< $set; $i++) {
 
 fclose($fp);
 
-$resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
+// don't transfer back the material property..
+if($skip) {
+   $resultstring="";
+} else {
+  $resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
+}
 
 echo "<div data-side=\"materialPropertyByLatlonChunk\" data-params=\""; 
 echo $resultstring;

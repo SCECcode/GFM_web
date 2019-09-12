@@ -123,15 +123,15 @@ var layout = {
   scene: {
        xaxis: {
           title: "Lon",
-          range:[-123, -112]
+         range:[-112, -123]
 //        autorange: 'reversed'
         },
        yaxis: {
           title: "Lat",
-          range:[29, 38]
- //         autorange: 'reversed'
+          range:[38, 29]
+//          autorange: 'reversed'
        },
-    aspectratio : { x:1.0, y:1.0, z:0.1 },
+    aspectratio : { x:1.0, y:1.0, z:0.15 },
     camera: {
       up: { x: 0, y: 0, z: 1 },
       center: { x: 0, y: 0, z: 0 },

@@ -86,8 +86,8 @@
 
 	   <div class="row" style="display:inline-block; margin-left:3vw"> Query mode:
 	      <select id="QuerymodeTxt" title="how to query" class="custom-select custom-select-sm" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-		     <option value="point">a point</option>
-		     <option value="file">a file</option>
+		     <option value="point"> Point</option>
+		     <option value="file"> File</option>
 	       </select>
 	   </div>
 
@@ -105,7 +105,7 @@
     </div>
   </div><!--- pointBlock --->
 
-  <div class="row col-md-4 col-xs-4" id="fileBlock" style="margin-top:1vw; display:"><!---XXX--->
+  <div class="row col-md-4 col-xs-4" id="fileBlock" style="margin-top:1vw; display:none"><!---XXX--->
     <div class="row">
       <input id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display: none;'></input>
       <button id="selectbtn" class="btn gfm-top-btn" style="width:20vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
@@ -119,8 +119,8 @@
 
 </div><!--- queryBlock --->
 
- <div class="row" style="margin-left:5%;width:90%;height:50%;">
-  <div class="row" id='GFM_view' style="background-color:#DDDDDD;width:100%;height:100%;top:30vh;"></div>
+ <div class="row" style="margin:10px 0px 10px 0px;width:90%;height:50%;" >
+  <div class="row" id='GFM_view' style="margin:0px 0px 10px 0px;background-color:#DDDDDD;width:100%;height:100%;top:30vh;"></div>
  </div>
 
  <div class="row" id='resultBlock' style="margin:20px 0px 10px 0px;">
