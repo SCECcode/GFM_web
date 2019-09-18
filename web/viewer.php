@@ -36,9 +36,12 @@ $header=getHeader("Viewer")
 <script type="text/javascript" src="js/gfm_main.js"></script>
 <script type="text/javascript" src="js/gfm_query.js"></script>
 <script type="text/javascript" src="js/gfm_viz.js"></script>
+<script type="text/javascript" src="js/gfm_plotGFM.js"></script>
 <script type="text/javascript" src="js/gfm_plotly.js"></script>
+<script type="text/javascript" src="js/gfm_surface_plotly.js"></script>
 <script type="text/javascript" src="js/gfm_region.js"></script>
 <script type="text/javascript" src="js/gfm_ui.js"></script>
+<script type="text/javascript" src="js/gfm_iframe.js"></script>
 </head>
 <body>
 <?php echo $header; ?>
@@ -48,7 +51,7 @@ $header=getHeader("Viewer")
 	<div class="col-12">
 <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1 and GFM v1.0 and also generate a 3D visualization of the Geological Framework model.</p>
 <p>
-<b>Query Material Properties:</b> Users can enter a latlon, elev/depth and the site will return the CVM-h and GFM properties for that point, or upload a file with multiple latlons and elev/depth information, a downloadabled Material Properties file is generated along with display of initial set of result.
+<b>Query Material Properties:</b> Users can enter a latlon, elev/depth and the site will return the CVM-h and GFM properties for that point, or upload a file with multiple latlons and elev/depth information, a downloadabled Material Properties file is generated along with a table of a subset(at most 10) of the data result.
 <br>
 <b>Plot GFM Regions:</b> When users click this button, the GFM view will load a decimated, rotatable, 3D volume image of GFM v1.0. Users can click on geological regions of interest to turn on/turn off their display.
 </p>
@@ -114,7 +117,7 @@ $header=getHeader("Viewer")
       <div class="row" id="fileQuery" style="margin:0 0 0 0;display:">
         <div class="row" style="margin:0 0 0 0;display:inline-block">
           <div class="row" id="resultForMPQuery" style="margin:0 0 0 0;display:inline-block"></div>
-          <iframe id="iframeWithRegion" src="region.html"></iframe>
+          <button id="plotbtn" type="button" title="plot subset of region id"  class="gfm-top-small-btn" data-toggle="modal" data-target="#modalGM" style='border:none;display:none;'> <span class="glyphicon glyphicon-pencil"></span> </button>
         </div>
       </div>
     </div>
@@ -137,6 +140,45 @@ $header=getHeader("Viewer")
   <div class="pull-left" id="parametersTable" style="display:inline-block"></div>
   <div class="pull-right" id="regionsTable" style="margin-left:3vw;display:inline-block;"></div>
 </div> <!--- result block --->
+
+<!--Modal: Name-->
+<div class="modal" id="modalGM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+  <div class="row col-12">
+  <iframe id="plotIfram" src="" style="height:500px;width:100%;" frameborder="0" allowfullscreen> </iframe>
+  </div>
+<!--
+
+<div id="map-container" class="z-depth-1-half map-container" style="height:500px">
+  <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" allowfullscreen></iframe>
+</div>
+
+-->
+
+      </div>
+
+<!--Footer
+
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal">Close</button>
+      </div>
+-->
+    </div>
+    <!--/.Content-->
+
+  </div>
+</div>
+<!--Modal: Name-->
 
 </div><!-- container-fluid -->
 

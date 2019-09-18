@@ -62,7 +62,10 @@ for($i=0; $i< $set; $i++) {
       }
   }
 
-  $itemlist->$i=$result;
+/* cap the max at 10 */
+  if($i < 10) {
+     $itemlist->$i=$result;
+  }
 }
 
 fclose($fp);

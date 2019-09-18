@@ -29,6 +29,9 @@ var sort_by=function(field, reverse, primer){
 function processSearchResult(rlist) {
     var str;
 
+    if (rlist == 'getValuesFromJsonBlob') {
+        str = $('[data-side="getValuesFromJsonBlob"]').data('params');
+    }
     if (rlist == 'getMaterialPropertyByLatlonChunk') {
         str = $('[data-side="materialPropertyByLatlonChunk"]').data('params');
     }

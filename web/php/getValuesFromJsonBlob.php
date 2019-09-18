@@ -20,6 +20,8 @@ $fname="../result/GFM_".$ulabel.".json";
 $label="GFM_".$ulabel;
 $JSON = file_get_contents($fname);
 
+/* echo $fname;  */
+
 $jsonIterator = new RecursiveIteratorIterator(
     new RecursiveArrayIterator(json_decode($JSON, TRUE)),
     RecursiveIteratorIterator::SELF_FIRST);
@@ -27,18 +29,16 @@ $jsonIterator = new RecursiveIteratorIterator(
 foreach ($jsonIterator as $key => $val) {
     if(!is_array($val)) {
         if ($key == $xheader) : 
-           array_push($xlist,$val);
+           $xlist[]=$val;      
         elseif ($key == $yheader) :
-           array_push($ylist,$val);
+           $ylist[]=$val;      
         elseif ($key == $zheader) :
-           array_push($zlist,$val);
+           $zlist[]=$val;      
         elseif ($key == $target) :
-           array_push($tlist,$val);
+           $tlist[]=$val;      
         endif;
     }
 }
-
-/* var_dump($tlist); */
 
 $itemlist = new \stdClass();
 
@@ -47,9 +47,13 @@ $itemlist->$yheader=$ylist;
 $itemlist->$zheader=$zlist;
 $itemlist->$target=$tlist;
 
+/*
+var_dump($itemlist);
+*/
+
 $resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
 
-echo "<div data-side=\"materialPropertyByLatlonChunk\" data-params=\""; 
+echo "<div data-side=\"getValuesFromJsonBlob\" data-params=\""; 
 echo $resultstring;
 echo "\" style=\"display:flex\"></div>";
 ?>

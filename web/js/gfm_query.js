@@ -12,7 +12,8 @@ var hold_htmlstr="";
 //      "n": { "lat":latvaln,"lon":lonvaln; "z":zn } }
 // get the material properties of the latlon locations
 //
-var MAX_CHUNKS_TO_DISPLAY=0;
+
+var MAX_CHUNKS_TO_DISPLAY=1;
 function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_chunks, chunk_step) {
     if(current_chunk == total_chunks) 
         return;
@@ -40,7 +41,9 @@ function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_c
 }
 
 // to be called by getMaterialPropertyByLatlonList
-function _getValuesFromJsonBlob(ulabel,xstr, ystr, zstr, targetstr) {
+// this is to process the data file that were created in earlier call and
+// selective extract values to be brought back to be plotted.
+function getValuesFromJsonBlob(plotID,ulabel,xstr, ystr, zstr, targetstr) {
 
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -52,7 +55,17 @@ function _getValuesFromJsonBlob(ulabel,xstr, ystr, zstr, targetstr) {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-// XXX
+            var str=processSearchResult("getValuesFromJsonBlob");
+            window.console.log("HERE...");
+// if in iframe, skip this, should really be one layer up
+            if(plotID == "GFM_view") { // but don't plot it
+              document.getElementById('plotbtn').style.display = "";
+// set iframe's src
+              $('#plotIfram').attr('src', "viz.html?ulabel="+ulabel);
+              } else {
+// XXX need to trigger a download then do the processing
+                plotMaterialProperty(plotID,str);
+            }
         }
     }
     xmlhttp.open("GET","php/getValuesFromJsonBlob.php?ulabel="+ulabel+"&xheader="+xstr+"&yheader="+ystr+"&zheader="+zstr+"&target="+targetstr, true);
@@ -96,10 +109,11 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
                hold_htmlstr=hold_htmlstr+htmlstr;
                document.getElementById("searchResult").innerHTML = hold_htmlstr;
                document.getElementById('spinIconForListProperty').style.display = "none";
-// XXX create a download link to the actual data file
+// create a download link to the actual data file
                document.getElementById('resultForMPQuery').innerHTML=linkDownload("GFM_"+ulabel+".json");
                setup_tables();
-               _getValuesFromJsonBlob(ulabel,"X", "Y","Z","regionID");
+// 
+               getValuesFromJsonBlob("GFM_view",ulabel,"X", "Y","Z","regionID");
             }
        }
     }

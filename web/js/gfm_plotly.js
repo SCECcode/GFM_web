@@ -1,78 +1,37 @@
-/****
+// id_data is regionID
+function make3DScatterPlotForRegionID(plotID,x_data,y_data,z_data,id_data) 
+{
 
-  gfm_plotly.js
+  var _p="#"+plotID;
+  var plotWidth=jQuery(_p).width();
+  var plotHeight=jQuery(_p).height();
 
-****/
-
-// https://stackoverflow.com/questions/17303785/how-to-correctly-read-binary-floating-point-data-using-xmlhttprequest
-function plotCannedMaterialProperty() {
-
-  var plotWidth=jQuery("#GFM_view").width();
-  var plotHeight=jQuery("#GFM_view").height();
-  
-  var useColor=0;
-
-  var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
-  if(window.location.hostname == "asperity.scec.org") {
-      url="http://asperity.scec.org/GFM_web/web/data/complete_cvmh_canned.csv";
-  }
-
-/*
-  var colorstr=document.getElementById("colorTxt").value;
-*/
-  var colorstr="r";
-
-  if(colorstr == "r") { // use Michael's coloring
-    useColor=1;
-  }
-
-  var urls = [];
-  urls.push(url);
-
-  var nlist=loadAndProcessCSVfromFile(urls);
-
-  var x_list=[];
-  var y_list=[];
-  var z_list=[];
-  var legend_list=[];
-
-  var x_data=getDataByIndex(0,0);
-  var y_data=getDataByIndex(0,1);
-  var z_data=getDataByIndex(0,2);
-  var id_data=getDataByIndex(0,3);
-  var temp_data=getDataByIndex(0,4);
-
-  var uid_data=array_unique(id_data);
-  var utemp_data=array_unique(temp_data)
-
+window.console.log("for plot..",plotID);
+window.console.log("plotWidth..",plotID,"  ",plotWidth);
+window.console.log("plotHeight..",plotID,"  ",plotHeight);
+ 
   var x_list=[];
   var y_list=[];
   var z_list=[];
   var id_list=[];
-  var temp_list=[];
+  var legend_list=[];
+
+  var uid_data=array_unique(id_data);
 
   var cnt=id_data.length;
   var ucnt=uid_data.length;
-//  for(i=0; i<ucnt;i++)
-//     window.console.log("uid value", uid_data[i]);
-
-//  var cnt=temp_data.length;
-//  var ucnt=utemp_data.length;
-//  window.console.log("ucnt for the utemp length is ...", ucnt);
 
   for(var i=0;i<ucnt;i++) {
     x_list.push([]);
     y_list.push([]);
     z_list.push([]);
     id_list.push([]);
-    temp_list.push([]);
   }
   for(var i=0;i<cnt;i++) {
     for(var j=0; j<ucnt; j++) {
        if(id_data[i] == uid_data[j]) {  // separate data by id
           x_list[j].push(x_data[i]);
           y_list[j].push(y_data[i]);
-                // because plotly's zaxis autorange is not implemented
           z_list[j].push(z_data[i]); 
           id_list[j].push(id_data[i]);
           break;
@@ -93,10 +52,12 @@ function plotCannedMaterialProperty() {
   var rname;
   var item;
   for(k=0; k<ucnt;k++ ) {
+
      var item=legend_list[k];
      var idx=item['id'];
      var name=item['name'];
-     var color= (useColor) ? item['color']:k;
+     var color=item['color'];
+
      var v= {
          x:x_list[idx],
          y:y_list[idx],
@@ -107,7 +68,6 @@ function plotCannedMaterialProperty() {
          colorscale: 'Viridis',
          marker: { size: 6, 
                    symbol: 'square',
-//                   color: k }
                    color: color }
         };
      data.push(v);
@@ -145,10 +105,51 @@ var layout = {
     t: 60,
   }
 };
+Plotly.newPlot(plotID, data, layout);
+}
 
+// generic 3D regionID
+function make3DSurfacePlot(plotID,x_data,y_data,z_data) 
+{
 
-Plotly.newPlot('GFM_view', data, layout);
+  var _p="#"+plotID;
+  var plotWidth=jQuery(_p).width();
+  var plotHeight=jQuery(_p).height();
 
-document.getElementById('spinIconForRegion').style.display = "none";
+  var xcnt=x_data.length;
 
+  var z_list=[];
+  z_list.push(z_data);
+  var cnt=z_data.length;
+  var i;
+  var tmp=[];
+  for(i=0; i<cnt; i++) {
+     tmp.push(z_data[i]+500);
+  }
+  z_list.push(tmp);
+  
+
+  var data= [{
+//         x:x_data,
+//         y:y_data,
+           z:z_list,
+         type:'surface',
+         colorscale: 'Jet'
+         }];
+
+  var layout = {
+         width: plotWidth,
+         height: plotHeight,
+         paper_bgcolor: "#DDDDDD",
+         title: "GFM Data v1.0",
+         scene: { aspectratio : { x:1, y:1, z:0.5 }, },
+         margin: {
+             l: 10,
+             r: 10,
+             b: 10,
+             t: 60,
+           }
+         };
+
+Plotly.newPlot(plotID, data, layout);
 }

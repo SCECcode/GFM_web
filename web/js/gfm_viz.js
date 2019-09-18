@@ -1,3 +1,5 @@
+
+// generic original Material Property value from csv format
 var  initPlot_data=[]; // original data
 var  initPlot_label=[]; // original data's label
 
