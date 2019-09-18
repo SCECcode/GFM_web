@@ -41,7 +41,6 @@ $header=getHeader("Viewer")
 <script type="text/javascript" src="js/gfm_surface_plotly.js"></script>
 <script type="text/javascript" src="js/gfm_region.js"></script>
 <script type="text/javascript" src="js/gfm_ui.js"></script>
-<script type="text/javascript" src="js/gfm_iframe.js"></script>
 </head>
 <body>
 <?php echo $header; ?>
