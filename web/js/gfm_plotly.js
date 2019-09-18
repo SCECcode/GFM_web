@@ -6,9 +6,8 @@ function make3DScatterPlotForRegionID(plotID,x_data,y_data,z_data,id_data)
   var plotWidth=jQuery(_p).width();
   var plotHeight=jQuery(_p).height();
 
-window.console.log("for plot..",plotID);
-window.console.log("plotWidth..",plotID,"  ",plotWidth);
-window.console.log("plotHeight..",plotID,"  ",plotHeight);
+//window.console.log("plotWidth..",plotID,"  ",plotWidth);
+//window.console.log("plotHeight..",plotID,"  ",plotHeight);
  
   var x_list=[];
   var y_list=[];

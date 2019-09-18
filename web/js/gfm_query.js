@@ -56,7 +56,6 @@ function getValuesFromJsonBlob(plotID,ulabel,xstr, ystr, zstr, targetstr) {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             var str=processSearchResult("getValuesFromJsonBlob");
-            window.console.log("HERE...");
 // if in iframe, skip this, should really be one layer up
             if(plotID == "GFM_view") { // but don't plot it
               document.getElementById('plotbtn').style.display = "";

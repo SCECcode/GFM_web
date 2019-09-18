@@ -8,8 +8,6 @@ function plotMaterialProperty(plotID,datastr) {
   var z_data=datastr["Z"];
   var target_data=datastr["regionID"];
 
-  window.console.log("from the back...");
-
 //  make3DSurfacePlot(x_data,y_data,target_data);
   make3DScatterPlotForRegionID(plotID,x_data,y_data,z_data,target_data);
 
