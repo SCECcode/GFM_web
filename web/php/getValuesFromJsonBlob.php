@@ -18,12 +18,27 @@ $tlist=[];
 
 $fname="../result/GFM_".$ulabel.".json";
 $label="GFM_".$ulabel;
+
 $JSON = file_get_contents($fname);
 
-/* echo $fname;  */
+if (is_null($JSON)) {
+   echo "BAD file_get_contents";
+} 
+
+$val=json_decode($JSON, TRUE);
+
+if (!is_array($val)) {
+   echo "bad data...";
+   echo "<div data-side=\"getValuesFromJsonBlob\" data-params=\""; 
+   echo "ERROR, can not extract json value from ".$fname;
+   echo "\" style=\"display:flex\"></div>";
+   return;
+}
+
+$arrayIterator= new RecursiveArrayIterator($val);
 
 $jsonIterator = new RecursiveIteratorIterator(
-    new RecursiveArrayIterator(json_decode($JSON, TRUE)),
+    $arrayIterator,
     RecursiveIteratorIterator::SELF_FIRST);
 
 foreach ($jsonIterator as $key => $val) {

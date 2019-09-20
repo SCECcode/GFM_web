@@ -1,11 +1,17 @@
+/* tracking which ulabel is being setup to run */
+
 /*****MAIN*****/
 jQuery(document).ready(function() {
 
+  window.console.log("loading the iframe...");
   // cause data to be plotted into GFM_plot
+
   var ulabel=getParamValue('ulabel');
+  window.console.log("ulabel",ulabel);
 
-  getValuesFromJsonBlob("GFM_plot",ulabel,"X","Y","Z","regionID");
-
+  if(ulabel != "") {
+    getValuesFromJsonBlob("GFM_plot",ulabel,"X","Y","Z","regionID");
+  }
 })
 
 function getParamValue(pname)
@@ -18,5 +24,6 @@ function getParamValue(pname)
     if (pArr[0] == pname) 
         return pArr[1]; //return value
   }
+  return "";
 }
 

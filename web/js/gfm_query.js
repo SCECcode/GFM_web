@@ -56,15 +56,10 @@ function getValuesFromJsonBlob(plotID,ulabel,xstr, ystr, zstr, targetstr) {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             var str=processSearchResult("getValuesFromJsonBlob");
-// if in iframe, skip this, should really be one layer up
-            if(plotID == "GFM_view") { // but don't plot it
-              document.getElementById('plotbtn').style.display = "";
-// set iframe's src
-              $('#plotIfram').attr('src', "viz.html?ulabel="+ulabel);
-              } else {
 // XXX need to trigger a download then do the processing
-                plotMaterialProperty(plotID,str);
-            }
+//            window.console.log("set the src on iframe..first");
+//            $('#plotIfram').attr('src', "viz.html?ulabel="+ulabel);
+            plotMaterialProperty(plotID,str);
         }
     }
     xmlhttp.open("GET","php/getValuesFromJsonBlob.php?ulabel="+ulabel+"&xheader="+xstr+"&yheader="+ystr+"&zheader="+zstr+"&target="+targetstr, true);
@@ -109,10 +104,13 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
                document.getElementById("searchResult").innerHTML = hold_htmlstr;
                document.getElementById('spinIconForListProperty').style.display = "none";
 // create a download link to the actual data file
+               window.console.log("setup the download link...");
                document.getElementById('resultForMPQuery').innerHTML=linkDownload("GFM_"+ulabel+".json");
+               document.getElementById('plotbtn').style.display = "";
                setup_tables();
-// 
-               getValuesFromJsonBlob("GFM_view",ulabel,"X", "Y","Z","regionID");
+               window.console.log("wrap up last bit of ",ulabel);
+               set_ULABEL(ulabel);
+//               $('#plotIfram').attr('src', "viz.html?ulabel="+ulabel);
             }
        }
     }

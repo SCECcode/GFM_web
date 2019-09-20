@@ -56,7 +56,7 @@ function clearSearchResult()
     document.getElementById("searchResult").innerHTML = "";
 }
 
-// takes 2 sets of result
+// old one,takes 2 sets of result
 function makeResultTable(str)
 {
     var i;
@@ -112,7 +112,7 @@ window.console.log(JSON.stringify(blob));
          html=html+t;
          } else {
            // access unit/extra handling
-           var u=getUnitsWithLabelAndVal(key, parseInt(val1));
+           var u=getDescriptWithLabelAndVal(key, parseInt(val1));
            if(u == undefined)
               u="";
            var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20px\">"+val1+"</td><td style=\"width:30px\">"+u+"</td></tr>";
@@ -167,9 +167,15 @@ function makeHorizontalResultTable(str)
  
     for(i=0; i<sz; i++) {
         key=datakeys[i];
-        var u=getUnitsWithLabel(key);
-        if(u == undefined)
-           u="";
+        // special case
+        if(key == 'Z') { 
+          var zmodestr=document.getElementById("ZmodeTxt").value;
+          if(zmodestr == "e")
+              key=key+" (by<br>elevation)";
+          else
+              key=key+" (by<br>depth)";
+ 
+        }
         labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
     }
     labelline=labelline+"</tr>";
@@ -189,12 +195,6 @@ function makeHorizontalResultTable(str)
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
-/*
-            if( key2=='regionID') {
-               var u=getUnitsWithLabelAndVal(key2, parseInt(val2));
-               val2=val2+'<br>('+u+')';
-            }
-*/
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
          mpline=mpline+"</tr>";
@@ -249,6 +249,15 @@ function makeHorizontalResultTable_start(str)
  
     for(i=0; i<sz; i++) {
         key=datakeys[i];
+        // special case
+        if(key == 'Z') { 
+          var zmodestr=document.getElementById("ZmodeTxt").value;
+          if(zmodestr == "e")
+              key=key+" (by<br>elevation)";
+          else
+              key=key+" (by<br>depth)";
+ 
+        }
         labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
     }
     labelline=labelline+"</tr>";

@@ -3,6 +3,12 @@
 // x,y,z,target
 function plotMaterialProperty(plotID,datastr) {
 
+  window.console.log("calling PlotMaterialProperty..", plotID);
+  if(datastr == undefined) {
+    window.console.log(plotID,"ERROR, no datastr to plot with!!!\n");
+    return;
+  }
+
   var x_data=datastr["X"];
   var y_data=datastr["Y"];
   var z_data=datastr["Z"];

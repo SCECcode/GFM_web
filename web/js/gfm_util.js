@@ -3,6 +3,19 @@
 
 ***/
 
+var SAVE_ULABEL=0;
+var CHUNK_SIZE=20;
+
+function set_ULABEL(ulabel)
+{
+  SAVE_ULABEL=ulabel;
+}
+
+function get_ULABEL()
+{
+  return SAVE_ULABEL;
+}
+
 //https://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects-by-property
 /* sorting json blobs
 var homes = [
@@ -111,7 +124,7 @@ function readAndProcessLocalFile(fobj) {
     }
 
     var cnt=fdata.length;
-    var chunk_size=20;
+    var chunk_size=CHUNK_SIZE;
     var chunks=Math.ceil(cnt/chunk_size);
     if(chunks == 1)
        chunk_size=cnt;

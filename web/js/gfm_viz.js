@@ -4,6 +4,10 @@ var  initPlot_data=[]; // original data
 var  initPlot_label=[]; // original data's label
 
 function array_unique(array) {
+    if(array == undefined) {
+       window.console.log("ERROR: bad array_unique call");
+       return;
+    }
     var unique = [];
     for ( var i = 0 ; i < array.length ; ++i ) {
         if ( unique.indexOf(array[i]) == -1 )

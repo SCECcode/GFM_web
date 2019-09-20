@@ -48,32 +48,32 @@ var GFM_tb={
 /* Cyan */ {'id':40,'name':'San Gabriel','sliver':1,'state':1,'color':'#3090C7'},
 {'id':41,'name':'Above Ground','sliver':0,'state':1,'color':'#FFFFFF'} 
 ],
-"units": [
-{'id':'X','label':'X','units':'Input X (longitude or UTM coordinate)'},
-{'id':'Y','label':'Y','units':'Input Y (latitude or UTM coordinate)'},
-{'id':'Z','label':'Z','units':'Input Z (elevation, meters above sea level,ie.,positive up)<br>(depth, meters below surface, i.e., negative down)'},
-{'id':'utmX','label':'utmX','units':'UTM coordinate (zone 11), easting'},
-{'id':'utmY','label':'utmY','units':'UTM coordinate (zone 11), northing'},
-{'id':'elevX','label':'elevX','units':'X coordinate of center of the cell which provided data value for elevations'},
-{'id':'elevY','label':'elevY','units':'Y coordinate of center of the cell which provided data value for elevations'},
-{'id':'topo','label':'topo','units':'Topographic/bathymetric elevation in meters'},
-{'id':'mtop','label':'mtop','units':'Top of model in meters, below this depth there are data'},
-{'id':'base','label':'base','units':'Basement elevation in meters (generaly negative)'},
-{'id':'moho','label':'moho','units':'Moho elevation in meters (always negative)'},
-{'id':'src','label':'hr/lr/cm/nr','units':'Flag to indicate whetehr high-resolution(hr), low-resolution(lr) or <br>lower crust.mantle voxet was used(cm); or if no data available(nr)'},
-{'id':'cellX','label':'cellX','units':'X coordinate of center of cell which provided velocity data value'},
-{'id':'cellY','label':'cellY','units':'Y coordinate of center of cell which provided velocity data value'},
-{'id':'cellZ','label':'cellZ','units':'Z coordinate of center of cell which provided velocity data value'},
-{'id':'tg','label':'tg','units':'Provenance of data point'},
-{'id':'vp','label':'vp','units':'Compressional wave velocity in meters/sec'},
-{'id':'vs','label':'vs','units':'Shear wave velocity in meters/sec'},
-{'id':'rho','label':'rho','units':'Density in kg/m^3'},
-{'id':'regionID','label':'regionID','units':'ID of the geological framework model region name as defined in GFM v1.0 Region Name Table'},
-{'id':'temp','label':'temp','units':'GFM v1.0 Temperature in degree Celsius'}
+"descript": [
+{'id':'X','label':'X','descript':'Input X (longitude or UTM coordinate)'},
+{'id':'Y','label':'Y','descript':'Input Y (latitude or UTM coordinate)'},
+{'id':'Z','label':'Z','descript':'Input Z (elevation - meters above sea level. Positive numbers above sea-level)<br>(depth - meters below ground surface. Positive numbers below ground surface)'},
+{'id':'utmX','label':'utmX','descript':'UTM coordinate (zone 11), easting'},
+{'id':'utmY','label':'utmY','descript':'UTM coordinate (zone 11), northing'},
+{'id':'elevX','label':'elevX','descript':'X coordinate of center of the cell which provided data value for elevations'},
+{'id':'elevY','label':'elevY','descript':'Y coordinate of center of the cell which provided data value for elevations'},
+{'id':'topo','label':'topo','descript':'Topographic/bathymetric elevation in meters'},
+{'id':'mtop','label':'mtop','descript':'Top of model in meters, below this depth there are data'},
+{'id':'base','label':'base','descript':'Basement elevation in meters (generaly negative)'},
+{'id':'moho','label':'moho','descript':'Moho elevation in meters (always negative)'},
+{'id':'src','label':'hr/lr/cm/nr','descript':'Flag to indicate whetehr high-resolution(hr), low-resolution(lr) or <br>lower crust.mantle voxet was used(cm); or if no data available(nr)'},
+{'id':'cellX','label':'cellX','descript':'X coordinate of center of cell which provided velocity data value'},
+{'id':'cellY','label':'cellY','descript':'Y coordinate of center of cell which provided velocity data value'},
+{'id':'cellZ','label':'cellZ','descript':'Z coordinate of center of cell which provided velocity data value'},
+{'id':'tg','label':'tg','descript':'Provenance of data point'},
+{'id':'vp','label':'vp','descript':'Compressional wave velocity in meters/sec'},
+{'id':'vs','label':'vs','descript':'Shear wave velocity in meters/sec'},
+{'id':'rho','label':'rho','descript':'Density in kg/m^3'},
+{'id':'regionID','label':'regionID','descript':'ID of the geological framework model region name as defined in GFM v1.0 Region Name Table'},
+{'id':'temp','label':'temp','descript':'GFM v1.0 Temperature in degree Celsius'}
 ]};
 
 function makeParametersTable() {
-   var tb=GFM_tb['units'];
+   var tb=GFM_tb['descript'];
    var cnt=tb.length;
    var i;
    var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">CVMH+GFM v1.0 Parameters Table</th></tr></tbody></table>";
@@ -82,8 +82,8 @@ function makeParametersTable() {
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var label=item['id'];
-     var units=item['units'];
-     var t="<tr><td style=\"width:6vw\">"+label+"</td><td style=\"width:40vw\">"+units+"</td></tr>";
+     var descript=item['descript'];
+     var t="<tr><td style=\"width:6vw\">"+label+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
      tbhtml=tbhtml+t;
    }
    tbhtml=tbhtml+"</tbody></table></div>";
@@ -176,14 +176,14 @@ function setRegionStateWithID(id,state) {
 }
 
 
-function getUnitsWithLabel(label) {
-   var tb=GFM_tb['units'];
+function getDescriptWithLabel(label) {
+   var tb=GFM_tb['descript'];
    var cnt=tb.length;
    var i;
    for(i=0; i< cnt; i++) {
        var u=tb[i];
        if(u['id']==label) {
-          var n=u['units'];
+          var n=u['descript'];
           if(n == 'NA') 
             return undefined;
           return n;
@@ -193,8 +193,8 @@ function getUnitsWithLabel(label) {
    return undefined;
 }
 
-function getUnitsWithLabelAndVal(label,val) {
-   var tb=GFM_tb['units'];
+function getDescriptWithLabelAndVal(label,val) {
+   var tb=GFM_tb['descript'];
    var cnt=tb.length;
    var i;
    // special case for regionID
@@ -205,7 +205,7 @@ function getUnitsWithLabelAndVal(label,val) {
    for(i=0; i< cnt; i++) {
        var u=tb[i];
        if(u['id']==label) {
-          var n=u['units'];
+          var n=u['descript'];
           if(n == 'NA') 
             return undefined;
           return n;

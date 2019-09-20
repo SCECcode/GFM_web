@@ -23,6 +23,12 @@ jQuery(document).ready(function() {
     }
   });
 
+  $('#plotbtn').on('click', function() {
+     var ulabel=get_ULABEL();
+     window.console.log("plotbtn got clicked.. set src on iframe again"+ulabel);
+     $('#plotIfram').attr('src',"viz.html?ulabel="+ulabel);
+  });
+
 }) // end of MAIN
 
 
