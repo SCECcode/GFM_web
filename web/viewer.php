@@ -116,7 +116,9 @@ $header=getHeader("Viewer")
       <div class="row" id="fileQuery" style="margin:0 0 0 0;display:">
         <div class="row" style="margin:0 0 0 0;display:inline-block">
           <div class="row" id="resultForMPQuery" style="margin:0 0 0 0;display:inline-block"></div>
+<!--
           <button id="plotbtn" type="button" title="plot subset of region id"  class="gfm-top-small-btn" data-toggle="modal" data-target="#modalGM" style='border:none;display:none;'> <span class="glyphicon glyphicon-pencil"></span> </button>
+-->
         </div>
       </div>
     </div>
