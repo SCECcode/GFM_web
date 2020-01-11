@@ -62,13 +62,15 @@ $header=getHeader("Viewer")
       <div class="row">
        <button id="propertyBtn" class="btn gfm-top-btn" style="width:20vw;" title="get material property" onclick="propertyClick();">
        <span class="glyphicon glyphicon-star"></span> Query Material Property</button>
-       </div>
+       <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button>
+      </div>
     </div>
 
     <div class="row col-md-4 col-xs-4" style="display:inline-block;">
       <div class="row">
        <button id="regionBtn" class="btn gfm-top-btn" style="width:20vw" title="plot region data" onclick="plotRegionClick();">
        <span class="glyphicon glyphicon-star"></span> Plot GFM Regions</button>
+       <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalRegions"><span class="glyphicon glyphicon-info-sign"></span></button>
        <div id="spinIconForRegion" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
       </div>
     </div>
@@ -137,10 +139,12 @@ $header=getHeader("Viewer")
   <div id="phpResponseTxt"></div>
 </div> <!--- result block --->
 
+<!--- going into modal body
  <div class="row" id='tableBlock' style="margin:0px 0px 10px 0px; display:inline-block;">
   <div class="pull-left" id="parametersTable" style="display:inline-block"></div>
   <div class="pull-right" id="regionsTable" style="margin-left:3vw;display:inline-block;"></div>
-</div> <!--- result block --->
+</div> 
+--->
 
 <!--Modal: Name-->
 <div class="modal" id="modalGM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -158,28 +162,56 @@ $header=getHeader("Viewer")
   <div class="row col-12">
   <iframe id="plotIfram" src="" style="height:500px;width:100%;" frameborder="0" allowfullscreen> </iframe>
   </div>
-<!--
-
-<div id="map-container" class="z-depth-1-half map-container" style="height:500px">
-  <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" allowfullscreen></iframe>
-</div>
-
--->
-
       </div>
-
-<!--Footer
-
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal">Close</button>
-      </div>
--->
     </div>
-    <!--/.Content-->
-
   </div>
-</div>
-<!--Modal: Name-->
+</div> <!--Modal: Name-->
+
+<!--Modal: Parameters Table -->
+<div class="modal" id="modalParameters" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalParametersDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalParametersContent">
+      <!--Body-->
+      <div class="modal-body" id="modalParametersBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+
+ <div class="row col-12" id='parametersTableBlock-container' style="margin:0px 0px 10px 0px; display:inline-block;">
+  <div class="pull-left" id="parametersTable" style="display:inline-block"></div>
+</div> 
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: Regions Table -->
+<div class="modal" id="modalRegions" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalRegionsDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalRegionsContent">
+      <!--Body-->
+      <div class="modal-body" id="modalRegionsBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+
+ <div class="row col-12" id='regionTableBlock-container' style="margin:0px 0px 10px 0px; display:inline-block;">
+  <div class="pull-left" id="regionsTable" style="display:inline-block;"></div>
+</div> 
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
 
 </div><!-- container-fluid -->
 

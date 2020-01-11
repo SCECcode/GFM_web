@@ -2,23 +2,14 @@
    gfm_ui.js
 ***/
 
-var setup_tables_done=0;
-
 function setup_viewer() {
-// 
-    setup_tables_done=0;
-    document.getElementById('parametersTable').innerHTML='';
-    document.getElementById('regionsTable').innerHTML='';
+    setup_tables();
 }
 
 
 function setup_tables() {
-    if(setup_tables_done) { // just done it once.
-       return;
-    }
     document.getElementById('parametersTable').innerHTML=makeParametersTable();
     document.getElementById('regionsTable').innerHTML=makeRegionsTable();
-    setup_tables_done=1;
 }
 
 function plotRegionClick() {
@@ -149,6 +140,7 @@ function makeHorizontalResultTable(str)
     }
 
     html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
+	
     html=html+"<div class=\"gfm-table\"><table><tbody>";
 
     var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }

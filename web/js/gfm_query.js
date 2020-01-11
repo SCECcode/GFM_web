@@ -107,7 +107,6 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
                window.console.log("setup the download link...");
                document.getElementById('resultForMPQuery').innerHTML=linkDownload("GFM_"+ulabel+".json");
                document.getElementById('plotbtn').style.display = "";
-               setup_tables();
                window.console.log("wrap up last bit of ",ulabel);
                set_ULABEL(ulabel);
 //               $('#plotIfram').attr('src', "viz.html?ulabel="+ulabel);
@@ -144,8 +143,6 @@ function getMaterialPropertyByLatlon() {
                 var str=processSearchResult("getMaterialPropertyByLatlon");
                 document.getElementById("searchResult").innerHTML = makeHorizontalResultTable(str);
                 document.getElementById('spinIconForQuery').style.display = "none";
-                // display static tables
-                setup_tables();
             }
         }
         xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr, true);
