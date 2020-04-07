@@ -78,12 +78,12 @@ function makeParametersTable() {
    var i;
    var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">CVMH+GFM v1.0 Parameters Table</th></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:6vw\">Parameter</td><td style=\"width:40vw\">Description</td></tr>";
+   tbhtml=tbhtml+"<tr><td style=\"width:10vw\">Parameter</td><td style=\"width:45vw\">Description</td></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var label=item['id'];
      var descript=item['descript'];
-     var t="<tr><td style=\"width:6vw\">"+label+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
+     var t="<tr><td style=\"width:10vw\">"+label+"</td><td style=\"width:45vw\">"+descript+"</td></tr>";
      tbhtml=tbhtml+t;
    }
    tbhtml=tbhtml+"</tbody></table></div>";
@@ -97,13 +97,13 @@ function makeRegionsTable() {
    var i;
    var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">GFM v1.0 Region Name Table</th></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:5px\">ID</td><td style=\"width:18vw\">Region Name</td><td style=\"width:8px\">sliver</td></tr>";
+   tbhtml=tbhtml+"<tr><td style=\"width:5vw\">ID</td><td style=\"width:30vw\">Region Name</td><td style=\"width:8vw\">sliver</td></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var id=item['id']
      var name=item['name'];
      var sliver=item['sliver'];
-     var t="<tr><td style=\"width:5px\">"+id+"</td><td style=\"width:18vw\">"+name+"</td><td style=\"width:8px\">"+sliver+"</td></tr>";
+     var t="<tr><td style=\"width:5vw\">"+id+"</td><td style=\"width:30vw\">"+name+"</td><td style=\"width:8vw\">"+sliver+"</td></tr>";
      tbhtml=tbhtml+t;
    }
    tbhtml=tbhtml+"</tbody></table></div>";

@@ -176,10 +176,7 @@ $header=getHeader("Viewer")
       <!--Body-->
       <div class="modal-body" id="modalParametersBody">
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
-
- <div class="row col-12" id='parametersTableBlock-container' style="margin:0px 0px 10px 0px; display:inline-block;">
-  <div class="pull-left" id="parametersTable" style="display:inline-block"></div>
-</div> 
+          <div class="col-12" id="parametersTable" style="display:inline-block"></div>
         </div>
       </div>
       <div class="modal-footer justify-content-center">
@@ -199,10 +196,7 @@ $header=getHeader("Viewer")
       <!--Body-->
       <div class="modal-body" id="modalRegionsBody">
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
-
- <div class="row col-12" id='regionTableBlock-container' style="margin:0px 0px 10px 0px; display:inline-block;">
-  <div class="pull-left" id="regionsTable" style="display:inline-block;"></div>
-</div> 
+          <div class="col-12" id="regionsTable" style="display:inline-block;"></div>
         </div>
       </div>
       <div class="modal-footer justify-content-center">
