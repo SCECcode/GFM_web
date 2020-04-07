@@ -45,6 +45,8 @@ function selectLocalFiles(_urls) {
 function clearSearchResult()
 {
     document.getElementById("searchResult").innerHTML = "";
+    document.getElementById('resultForMPQuery').innerHTML="";
+    hold_htmlstr="";
 }
 
 // old one,takes 2 sets of result

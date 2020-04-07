@@ -132,6 +132,7 @@ function readAndProcessLocalFile(fobj) {
     // use timestamp as unique label
     var ulabel=$.now();
      
+    clearSearchResult();
     getMaterialPropertyByLatlonList(ulabel,fdata,0, chunks, chunk_size);
   };
   reader.readAsText(fobj);
