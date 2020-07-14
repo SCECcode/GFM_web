@@ -1,24 +1,23 @@
 <?php
-require_once("php/navigation.php");
+require_once(dirname(__FILE__)."/navigation.php");
 $header = getHeader("Contact");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="css/vendor/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/vendor/font-awesome.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="css/vendor/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="css/vendor/jquery-ui.css">
-    <link rel="stylesheet" href="css/vendor/glyphicons.css">
-    <link rel="stylesheet" href="css/gfm-ui.css">
-    <link rel="stylesheet" href="css/scec-ui.css">
+    <link rel="stylesheet" href="../../css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/vendor/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../../css/vendor/jquery-ui.css">
+    <link rel="stylesheet" href="../../css/vendor/glyphicons.css">
+    <link rel="stylesheet" href="../../css/gfm/ui.css">
+    <link rel="stylesheet" href="../../css/scec-ui.css">
 
-    <script type='text/javascript' src='js/vendor/popper.min.js'></script>
-    <script type='text/javascript' src='js/vendor/jquery.min.js'></script>
-    <script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
-    <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
+    <script type='text/javascript' src='../../js/vendor/jquery.min.js'></script>
+    <script type='text/javascript' src='../../js/vendor/bootstrap.min.js'></script>
+    <script type='text/javascript' src='../../js/vendor/jquery-ui.js'></script>
     <title>Geological Framework Viewer: Contact</title>
 </head>
 <body>
@@ -26,7 +25,7 @@ $header = getHeader("Contact");
 
 <div class="container info-page-container scec-main-container">
 
-    <h1>Contact</h1>
+    <h1 id="contact_page" >Contact</h1>
 
     <div>
         <p>

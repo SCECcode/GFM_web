@@ -13,12 +13,12 @@ Lon,Lat,Z,regionID,mediumTemperature
 // https://stackoverflow.com/questions/17303785/how-to-correctly-read-binary-floating-point-data-using-xmlhttprequest
 function plotCannedMaterialProperty() {
 
-  var url="http://localhost/~mei/gfm/data/complete_cvmh_canned.csv";
+  var url="http://localhost/~mei/gfm/data/gfm/complete_cvmh_canned.csv";
   if(window.location.hostname == "asperity.scec.org") {
-      url="http://asperity.scec.org/GFM_web/web/data/complete_cvmh_canned.csv";
+      url="http://asperity.scec.org/GFM_web/web/data/gfm/complete_cvmh_canned.csv";
   }
   if(window.location.hostname == "moho.scec.org") {
-      url="http://moho.scec.org/GFM_web/web/data/complete_cvmh_canned.csv";
+      url="http://moho.scec.org/GFM_web/web/data/gfm/complete_cvmh_canned.csv";
   }
 
   var urls = [];

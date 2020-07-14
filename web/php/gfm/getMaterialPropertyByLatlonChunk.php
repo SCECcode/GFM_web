@@ -5,6 +5,8 @@
 <body>
 
 <?php
+include ("declare.php");
+
 /* get string and then need to split and extract triplet out of them */
 $datastr = ($_GET['datastr']); 
 $zmode = ($_GET['zmode']);
@@ -14,10 +16,10 @@ $lastchunks = intVal($_GET['chunks'])-1;
 $skip = intVal($_GET['skip']);
 
 /* if chunkid == 0, it is first chunk, create 
-   the .json file in result/GFM_ulabel.json, 
+   the .json file in result/gfm/GFM_ulabel.json, 
    other ones, just 'append'               */
 
-$fname="../result/GFM_".$ulabel.".json";
+$fname="$GFM_WEB_LOC/result/GFM_".$ulabel.".json";
 if ($chunkid == 0) {
    $fp= fopen($fname,"w") or die("Unable to open file!");
    $start=" { \"GFM_".$ulabel."\": [";
@@ -41,14 +43,14 @@ for($i=0; $i< $set; $i++) {
   $z=$datalist[$idx+2];
 
   $lstr = "-l ".$lat.",".$lon.",".$z;
-  $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr;
+  $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g ".$lstr;
 
   if ($zmode == 'e') 
-     $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z elev ".$lstr;
+     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z elev ".$lstr;
   if ($zmode == 'd') 
-     $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z dep ".$lstr;
+     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z dep ".$lstr;
 
-  $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr;
+  $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g ".$lstr;
 
   $result = exec(escapeshellcmd($query), $retval, $status);
 

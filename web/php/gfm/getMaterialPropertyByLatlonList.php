@@ -5,6 +5,9 @@
 <body>
 
 <?php
+
+include ("declare.php");
+
 /* get string and then need to split and extract triplet out of them */
 $datastr = ($_GET['datastr']); 
 $zmode = ($_GET['zmode']);
@@ -24,14 +27,14 @@ for($i=0; $i< $set; $i++) {
   $z=$datalist[$idx+2];
 
   $lstr = "-l ".$lat.",".$lon.",".$z;
-  $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr;
+  $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g ".$lstr;
 
   if ($zmode == 'e') 
-     $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z elev ".$lstr;
+     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z elev ".$lstr;
   if ($zmode == 'd') 
-     $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z dep ".$lstr;
+     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z dep ".$lstr;
 
-  $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr;
+  $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g ".$lstr;
 
   $result = exec(escapeshellcmd($query), $retval, $status);
 

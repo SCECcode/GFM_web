@@ -152,6 +152,18 @@ function getRegionColorWithID(id) {
    return undefined;
 }
 
+function getRegionColorWithName(name) {
+   var tb=GFM_tb['regions'];
+   var cnt=tb.length;
+   var i;
+   for(i=0; i<cnt;i++) {
+      var region=tb[i];
+      if(region['name'] == name) 
+        return region['color'];
+   }
+   return undefined;
+}
+
 function getRegionStateWithID(id) {
    var tb=GFM_tb['regions'];
    var cnt=tb.length;

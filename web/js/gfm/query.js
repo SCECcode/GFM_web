@@ -62,7 +62,7 @@ function getValuesFromJsonBlob(plotID,ulabel,xstr, ystr, zstr, targetstr) {
             plotMaterialProperty(plotID,str);
         }
     }
-    xmlhttp.open("GET","php/getValuesFromJsonBlob.php?ulabel="+ulabel+"&xheader="+xstr+"&yheader="+ystr+"&zheader="+zstr+"&target="+targetstr, true);
+    xmlhttp.open("GET","php/gfm/getValuesFromJsonBlob.php?ulabel="+ulabel+"&xheader="+xstr+"&yheader="+ystr+"&zheader="+zstr+"&target="+targetstr, true);
     xmlhttp.send();
 }
 
@@ -112,7 +112,7 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
             }
        }
     }
-    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&ulabel="+ulabel+"&chunks="+total_chunks+"&skip="+skip, true);
+    xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&ulabel="+ulabel+"&chunks="+total_chunks+"&skip="+skip, true);
     xmlhttp.send();
 }
 
@@ -144,7 +144,7 @@ function getMaterialPropertyByLatlon() {
                 document.getElementById("searchResult").innerHTML = makeHorizontalResultTable(str);
             }
         }
-        xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr, true);
+        xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr, true);
         xmlhttp.send();
     }
 }
@@ -165,7 +165,7 @@ function getCannedMaterialProperty() {
             document.getElementById('spinIconForRegion').style.display = "none";
         }
     }
-    xmlhttp.open("GET","php/getMaterialPropertyByCan.php",true);
+    xmlhttp.open("GET","php/gfm/getMaterialPropertyByCan.php",true);
     xmlhttp.send();
 }
 

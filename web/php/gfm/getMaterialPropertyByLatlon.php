@@ -5,17 +5,20 @@
 <body>
 
 <?php
+
+include ("declare.php");
+
 $lat = ($_GET['lat']);
 $lon = ($_GET['lon']);
 $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 
 $lstr = "-l ".$lat.",".$lon.",".$z;
-$query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g ".$lstr;
+$query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g ".$lstr;
 if ($zmode == 'e') 
-     $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z elev ".$lstr;
+     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z elev ".$lstr;
 if ($zmode == 'd') 
-     $query="../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g "."-z dep ".$lstr;
+     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z dep ".$lstr;
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 

@@ -1,5 +1,5 @@
 <?php
-require_once("php/navigation.php");
+require_once(dirname(__FILE__)."/navigation.php");
 $header=getHeader("Viewer")
 ?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
@@ -18,7 +18,7 @@ $header=getHeader("Viewer")
 <link rel="stylesheet" href="css/vendor/glyphicons.css">
 <link rel="stylesheet" href="css/vendor/animation.css">
 <link rel="stylesheet" href="css/vendor/fontello.css">
-<link rel="stylesheet" href="css/gfm-ui.css">
+<link rel="stylesheet" href="css/gfm/ui.css">
 <link rel="stylesheet" href="css/scec-ui.css">
 
 <script type="text/javascript" src="js/vendor/plotly.js"></script>
@@ -32,20 +32,27 @@ $header=getHeader("Viewer")
 
 <!-- gfm js -->
 <script type="text/javascript" src="js/debug.js"></script>
-<script type="text/javascript" src="js/gfm_util.js"></script>
-<script type="text/javascript" src="js/gfm_main.js"></script>
-<script type="text/javascript" src="js/gfm_query.js"></script>
-<script type="text/javascript" src="js/gfm_viz.js"></script>
-<script type="text/javascript" src="js/gfm_plotGFM.js"></script>
-<script type="text/javascript" src="js/gfm_plotly.js"></script>
-<script type="text/javascript" src="js/gfm_surface_plotly.js"></script>
-<script type="text/javascript" src="js/gfm_region.js"></script>
-<script type="text/javascript" src="js/gfm_ui.js"></script>
+<script type="text/javascript" src="js/gfm/util.js"></script>
+<script type="text/javascript" src="js/gfm/main.js"></script>
+<script type="text/javascript" src="js/gfm/query.js"></script>
+<script type="text/javascript" src="js/gfm/viz.js"></script>
+<script type="text/javascript" src="js/gfm/plotGFM.js"></script>
+<script type="text/javascript" src="js/gfm/plotly.js"></script>
+<script type="text/javascript" src="js/gfm/surface_plotly.js"></script>
+<script type="text/javascript" src="js/gfm/region.js"></script>
+<script type="text/javascript" src="js/gfm/ui.js"></script>
 </head>
 <body>
 <?php echo $header; ?>
 
 <div class="container main container-fluid">
+
+    <div class="spinDialog" style="position:absolute;top:40%;left:50%; z-index:9999;">
+        <div id="spinIconForRegion" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+        <div id="spinIconForQuery" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+        <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+    </div>
+
   <div class="row">
 	<div class="col-12">
 <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1 and GFM v1.0 and also generate a 3D visualization of the Geological Framework model.</p>
@@ -62,14 +69,15 @@ $header=getHeader("Viewer")
       <div class="row">
        <button id="propertyBtn" class="btn gfm-top-btn" style="width:20vw;" title="get material property" onclick="propertyClick();">
        <span class="glyphicon glyphicon-star"></span> Query Material Property</button>
-       </div>
+       <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button>
+      </div>
     </div>
 
     <div class="row col-md-4 col-xs-4" style="display:inline-block;">
       <div class="row">
        <button id="regionBtn" class="btn gfm-top-btn" style="width:20vw" title="plot region data" onclick="plotRegionClick();">
        <span class="glyphicon glyphicon-star"></span> Plot GFM Regions</button>
-       <div id="spinIconForRegion" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+       <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalRegions"><span class="glyphicon glyphicon-info-sign"></span></button>
       </div>
     </div>
 
@@ -102,24 +110,24 @@ $header=getHeader("Viewer")
       <div class="row">
        <button id="queryBtn" class="btn gfm-top-btn" title="get material property" onclick="queryClick();">
        <span class="glyphicon glyphicon-star"></span> Query</button>
-       <div id="spinIconForQuery" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
        </div>
     </div>
   </div><!--- pointBlock --->
 
-  <div class="row col-md-4 col-xs-4" id="fileBlock" style="margin-top:1vw; display:none"><!---XXX--->
+  <div class="row col-md-6 col-xs-6" id="fileBlock" style="margin-top:1vw; display:none"><!---XXX--->
     <div class="row">
       <input id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
-      <button id="selectbtn" class="btn gfm-top-btn" style="width:20vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
+      <button id="selectbtn" class="btn gfm-top-btn" style="width:23vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
            <span class="glyphicon glyphicon-file"></span> Select file to open for query</button>
-     <div id="spinIconForListProperty" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+       <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
+
       <div class="row" id="fileQuery" style="margin:0 0 0 0;display:">
+<!--
         <div class="row" style="margin:0 0 0 0;display:inline-block">
           <div class="row" id="resultForMPQuery" style="margin:0 0 0 0;display:inline-block"></div>
-<!--
-          <button id="plotbtn" type="button" title="plot subset of region id"  class="gfm-top-small-btn" data-toggle="modal" data-target="#modalGM" style='border:none;display:none;'> <span class="glyphicon glyphicon-pencil"></span> </button>
--->
         </div>
+-->
+
       </div>
     </div>
   </div><!--- fileBlock --->
@@ -128,58 +136,101 @@ $header=getHeader("Viewer")
 
 </div><!--- queryBlock --->
 
- <div class="row" style="margin:10px 0px 10px 0px;width:90%;height:50%;" >
+ <div class="row" style="margin:10px 0px 10px 0px;width:100%;height:50%;" >
   <div class="row" id='GFM_view' style="margin:0px 0px 10px 0px;background-color:#DDDDDD;width:100%;height:100%;top:30vh;"></div>
  </div>
 
- <div class="row" id='resultBlock' style="margin:20px 0px 10px 0px;">
-  <div id="searchResult" class="table-responsive"></div>
+ <div class="row" id='resultBlock' style="margin:10px 0px 10px 0px;">
+   <div class="row col-10"
+     <div class="row" style="margin:0 0 0 0;display:inline-block">
+          <div class="row" id="resultForMPQuery" style="margin:0 0 0 0;display:inline-block"></div>
+     </div>
+     <div id="searchResult" class="table-responsive"></div>
+  </div>
   <div id="phpResponseTxt"></div>
 </div> <!--- result block --->
 
+<!--- going into modal body
  <div class="row" id='tableBlock' style="margin:0px 0px 10px 0px; display:inline-block;">
   <div class="pull-left" id="parametersTable" style="display:inline-block"></div>
   <div class="pull-right" id="regionsTable" style="margin-left:3vw;display:inline-block;"></div>
-</div> <!--- result block --->
+</div> 
+--->
 
-<!--Modal: Name-->
-<div class="modal" id="modalGM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+<!--Modal: Parameters Table -->
+<div class="modal" id="modalParameters" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalParametersDialog" role="document">
 
     <!--Content-->
-    <div class="modal-content">
-      <!--Header-->
-      <div class="modal-header">
+    <div class="modal-content" id="modalParametersContent">
+      <!--Body-->
+      <div class="modal-body" id="modalParametersBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="parametersTable" style="display:inline-block"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: Regions Table -->
+<div class="modal" id="modalRegions" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalRegionsDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalRegionsContent">
       <!--Body-->
-      <div class="modal-body">
-  <div class="row col-12">
-  <iframe id="plotIfram" src="" style="height:500px;width:100%;" frameborder="0" allowfullscreen> </iframe>
-  </div>
-<!--
-
-<div id="map-container" class="z-depth-1-half map-container" style="height:500px">
-  <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" allowfullscreen></iframe>
-</div>
-
--->
-
+      <div class="modal-body" id="modalRegionsBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="regionsTable" style="display:inline-block;"></div>
+        </div>
       </div>
-
-<!--Footer
-
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal">Close</button>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
--->
-    </div>
-    <!--/.Content-->
 
+    </div> <!--Content-->
   </div>
-</div>
-<!--Modal: Name-->
+</div> <!--Modal: Name-->
+
+<!--Modal: ModelType -->
+<div class="modal" id="modalFile" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalfileDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalfileContent">
+      <!--Body-->
+      <div class="modal-body" id="modalfileBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+
+          <div class="col-12" id="file-container">
+<p>
+Format of input file :
+<pre>
+      lon1 lat1 z1
+      lon2 lat2 z1
+
+or
+      lon1,lat1,z1
+      lon2.lat2,z1
+
+</pre>
+
+</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
 
 </div><!-- container-fluid -->
 

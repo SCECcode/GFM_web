@@ -5,8 +5,9 @@
 <body>
 
 <?php
+include ("declare.php");
 
-$cmd = 'cat ../data/cvmh_canned.csv';
+$cmd = 'cat $GFM_WEB_LOC/data/gfm/cvmh_canned.csv';
 $resultstring = system(escapeshellcmd($cmd));
 
 print $resultstring;

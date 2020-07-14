@@ -6,7 +6,6 @@ function setup_viewer() {
     setup_tables();
 }
 
-
 function setup_tables() {
     document.getElementById('parametersTable').innerHTML=makeParametersTable();
     document.getElementById('regionsTable').innerHTML=makeRegionsTable();
@@ -123,7 +122,7 @@ function makeHorizontalResultTable(str)
 {
     var i;
     var blob;
-    if( str == undefined || str == "" ) {
+    if( str == undefined || str == "" || str['mp'] == "" ) {
        window.console.log("ERROR: no return result");
        return "";
     }

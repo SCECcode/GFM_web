@@ -5,6 +5,8 @@
 <body>
 
 <?php
+include ("declare.php");
+
 $ulabel = ($_GET['ulabel']);
 $xheader = ($_GET['xheader']);
 $yheader = ($_GET['yheader']);
@@ -16,7 +18,7 @@ $ylist=[];
 $zlist=[];
 $tlist=[];
 
-$fname="../result/GFM_".$ulabel.".json";
+$fname="$GFM_WEB_LOC/result/GFM_".$ulabel.".json";
 $label="GFM_".$ulabel;
 
 $JSON = file_get_contents($fname);
