@@ -20,14 +20,14 @@ function getHeader($this_page) {
 
         if( $bcwd == $dirbase) {
 	$all_pages = [
-		"../../gfm_viewer.php" => "Viewer",
+		"../../viewer.php" => "Viewer",
 		"disclaimer.php" => "Disclaimer",
 		"contact.php" => "Contact"
 	];
         $scec_img_png="../../img/sceclogo_transparent.png";
         } else {
 	$all_pages = [
-		"gfm_viewer.php" => "Viewer",
+		"viewer.php" => "Viewer",
 		"site/gfm/disclaimer.php" => "Disclaimer",
 		"site/gfm/contact.php" => "Contact"
 	];
