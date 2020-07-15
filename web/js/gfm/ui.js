@@ -203,7 +203,6 @@ function makeHorizontalResultTable_chunk(uid,str)
     }
 
     // now adding the data part..
-    var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
 
     for(j=0; j< dsz; j++) {
         var datablob=blob[dkeys[j]];
@@ -212,6 +211,7 @@ function makeHorizontalResultTable_chunk(uid,str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
+        var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];

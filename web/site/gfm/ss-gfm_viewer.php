@@ -1,6 +1,5 @@
 <?php
-ini_set('include_path','site/gfm');
-require_once("navigation.php");
+require_once(dirname(__FILE__)."/navigation.php");
 $header=getHeader("Viewer")
 ?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
@@ -30,9 +29,9 @@ $header=getHeader("Viewer")
 
 <script type="text/javascript" src="js/vendor/leaflet.js"></script>
 <script type='text/javascript' src='js/vendor/leaflet.awesome-markers.js'></script>
+<script type='text/javascript' src='js/vendor/popper.min.js'></script>
 <script type='text/javascript' src='js/vendor/jquery.min.js'></script>
 <script type='text/javascript' src='js/vendor/jquery.csv.js'></script>
-<script type='text/javascript' src='js/vendor/popper.min.js'></script>
 <script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
 <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
 <script type='text/javascript' src='js/vendor/ersi-leaflet.js'></script>
@@ -115,10 +114,6 @@ $header=getHeader("Viewer")
            <span id="gfm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
         <button class="btn gfm-small-btn" title="display CRM regions" onclick='toggleShowCRM()'>
            <span id="gfm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>CRM</button>
-
-        <button class="btn gfm-small-btn" title="display GFM 3D regions" onclick='plotRegionClick()' data-toggle="modal" data-target="#modal3DPoint">
-           <span id="regionBtn" class="glyphicon glyphicon-ok-sign"></span>GFM3d</button>
-           <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalRegions"><span class="glyphicon glyphicon-info-sign"></span></button>
     </div>
 
     <div class="row" style="display:none;">
@@ -127,119 +122,104 @@ $header=getHeader("Viewer")
         </div>
     </div>
 
-    <div id="content-container" class="row" style="border:1px solid green">
-        <div id="control-container" class="col-5" style="border:1px solid red">
-          <div class="col-12">
-            <div class="input-group filters mb-1 mt-1">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="zModeType" >Select Z Mode</label>
-                </div>
-                <select id="ZmodeTxt" class="custom-select">
-                    <option value="e">Elevation</option>
-                    <option value="d">Depth</option>
-                </select>&nbsp;<button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalzm"><span class="glyphicon glyphicon-info-sign"></span></button>
-            </div> <!-- z mode select -->
-            <div class="col input-group" style="background:whitesmoke;">
-                <div class="row mt-1">
-                  <div class="col-12">
-                    <p>Pick a point on the map, or enter latitude, longitude and Z value below or upload a file with LatLngs and matching Z values.</p>
-                  </div>
-                </div>
-                <div class="row d-flex">
-                  <div class="col-5 pr-0">
-                      <input type="text"
-                              id="LatTxt"
-                              placeholder="Latitude"
-                              title="lat"
-                              value="34.30"
-                              onfocus="this.value=''"
-                              class="form-control">
-                      <input type="text" 
-                              id="LonTxt" 
-                              placeholder="Longitude" 
-                              title="lon"
-                              value="-119.20"
-                              onfocus="this.value=''" 
-                              class="form-control mt-1">
-                  </div>
-                  <div class="col-5 pr-0">
-                       <input type="text" 
-                              id="ZTxt" 
-                              placeholder="Z" 
-                              title="Z"
-                              value="-9700"
-                              onfocus="this.value=''" 
-                              class=" form-control">
-                       <input type="text"
-                              id="UIDTxt" 
-                              placeholder="UID" 
-                              title="Uniqued ID"
-                              onfocus="this.value=''" 
-                              class="form-control mt-1" style="display:none">
-                  </div>
-                  <div class="col-2 pl-1">
-                        <button id="pointBtn" type="button" title="query with latlon"
-                          class="btn btn-default gfm-small-btn " onclick="queryClick()">
-                          <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                  </div>
-                </div>
-                <div class="row d-flex mt-2">
-                  <div class="col-10 pr-1 mb-2">
-                    <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
-                    <button id="selectbtn" class="btn gfm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
-                    <span class="glyphicon glyphicon-file"></span> Select file to use</button>
-<button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
-<!--
-                    <div class="row" id="fileQuery" style="margin:0 0 0 0;display:"></div>
--->
-                  </div>
-                  <div class="col-2 pr-1">
-                    <button onclick="resetAll();" class="btn btn-dark pl-4 pr-4" type="button">Reset</button>
-                  </div>
-                </div>
-            </div> <!-- latlon/file input/reset --> 
-            <div class="col input-group" style="border:1px solid blue">
-                <div class="row mt-1">
-                  <div class="row col-md-12 ml-auto" style="overflow:hidden;">
-<!-- XXX --->
-                      <div class="col-12" id="GFM_Table"></div>
-                  </div>
-                </div>
-            </div> <!-- GFM/CRM all regions -->
-          </div>
-        </div> <!-- control-container -->
+  <div class="row" id="controlBlock" style="margin:10px 0px 30px 0px; width:100%;display:flex;">
+    <div class="row col-md-4 col-xs-4" style="margin:0px 0px 0px 50px;display:inline-block;">
+      <div class="row">
+       <button id="propertyBtn" class="btn gfm-top-btn" style="width:20vw;" title="get material property" onclick="propertyClick();">
+       <span class="glyphicon glyphicon-star"></span> Query Material Property</button>
+      </div>
+    </div>
 
-        <div id="map-container" class="col-7">
-            <div class="col-8 d-flex offset-4 align-items-end mb-1">
-                <div class="input-group input-group-sm" id="map-controls">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="mapLayer">Select Map Type</label>
-                    </div>
-                    <select id="mapLayer" class="custom-select custom-select-sm" onchange="switchBaseLayer(this.value);">
-                        <option selected value="esri topo">ESRI Topographic</option>
-                        <option value="esri NG">ESRI National Geographic</option>
-                        <option value="esri imagery">ESRI Imagery</option>
-                        <option value="otm topo">OTM Topographic</option>
-                        <option value="osm street">OSM Street</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row mapData">
-                <div class="col-12 pr-0 pl-2 pt-1 ">
-                    <div class="row w-100 mb-1" id='GFM_plot'
-                         style="position:relative;border:solid 1px #ced4da; height:576px;"></div>
-                </div>
-            </div>
-        </div> <!-- map-container -->
-        <div id="result-container" class="col-12">
-            <div class="row" id="mp-table">
-                <div class="col-12" id="materialProperty-header-container">
+    <div class="row col-md-4 col-xs-4" style="display:inline-block;">
+      <div class="row">
+       <button id="regionBtn" class="btn gfm-top-btn" style="width:20vw" title="plot region data" onclick="plotRegionClick();" data-toggle="modal" data-target="#modal3DPoint">
+       <span class="glyphicon glyphicon-star"></span> Plot GFM Regions</button>
+       <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalRegions"><span class="glyphicon glyphicon-info-sign"></span></button>
+      </div>
+    </div>
+
+   </div> <!-- controlBlock -->
+
+<div class="row" id="queryBlock" style="margin:0px 0px 0px 0px; width:100%; display:none;">
+
+   <div class="row col-md-10 col-xs-10" style="margin:0px 0px 0px 10px;display:inline-block;">
+
+   <div class="row" style="display:inline-block"> Zmode:
+      <select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+	     <option value="e">Elevation</option>
+	     <option value="d">Depth</option>
+       </select>
+   </div>
+
+   <div class="row" style="display:inline-block; margin-left:3vw"> Query mode:
+      <select id="QuerymodeTxt" title="how to query" class="custom-select custom-select-sm" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+	     <option value="point"> Point</option>
+	     <option value="file"> File</option>
+       </select>
+   </div>
+
+  <div class="row col-md-12 col-xs-12" id="pointBlock" style="margin-top:1vw;display:"> <!---X--->
+   <div class="row"> Lat:<input type="text" id="LatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+ &nbsp;&nbsp;Lon:<input type="text" id="LonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+&nbsp;&nbsp;Z:<input type="text" id="ZTxt" title="Z" value="-9700" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+    </div>
+    <div class="row col-md-4 col-xs-4" style="margin:0px 0px 0px 50px;display:inline-block;">
+      <div class="row">
+       <button id="queryBtn" class="btn gfm-top-btn" title="get material property" onclick="queryClick();">
+       <span class="glyphicon glyphicon-star"></span> Query</button>
+       </div>
+    </div>
+  </div><!--- pointBlock --->
+
+  <div class="row col-md-6 col-xs-6" id="fileBlock" style="margin-top:1vw; display:none"><!---X--->
+    <div class="row">
+      <input id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
+      <button id="selectbtn" class="btn gfm-top-btn" style="width:23vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
+           <span class="glyphicon glyphicon-file"></span> Select file to open for query</button>
+       <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
+
+      <div class="row" id="fileQuery" style="margin:0 0 0 0;display:">
+<!--
+        <div class="row" style="margin:0 0 0 0;display:inline-block">
+          <div class="row" id="resultForMPQuery" style="margin:0 0 0 0;display:inline-block"></div>
+        </div>
+-->
+
+      </div>
+    </div>
+  </div><!--- fileBlock --->
+
+  </div>
+
+</div><!--- queryBlock --->
+
+ <div class="row" style="margin:10px 0px 10px 0px;width:100%;height:50%;" >
+  <div class="row" id='GFM2_view' style="margin:0px 0px 10px 0px;background-color:#DDDDDD;width:100%;height:100%;top:30vh;"></div>
+ </div>
+
+ <div class="row" id='resultBlock' style="margin:10px 0px 10px 0px;">
+
+   <div class="row col-10"
+     <div class="row" style="margin:0 0 0 0;display:inline-block">
+          <div class="row" id="resultForMPQuery" style="margin:0 0 0 0;display:inline-block"></div>
+     </div>
+  </div>
+<!-- XXX -->
+       <div class="row" id="mp-table">
+               <div class="col-12" id="materialProperty-header-container">
                     <table id="mpHeaderTable" style="border:none">
                         <tbody>
                         <tr>
                             <td style="border:none"><b>Material Property</b>
                               <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+                            <td align="right" style="border:none" title="process mp table">
+                              <div>
+                                <button class="btn gfm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
+                                    <ul id='processMPTableList' class="dropdown-menu list-inline" role="menu">
+                                        <li data-id='s' hidden >Save All</li>
+                                        <li id='mpCollapseLi' data-id='c'>Collapse</li>
+                                    </ul>
+                              </div></td>
                         </tr>
                         </tbody>
                     </table>
@@ -253,35 +233,15 @@ $header=getHeader("Viewer")
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div id="searchResult" class="table-responsive"></div>
-            <div id="phpResponseTxt"></div>
+     </div>
 
-        </div> <!-- result-container -->
-    </div> <!-- content-container -->
+
+
+  <div id="searchResult" class="table-responsive"></div>
+  <div id="phpResponseTxt"></div>
+</div> <!--- result block --->
 
 </div> <!-- container main -->
-
-<!--Modal: ZMode -->
-<div class="modal" id="modalzm" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalzmDialog" role="document">
-
-    <!--Content-->
-    <div class="modal-content" id="modalzmContent">
-      <!--Body-->
-      <div class="modal-body" id="modalzmBody">
-        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
-          <div class="col-12" id="ZModeTable"></div>
-        </div>
-      </div>
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-    </div> <!--Content-->
-  </div>
-</div> <!--Modal: Name-->
-
 
 <!--Modal: Parameters Table -->
 <div class="modal" id="modalParameters" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
