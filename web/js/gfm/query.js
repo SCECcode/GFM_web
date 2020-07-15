@@ -2,7 +2,6 @@
    gfm_query.js
 
 ***/
-var hold_htmlstr="";
 //
 // get a data array
 //    [[lat1,lon1,z1],...,[latn,lonn,zn]]
@@ -70,8 +69,8 @@ function getValuesFromJsonBlob(plotID,ulabel,xstr, ystr, zstr, targetstr) {
 
 // to be called by getMaterialPropertyByLatlonList
 function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
-    if(current_chunk == 0)
-        clearSearchResult();
+    var uid=99;
+    window.console.log("ulabel is..",ulabel);
     // extract content of a file
     var zmodestr=document.getElementById("ZmodeTxt").value;
     if (window.XMLHttpRequest) {
@@ -87,21 +86,16 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
             var str=processSearchResult("getMaterialPropertyByLatlonChunk");
            
             if(current_chunk==0) { // first one
-               htmlstr = makeHorizontalResultTable_start(str);
-               hold_htmlstr=hold_htmlstr+htmlstr;
+               makeHorizontalResultTable_chunk(uid,str);
                getMaterialPropertyByLatlonList(ulabel,dataarray, current_chunk+1, total_chunks, chunk_step);
             } else {
 // try to limit the size of the table..
                if( current_chunk < MAX_CHUNKS_TO_DISPLAY) {
-                   htmlstr = makeHorizontalResultTable_next(str);
-                   hold_htmlstr=hold_htmlstr+htmlstr;
+                   makeHorizontalResultTable_chunk(uid,str);
                } 
                getMaterialPropertyByLatlonList(ulabel,dataarray, current_chunk+1, total_chunks, chunk_step);
             }
             if(current_chunk==(total_chunks-1)) { // last one
-               htmlstr=makeHorizontalResultTable_last();
-               hold_htmlstr=hold_htmlstr+htmlstr;
-               document.getElementById("searchResult").innerHTML = hold_htmlstr;
                document.getElementById('spinIconForListProperty').style.display = "none";
 // create a download link to the actual data file
                window.console.log("setup the download link...");
@@ -119,7 +113,7 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
 
 // get material property blob by lat lon z zmode
 function getMaterialPropertyByLatlon() {
-    clearSearchResult();
+    var uid=999;
     var latstr=document.getElementById("LatTxt").value;
     var lonstr=document.getElementById("LonTxt").value;
     var zstr=document.getElementById("ZTxt").value;
@@ -141,7 +135,7 @@ function getMaterialPropertyByLatlon() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 document.getElementById('spinIconForQuery').style.display ="none";
                 var str=processSearchResult("getMaterialPropertyByLatlon");
-                document.getElementById("searchResult").innerHTML = makeHorizontalResultTable(str);
+                document.getElementById("searchResult").innerHTML = makeHorizontalResultTable(uid,str);
             }
         }
         xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr, true);
@@ -150,7 +144,6 @@ function getMaterialPropertyByLatlon() {
 }
 
 function getCannedMaterialProperty() {
-    clearSearchResult();
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();

@@ -43,10 +43,20 @@ th {text-align: left;}
           display: inline-block;
           }
 
+.pick-btn {
+       animation: glowing 5000ms infinite;
+      }
+
 .gfm-small-btn {
-          background: #D5D5D5; 
-          color: black;
-          border: none; 
+          background: transparent;
+          color: #990000;
+          border: none;
+          display: inline-block;
+          }
+
+.gfm-small-btn:hover {
+          color: #DC3545;
+          border: none;
           display: inline-block;
           }
 

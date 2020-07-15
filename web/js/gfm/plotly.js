@@ -1,14 +1,17 @@
 // id_data is regionID
 function make3DScatterPlotForRegionID(plotID,x_data,y_data,z_data,id_data) 
 {
-
-  var _p="#"+plotID;
-  var plotWidth=jQuery(_p).width();
-  var plotHeight=jQuery(_p).height();
-
-window.console.log("plotWidth..",plotID,"  ",plotWidth);
-window.console.log("plotHeight..",plotID,"  ",plotHeight);
  
+  var _p="#"+plotID;
+
+  var frameHeight=window.innerHeight;
+  var frameWidth=window.innerWidth;
+  var viewHeight = jQuery("#viewPort").height();
+  var viewWidth = jQuery("#viewPort").width();
+
+  var plotWidth=Math.ceil(viewWidth * 0.9);
+  var plotHeight= Math.ceil(plotWidth * 0.7);
+
   var x_list=[];
   var y_list=[];
   var z_list=[];
@@ -72,6 +75,8 @@ window.console.log("plotHeight..",plotID,"  ",plotHeight);
      data.push(v);
   }
 
+window.console.log("width ", plotWidth);
+window.console.log("height ", plotHeight);
 var layout = {
   width: plotWidth,
   height: plotHeight,

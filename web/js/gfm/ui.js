@@ -1,6 +1,9 @@
 /***
    gfm_ui.js
 ***/
+// global flag to show if material property is at the very start of
+// insert
+var hold_mptable=1;
 
 function setup_viewer() {
     setup_tables();
@@ -9,6 +12,7 @@ function setup_viewer() {
 function setup_tables() {
     document.getElementById('parametersTable').innerHTML=makeParametersTable();
     document.getElementById('regionsTable').innerHTML=makeRegionsTable();
+    document.getElementById('ZModeTable').innerHTML=makeZModeTable();
 }
 
 function plotRegionClick() {
@@ -41,84 +45,28 @@ function selectLocalFiles(_urls) {
     }
 }
 
-function clearSearchResult()
-{
-    document.getElementById("searchResult").innerHTML = "";
-    document.getElementById('resultForMPQuery').innerHTML="";
-    hold_htmlstr="";
+function resetAll() {
+  refreshTxtInput();
+  refreshHorizontalResultTable();
+  document.getElementById("phpResponseTxt").innerHTML = "";
 }
 
-// old one,takes 2 sets of result
-function makeResultTable(str)
-{
-    var i;
-    var blob;
-    if( str == undefined || str == "" ) {
-       window.console.log("ERROR: no return result");
-       return "";
-    }
-    if( typeof str === 'string') { 
-       blob=JSON.parse(str);
-       } else {
-         blob=str;
-    }
-
-    var keys=Object.keys(blob);
-    var sz=(Object.keys(blob).length);
-
-window.console.log(JSON.stringify(blob));
-    var justOne=0;
-    if(sz != 2) {
-       window.console.log("ERROR: expecting 2 set of material properties");
-       return;
-    }
-    var blob1=blob[keys[0]];
-    var blob2=blob[keys[1]];
-
-    if( typeof blob1 === 'string') { 
-       blob1=JSON.parse(blob1);
-    }
-
-    if(blob2 == "") { 
-       justOne=1; 
-    }
-
-    if( !justOne && typeof blob2 === 'string') {
-       blob2=JSON.parse(blob2);
-    }
-
-    var html;
-    keys=Object.keys(blob1);
-    sz=(Object.keys(blob1).length);
-
-    html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-
-    html=html+"<table class=\"gfm-table\"><tbody>";
-  
-    for(i=0; i<sz; i++) {
-       var key=keys[i];
-       var val1=blob1[key];
-       if(!justOne) {
-         var val2=blob2[key];
-         var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20vw\">"+val1+"</td><td style=\"width:20px\">"+val2+"</td></tr>";
-         html=html+t;
-         } else {
-           // access unit/extra handling
-           var u=getDescriptWithLabelAndVal(key, parseInt(val1));
-           if(u == undefined)
-              u="";
-           var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20px\">"+val1+"</td><td style=\"width:30px\">"+u+"</td></tr>";
-           html=html+t;
-       }
-    }
-    html=html+"</tbody></table></div>";
-    return html;
+function refreshTxtInput() {
+  $('#LatTxt').val(34.30);
+  $('#LonTxt').val(-119.20);
+  $('#ZTxt').val(-9700);
+  $('#ZmodeTxt').val('e');
 }
 
+function refreshHorizontalResultTable() {
+    var table=document.getElementById("materialPropertyTable");
+    table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Material Property for selected locations will appear here. </td></tr></tbody>";
+    hold_mptable=1;
+}
 
 // takes 1 or more sets of result
 // of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTable(str)
+function makeHorizontalResultTable(uid,str)
 {
     var i;
     var blob;
@@ -140,43 +88,38 @@ function makeHorizontalResultTable(str)
        return;
     }
 
-    html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-	
-    html=html+"<div class=\"gfm-table\"><table><tbody>";
-
     var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
     if( typeof datablob === 'string') { 
        datablob=JSON.parse(datablob);
     }
 
     // create the key first
-    var labelline="";
+    var labelline="<th style=\"width:4vw\"></th>";
     var key;
     
     var datakeys=Object.keys(datablob);
     var sz=(Object.keys(datablob).length);
 
-    labelline="<tr>";
- 
-    for(i=0; i<sz; i++) {
-        key=datakeys[i];
-        // special case
-        if(key == 'Z') { 
-          var zmodestr=document.getElementById("ZmodeTxt").value;
-          if(zmodestr == "e")
-              key=key+" (by<br>elevation)";
-          else
-              key=key+" (by<br>depth)";
- 
-        }
-        labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
-    }
-    labelline=labelline+"</tr>";
+    var table=document.getElementById("materialPropertyTable");
 
-    html=html+labelline;
+    if(hold_mptable) {
+        for(i=0; i<sz; i++) {
+            key=datakeys[i];
+            if(!showInTable(key))
+              continue;
+            labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
+        }
+
+        table.deleteRow(0); // delete the holdover
+        hold_mptable=0;
+
+        row=table.insertRow(-1);
+        row.innerHTML=labelline;
+    }
 
     // now adding the data part..
-    var mpline="";
+    var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
+
     for(j=0; j< dsz; j++) {
         var datablob=blob[dkeys[j]];
         if(datablob == "")
@@ -184,24 +127,31 @@ function makeHorizontalResultTable(str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        mpline="<tr>";
+
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
+            if(!showInTable(key2))
+              continue;
+            if(key2 == 'Z') { 
+              var zmodestr=document.getElementById("ZmodeTxt").value;
+              if(zmodestr == "e")
+                val2=val2+" (by<br>elevation)";
+              else
+                val2=val2+" (by<br>depth)";
+            }
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
-         mpline=mpline+"</tr>";
-         html=html+mpline;
+         row=table.insertRow(1);
+         row.innerHTML=mpline;
     }
-
-    html=html+"</tbody></table></div>";
-    return html;
+    return "";
 }
 
 
 // takes 1 or more sets of result
 // of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTable_start(str)
+function makeHorizontalResultTable_chunk(uid,str)
 {
     var i;
     var blob;
@@ -223,42 +173,38 @@ function makeHorizontalResultTable_start(str)
        return;
     }
 
-    var htmlstr="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-    htmlstr=htmlstr+"<div class=\"gfm-table\"><table><tbody>";
-
     var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
     if( typeof datablob === 'string') { 
        datablob=JSON.parse(datablob);
     }
 
     // create the key first
-    var labelline="";
+    var labelline="<th style=\"width:4vw\"></th>";
     var key;
     
     var datakeys=Object.keys(datablob);
     var sz=(Object.keys(datablob).length);
 
-    labelline="<tr>";
- 
-    for(i=0; i<sz; i++) {
-        key=datakeys[i];
-        // special case
-        if(key == 'Z') { 
-          var zmodestr=document.getElementById("ZmodeTxt").value;
-          if(zmodestr == "e")
-              key=key+" (by<br>elevation)";
-          else
-              key=key+" (by<br>depth)";
- 
+    var table=document.getElementById("materialPropertyTable");
+    
+    if(hold_mptable) {
+        for(i=0; i<sz; i++) {
+            key=datakeys[i];
+            // special case
+            if(!showInTable(key))
+              continue;
+            labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
         }
-        labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
-    }
-    labelline=labelline+"</tr>";
 
-    htmlstr=htmlstr+labelline;
+        table.deleteRow(0); // delete the holdover
+        hold_mptable=0;
+        row=table.insertRow(-1);
+        row.innerHTML=labelline;
+    }
 
     // now adding the data part..
-    var mpline="";
+    var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
+
     for(j=0; j< dsz; j++) {
         var datablob=blob[dkeys[j]];
         if(datablob == "")
@@ -266,25 +212,33 @@ function makeHorizontalResultTable_start(str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        mpline="<tr>";
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
+            if(!showInTable(key2))
+                continue;
+            if(key2 == 'Z') {
+              var zmodestr=document.getElementById("ZmodeTxt").value;
+              if(zmodestr == "e")
+                val2=val2+" (by<br>elevation)";
+              else
+                val2=val2+" (by<br>depth)";
+            }
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
-         mpline=mpline+"</tr>";
-         htmlstr=htmlstr+mpline;
+         row=table.insertRow(1);
+         row.innerHTML=mpline;
     }
 
-    return htmlstr;
+    return ""; 
 }
 // make rows of the table
-function makeHorizontalResultTable_next(str)
+function makeHorizontalResultTable_next(uid,str)
 {
-    var htmlstr="";
+    var table=document.getElementById("materialPropertyTable");
 
     if (str == undefined )
-      return htmlstr;
+      return;
 
     if( typeof str === 'string') { 
        blob=JSON.parse(str);
@@ -309,7 +263,8 @@ function makeHorizontalResultTable_next(str)
     var sz=(Object.keys(datablob).length);
 
     // now adding the data part..
-    var mpline="";
+    var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
+
     for(j=0; j< dsz; j++) {
         var datablob=blob[dkeys[j]];
         if(datablob == "")
@@ -317,23 +272,21 @@ function makeHorizontalResultTable_next(str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        mpline="<tr>";
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
+            if(!showInTable(key2))
+                continue;
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
-         mpline=mpline+"</tr>";
-         htmlstr=htmlstr+mpline;
+         row=table.insertRow(1);
+         row.innerHTML=mpline;
     }
-
-    return htmlstr;
 }
 
 // last bit of the table
-function makeHorizontalResultTable_last() {
-    var html="</tbody></table></div>";
-    return html;
+function makeHorizontalResultTable_last(uid) {
+    var table=document.getElementById("materialPropertyTable");
 }
 
 

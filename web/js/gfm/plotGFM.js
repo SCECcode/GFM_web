@@ -34,9 +34,14 @@ function plotCannedMaterialProperty() {
   var y_data=getDataByIndex(0,1);
   var z_data=getDataByIndex(0,2);
   var id_data=getDataByIndex(0,3);
-//  var temp_data=getDataByIndex(0,4);
 
-  make3DScatterPlotForRegionID("GFM_view",x_data,y_data,z_data,id_data);
+  // expand it
+//  $('#modal3DPoint').modal('show');
+//  $('#modal3DPointDialog').addClass('full_modal-dialog');
+//  $('#modal3DPointContent').addClass('full_modal-content');
+//  document.getElementById("3DPointPlot").height = 500;
+
+  make3DScatterPlotForRegionID("3DPointPlot",x_data,y_data,z_data,id_data);
   document.getElementById('spinIconForRegion').style.display = "none";
 }
 

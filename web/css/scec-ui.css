@@ -1,5 +1,42 @@
 /* required styles */
 
+.glyphicon.glyphicon-search {
+    font-size: 25px;
+}
+
+.glyphicon.glyphicon-cog {
+    font-size: 30px;
+}
+
+
+@media (min-width: 1200px) {
+   .modal-xlg {
+      max-width: 992px;
+   }
+}
+
+.full_modal-dialog {
+  width: 98%;
+  height: 92%;
+  min-width: 98%;
+  min-height: 92%;
+  max-width: 98%;
+  max-height: 92%;
+  padding: 0;
+}
+
+.full_modal-content {
+  height: 99%;
+  min-height: 99%;
+  max-height: 99%;
+}
+
+.full_modal-body {
+  height: 99%;
+  min-height: 99%;
+  max-height: 99%;
+}
+
 :root {
     /*font-size: 90%;*/
 }
@@ -138,9 +175,11 @@ ul li {
     color: white;
 }
 
+/*  --- not for gfm_web
 .input-group {
     max-width: 269px;
 }
+*/
 
 .info-page-container {
     border:1px solid gray;
