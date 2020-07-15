@@ -84,8 +84,12 @@ $header=getHeader("Viewer")
 <script type="text/javascript" src="js/gfm/plotGFM.js"></script>
 <script type="text/javascript" src="js/gfm/plotly.js"></script>
 <script type="text/javascript" src="js/gfm/surface_plotly.js"></script>
-<script type="text/javascript" src="js/gfm/region.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_region.js"></script>
+<script type="text/javascript" src="js/gfm/region_util.js"></script>
 <script type="text/javascript" src="js/gfm/ui.js"></script>
+<script type="text/javascript" src="js/gfm/leaflet.js"></script>
+<script type="text/javascript" src="js/gfm/layer.js"></script>
+<script type="text/javascript" src="js/gfm/cxm_misc_util.js"></script>
 </head>
 <body>
 <?php echo $header; ?>
@@ -101,11 +105,6 @@ $header=getHeader("Viewer")
     <div class="row">
 	<div class="col-12">
 <p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1 and GFM v1.0 and also generate a 3D visualization of the Geological Framework model.</p>
-<p>
-<b>Query Material Properties:</b> Users can enter a latlon, elev/depth and the site will return the CVM-h and GFM properties for that point, or upload a file with multiple latlons and elev/depth information, a downloadabled Material Properties file is generated along with a table of a subset(at most 10) of the data result.
-<br>
-<b>Plot GFM Regions:</b> When users click this button, the GFM view will load a decimated, rotatable, 3D volume image of GFM v1.0. Users can click on geological regions of interest to turn on/turn off their display.
-</p>
         </div>
     </div>
 
@@ -116,9 +115,9 @@ $header=getHeader("Viewer")
         <button class="btn gfm-small-btn" title="display CRM regions" onclick='toggleShowCRM()'>
            <span id="gfm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>CRM</button>
 
-        <button class="btn gfm-small-btn" title="display GFM 3D regions" onclick='plotRegionClick()' data-toggle="modal" data-target="#modal3DPoint">
+        <button class="btn gfm-small-btn" style="margin-left:70%; padding:0px 0px;" title="display GFM 3D regions" onclick='plotRegionClick()' data-toggle="modal" data-target="#modal3DPoint">
            <span id="regionBtn" class="glyphicon glyphicon-ok-sign"></span>GFM3d</button>
-           <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalRegions"><span class="glyphicon glyphicon-info-sign"></span></button>
+        <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalRegions"><span class="glyphicon glyphicon-info-sign"></span></button>
     </div>
 
     <div class="row" style="display:none;">
@@ -127,8 +126,8 @@ $header=getHeader("Viewer")
         </div>
     </div>
 
-    <div id="content-container" class="row" style="border:1px solid green">
-        <div id="control-container" class="col-5" style="border:1px solid red">
+    <div id="content-container" class="row">
+        <div id="control-container" class="col-5">
           <div class="col-12">
             <div class="input-group filters mb-1 mt-1">
                 <div class="input-group-prepend">
@@ -142,7 +141,7 @@ $header=getHeader("Viewer")
             <div class="col input-group" style="background:whitesmoke;">
                 <div class="row mt-1">
                   <div class="col-12">
-                    <p>Pick a point on the map, or enter latitude, longitude and Z value below or upload a file with LatLngs and matching Z values.</p>
+                    <p>Enter latitude, longitude and Z below or upload a file with LatLngs and matching Z values</p>
                   </div>
                 </div>
                 <div class="row d-flex">
@@ -253,14 +252,55 @@ $header=getHeader("Viewer")
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div id="searchResult" class="table-responsive"></div>
+            </div> <!-- mp-table -->
+<div class="row mt-2 mb-4">
+                <div class="col-12" id="result-header-container">
+                    <table id="resultHeaderTable" style="border:none">
+                        <tbody>
+                        <tr>
+                            <td style="border:none"><b>Result</b>&nbsp;<button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12" id="resultTable-container" style="overflow:scroll;max-height:30vh">
+                    <table id="resultTable">
+                        <tbody>
+                        <tr id="placeholder-row">
+                            <td colspan="12">Downloadable Result will appear here. </td>
+                        </tr>
+                        </tbody> </table>
+                </div>
+            </div> <!-- Result table -->
+
             <div id="phpResponseTxt"></div>
 
         </div> <!-- result-container -->
     </div> <!-- content-container -->
 
 </div> <!-- container main -->
+
+<!--Modal: ResultFormat -->
+<div class="modal" id="modalff" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalffDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalffContent">
+      <!--Body-->
+      <div class="modal-body" id="modalffBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="fileFormatTable"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
 
 <!--Modal: ZMode -->
 <div class="modal" id="modalzm" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -271,7 +311,7 @@ $header=getHeader("Viewer")
       <!--Body-->
       <div class="modal-body" id="modalzmBody">
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
-          <div class="col-12" id="ZModeTable"></div>
+          <div class="col-12" id="zmodeTable"></div>
         </div>
       </div>
       <div class="modal-footer justify-content-center">
@@ -333,7 +373,7 @@ $header=getHeader("Viewer")
       <div class="modal-body" id="modalfileBody">
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
 
-          <div class="col-12" id="file-container">
+          <div class="col-10" id="file-container">
 <p>
 Format of input file :
 <pre>

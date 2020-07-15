@@ -5,14 +5,60 @@
 // insert
 var hold_mptable=1;
 
-function setup_viewer() {
-    setup_tables();
-}
+// [ {"uid":uid, "blob":blob } ]
+var gfm_resulttb_list=[];
+
+// tracking the layer that contains CFM5.2 faults
+var gfm_cfm_layer;
+var show_cfm=false;
+// tracking the layer that contains CRM latlon points
+var gfm_crm_layer;
+var show_crm=false;
 
 function setup_tables() {
     document.getElementById('parametersTable').innerHTML=makeParametersTable();
     document.getElementById('regionsTable').innerHTML=makeRegionsTable();
-    document.getElementById('ZModeTable').innerHTML=makeZModeTable();
+    document.getElementById('zmodeTable').innerHTML=makeZModeTable();
+    document.getElementById('fileFormatTable').innerHTML=makeFileFormatTable();
+}
+
+// XXXX need to figure out how to enable this
+function in_drawing_point() {
+   return 0;
+}
+
+function setup_CFM() {
+   gfm_cfm_layer=readLocalAndProcessActiveCFMGeo();
+}
+
+function toggleShowCFM() {
+   show_cfm=!show_cfm;
+   if(show_cfm) {
+     viewermap.addLayer(gfm_cfm_layer);
+     $('#gfm_cfm_btn').removeClass('glyphicon-ok-sign');
+     $('#gfm_cfm_btn').addClass('glyphicon-remove-sign');
+     } else {
+       viewermap.removeLayer(gfm_cfm_layer);
+       $('#gfm_cfm_btn').addClass('glyphicon-ok-sign');
+       $('#gfm_cfm_btn').removeClass('glyphicon-remove-sign');
+   }
+}
+
+function setup_CRM() {
+   gfm_crm_layer=readLocalAndProcessActiveCRMGeo();
+}
+
+function toggleShowCRM() {
+   show_crm=!show_crm;
+   if(show_crm) {
+     viewermap.addLayer(gfm_crm_layer);
+     $('#gfm_crm_btn').removeClass('glyphicon-ok-sign');
+     $('#gfm_crm_btn').addClass('glyphicon-remove-sign');
+     } else {
+       viewermap.removeLayer(gfm_crm_layer);
+       $('#gfm_crm_btn').addClass('glyphicon-ok-sign');
+       $('#gfm_crm_btn').removeClass('glyphicon-remove-sign');
+   }
 }
 
 function plotRegionClick() {
@@ -47,7 +93,8 @@ function selectLocalFiles(_urls) {
 
 function resetAll() {
   refreshTxtInput();
-  refreshHorizontalResultTable();
+  refreshMPTable();
+  refreshResultTable();
   document.getElementById("phpResponseTxt").innerHTML = "";
 }
 
@@ -58,15 +105,20 @@ function refreshTxtInput() {
   $('#ZmodeTxt').val('e');
 }
 
-function refreshHorizontalResultTable() {
+function refreshMPTable() {
     var table=document.getElementById("materialPropertyTable");
     table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Material Property for selected locations will appear here. </td></tr></tbody>";
     hold_mptable=1;
 }
 
+function refreshResultTable() {
+    var table=document.getElementById("resultTable");
+    table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Downloadable Result will appear here. </td></tr></tbody>";
+}
+
 // takes 1 or more sets of result
 // of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTable(uid,str)
+function makeMPTable(uid,str)
 {
     var i;
     var blob;
@@ -151,7 +203,7 @@ function makeHorizontalResultTable(uid,str)
 
 // takes 1 or more sets of result
 // of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTable_chunk(uid,str)
+function makeMPTable_chunk(uid,str)
 {
     var i;
     var blob;
@@ -233,7 +285,7 @@ function makeHorizontalResultTable_chunk(uid,str)
     return ""; 
 }
 // make rows of the table
-function makeHorizontalResultTable_next(uid,str)
+function makeMPTable_next(uid,str)
 {
     var table=document.getElementById("materialPropertyTable");
 
@@ -285,8 +337,9 @@ function makeHorizontalResultTable_next(uid,str)
 }
 
 // last bit of the table
-function makeHorizontalResultTable_last(uid) {
+function makeMPTable_last(uid) {
     var table=document.getElementById("materialPropertyTable");
+    // do nothing
 }
 
 
@@ -325,3 +378,95 @@ function linkDownload(str)
     }
     return html;
 }
+
+function insertResultTable(note,uid,str) {
+    gfm_resulttb_list.push( { uid:uid, blob:str });
+    var html=makeDownloadLinks(str);
+    makeResultTable(note,uid,html);
+}
+
+// create a links to png, metadata, data file if exist
+function makeDownloadLinks(str) {
+    var html="";
+
+    // just one
+    if( typeof str === 'string') { 
+       // if the file ends with png 
+       if(str.endsWith(".png")) {
+          html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-picture\"></span></a></div>";
+         } else {
+            html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a></div>";
+       }
+       return html;
+    }
+
+    // a set of them,  obj['key1'] and obj['key2']
+    var keys=Object.keys(str);
+    var sz=(Object.keys(str).length);
+    var i;
+
+    html="<div class=\"links\" style=\"display:inline-block\">";
+    for(i=0;i<sz;i++) {
+       var val=str[keys[i]]; 
+       switch(keys[i]) {
+          case 'plot':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-picture\"></span></a>&nbsp;&nbsp;PNG plot</div>";
+              break;
+          case 'meta':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;plot metadata file</div>";
+              break;
+          case 'data':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;plot data file</div>";
+              break;
+          case 'dataset':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;plot dataset file</div>";
+              break;
+          case 'materialproperty':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;material property file</div>";
+              break;
+          case 'query':
+              window.console.log("QUERY:",val);
+              break; 
+          case 'uid':
+              window.console.log("QUERY:",val);
+              break;
+          default:
+              window.console.log("HUM...This key is skipped:",keys[i]);
+              break;
+       }
+    }
+    html=html+"</div>";
+
+    return html;
+    
+}
+
+//
+function insertResultTable(note,uid,str) {
+    gfm_resulttb_list.push( { uid:uid, blob:str });
+    var html=makeDownloadLinks(str);
+    makeResultTable(note,uid,html);
+}
+
+function makeResultTable(note,uid,html) {
+    
+    var table=document.getElementById("resultTable");
+    var hasLayer=find_layer_from_list(uid);
+    if (gfm_resulttb_list.length == 1) {
+      table.deleteRow(0); // delete the holdover
+//label
+      var row=table.insertRow(-1);
+      row.innerHTML="<th style=\"width:10vw\"><b>UID</b></th><th style=\"width:2vw\"></th><th style=\"width:24vw\"><b>Links</b></th><th style=\"width:24vw\"><b>Description</b></th>";
+//
+    }
+
+// insert at the end, row=table.insertRow(-1);
+    row=table.insertRow(1);
+    if(hasLayer!=0) {
+        row.innerHTML="<td style=\"width:10vw\">"+uid+"<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td></td><td style=\"width:24vw\">"+html+"</td><td style=\"width:24vw\">"+note+"</td>";
+      } else {
+        row.innerHTML="<td style=\"width:10vw\">"+uid+"<td style=\"width:4px\"></td></td><td style=\"width:24vw\">"+html+"</td><td style=\"width:24vw\">"+note+"</td>";
+    }
+
+}
+

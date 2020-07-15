@@ -11,16 +11,22 @@ jQuery(document).ready(function() {
   frameWidth=window.innerWidth;
 
   viewermap=setup_viewer();
+  setup_tables();
+  setup_CFM();
+  setup_CRM();
 
-  $('#QuerymodeTxt').on('change', function() {
-    var v=document.getElementById('QuerymodeTxt').value;
-    if( v == "file") {
-      document.getElementById('pointBlock').style.display = "none";
-      document.getElementById('fileBlock').style.display = "";
-      } else {
-        document.getElementById('pointBlock').style.display = "";
-        document.getElementById('fileBlock').style.display = "none";
-    }
+  $(".popup").hide();
+
+  $(".openpop").click(function(e) {
+    e.preventDefault();
+    $("iframe").attr("src",$(this).attr('href'));
+    $(".links").fadeOut('slow');
+    $(".popup").fadeIn('slow');
+  });
+
+  $(".close").click(function() {
+    $(this).parent().fadeOut("slow");
+    $(".links").fadeIn("slow");
   });
 
 /****

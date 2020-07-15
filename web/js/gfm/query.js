@@ -14,6 +14,8 @@
 
 var MAX_CHUNKS_TO_DISPLAY=1;
 function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_chunks, chunk_step) {
+
+    window.console.log("----- ulabel is ", ulabel);
     if(current_chunk == total_chunks) 
         return;
     var cnt=dataarray.length;
@@ -69,8 +71,6 @@ function getValuesFromJsonBlob(plotID,ulabel,xstr, ystr, zstr, targetstr) {
 
 // to be called by getMaterialPropertyByLatlonList
 function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
-    var uid=99;
-    window.console.log("ulabel is..",ulabel);
     // extract content of a file
     var zmodestr=document.getElementById("ZmodeTxt").value;
     if (window.XMLHttpRequest) {
@@ -86,23 +86,37 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
             var str=processSearchResult("getMaterialPropertyByLatlonChunk");
            
             if(current_chunk==0) { // first one
-               makeHorizontalResultTable_chunk(uid,str);
+/* don't put the data in the table since it is from a file
+               makeMPTable_chunk(ulabel,str);
+*/
                getMaterialPropertyByLatlonList(ulabel,dataarray, current_chunk+1, total_chunks, chunk_step);
             } else {
 // try to limit the size of the table..
+/*
                if( current_chunk < MAX_CHUNKS_TO_DISPLAY) {
-                   makeHorizontalResultTable_chunk(uid,str);
+                   makeMPTable_chunk(ulabel,str);
                } 
-               getMaterialPropertyByLatlonList(ulabel,dataarray, current_chunk+1, total_chunks, chunk_step);
+*/
+               getMaterialPropertyByLatlonList(ulabel, dataarray, current_chunk+1, total_chunks, chunk_step);
             }
             if(current_chunk==(total_chunks-1)) { // last one
                document.getElementById('spinIconForListProperty').style.display = "none";
-// create a download link to the actual data file
-               window.console.log("setup the download link...");
-               document.getElementById('resultForMPQuery').innerHTML=linkDownload("GFM_"+ulabel+".json");
-               window.console.log("wrap up last bit of ",ulabel);
-               set_ULABEL(ulabel);
-//               $('#plotIfram').attr('src', "viz.html?ulabel="+ulabel);
+//XXX create a download link to the actual data file
+              var zstr=getGFMZModeNameWithType(zmodestr);
+              var mstr="CVM-H 15.1";
+              var uname="GFM_"+ulabel;
+              var mpname=uname+".json";
+              var note="Material Property with "+mstr + " search by "+zstr;
+              insertResultTable(note, uname, {"materialproperty":mpname});
+/* XXX
+              if( dataarray.length < MAX_FILEPOINTS) {
+                reset_point_UID();
+                toggle_a_layergroup(ulabel);
+              }
+***/
+
+              set_ULABEL(ulabel);
+
             }
        }
     }
@@ -112,8 +126,7 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
 
 
 // get material property blob by lat lon z zmode
-function getMaterialPropertyByLatlon() {
-    var uid=999;
+function getMaterialPropertyByLatlon(ulabel) {
     var latstr=document.getElementById("LatTxt").value;
     var lonstr=document.getElementById("LonTxt").value;
     var zstr=document.getElementById("ZTxt").value;
@@ -135,7 +148,7 @@ function getMaterialPropertyByLatlon() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 document.getElementById('spinIconForQuery').style.display ="none";
                 var str=processSearchResult("getMaterialPropertyByLatlon");
-                document.getElementById("searchResult").innerHTML = makeHorizontalResultTable(uid,str);
+                document.getElementById("searchResult").innerHTML = makeMPTable(ulabel,str);
             }
         }
         xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr, true);
