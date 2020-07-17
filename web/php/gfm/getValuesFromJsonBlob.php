@@ -7,7 +7,7 @@
 <?php
 include ("declare.php");
 
-$ulabel = ($_GET['ulabel']);
+$uid = ($_GET['uid']);
 $xheader = ($_GET['xheader']);
 $yheader = ($_GET['yheader']);
 $zheader = ($_GET['zheader']);
@@ -18,8 +18,8 @@ $ylist=[];
 $zlist=[];
 $tlist=[];
 
-$fname="$GFM_WEB_LOC/result/GFM_".$ulabel.".json";
-$label="GFM_".$ulabel;
+$fname="$GFM_WEB_LOC/result/GFM_".$uid.".json";
+$label="GFM_".$uid;
 
 $JSON = file_get_contents($fname);
 

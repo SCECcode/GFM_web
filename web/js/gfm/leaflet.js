@@ -109,13 +109,9 @@ function setup_viewer()
     var type = e.layerType,
         layer = e.layer;
 
-    if (type === 'marker') {  // can be a point or a profile
+    if (type === 'marker') {  
         var sw=layer.getLatLng();
-        if( in_drawing_profile() ) {
-          add_bounding_profile_layer(layer,sw['lat'],sw['lng']);
-          } else {
-            add_bounding_point_layer(layer,sw['lat'],sw['lng']);
-        }
+        add_bounding_point_layer(layer,sw['lat'],sw['lng']);
     }
   });
 

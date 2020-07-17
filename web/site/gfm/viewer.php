@@ -89,6 +89,11 @@ $header=getHeader("Viewer")
 <script type="text/javascript" src="js/gfm/ui.js"></script>
 <script type="text/javascript" src="js/gfm/leaflet.js"></script>
 <script type="text/javascript" src="js/gfm/layer.js"></script>
+<script type="text/javascript" src="js/gfm/layer_util.js"></script>
+<script type="text/javascript" src="js/gfm/plot_util.js"></script>
+<script type="text/javascript" src="js/gfm/view3d.js"></script>
+<script type="text/javascript" src="js/gfm/view3d_ui.js"></script>
+<script type="text/javascript" src="js/gfm/MyWebApp.js.js"></script>
 <script type="text/javascript" src="js/gfm/cxm_misc_util.js"></script>
 </head>
 <body>
@@ -104,7 +109,7 @@ $header=getHeader("Viewer")
 
     <div class="row">
 	<div class="col-12">
-<p>The <a href="https://www.scec.org/research/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1 and GFM v1.0 and also generate a 3D visualization of the Geological Framework model.</p>
+<p>The <a href="https://www.scec.org/re_utilsearch/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1 and GFM v1.0 and also generate a 3D visualization of the Geological Framework model.</p>
         </div>
     </div>
 
@@ -141,7 +146,8 @@ $header=getHeader("Viewer")
             <div class="col input-group" style="background:whitesmoke;">
                 <div class="row mt-1">
                   <div class="col-12">
-                    <p>Enter latitude, longitude and Z below or upload a file with LatLngs and matching Z values</p>
+                   <p>Pick a point on map, enter latitude, longitude and Z value below or upload a file with LatLngs and matching Z values<button class="btn gfm-small-btn" title="enable Map selection" onclick='pointClick()'> <span id="pointBtn" class="glyphicon glyphicon-ok-sign"></span>useMap</button> </p>
+
                   </div>
                 </div>
                 <div class="row d-flex">
@@ -198,14 +204,27 @@ $header=getHeader("Viewer")
                   </div>
                 </div>
             </div> <!-- latlon/file input/reset --> 
-            <div class="col input-group" style="border:1px solid blue">
+
+            <div class="col input-group">
+               <div class="col-12 pr-1 mt-4">
+<button class="btn" title="plot 3D" onclick="executePlot3d()" style="margin-left:30%;" >plot3D</button>
+               </div>
+            </div> 
+
+            <div class="col input-group">
+               <div class="col-12 pr-1 mt-4" style="border:2px solid blue">
+<p>a table here..</p>
+               </div>
+            </div> 
+
+            <div class="col input-group">
                 <div class="row mt-1">
                   <div class="row col-md-12 ml-auto" style="overflow:hidden;">
 <!-- XXX --->
                       <div class="col-12" id="GFM_Table"></div>
                   </div>
                 </div>
-            </div> <!-- GFM/CRM all regions -->
+            </div> <!-- map area -->
           </div>
         </div> <!-- control-container -->
 
@@ -280,6 +299,62 @@ $header=getHeader("Viewer")
     </div> <!-- content-container -->
 
 </div> <!-- container main -->
+
+<!--Modal: Name-->
+<div class="modal" id="modal3D" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="modal3D" aria-hidden="true">
+  <div class="modal-dialog modal-xlg" id="modal3DDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modal3DContent">
+      <!--Header-->
+      <div class="modal-header">
+        <button id="view3DToggleReprbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleRepr3Dview(this)">Show Wireframe</button>
+        <button id="view3DToggleTracebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleTrace3Dview(this)">Hide Traces</button>
+        <button id="view3DToggleShorebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleShore3Dview(this)">Hide Coastline</button>
+        <button id="view3DToggleBoundsbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleBounds3Dview(this)">Show Bounds</button>
+        <button id="view3DToggleLegendbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleLegend3Dview(this)">Hide Legend</button>
+        <button id="view3DToggleNorthbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleNorth3Dview(this)">Show Mapview</button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body" id="modal3DBody">
+        <div id="iframe-container" class="row col-12" style="overflow:hidden">
+          <iframe id="view3DIfram" src="" height="500" width="100%" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="modal-footer justify-content-center" id="modal3DFooter">
+        <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal">Close</button>
+        <button id="view3DExpandbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleExpand3Dview(this)">Expand</button>
+        <button id="view3DRefreshbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="refresh3Dview()">Reset</button>
+        <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalinfo3d" onclick="$('#modal3D').modal('hide');">Info</button>
+      </div> <!-- footer -->
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: ModelType -->
+<div class="modal" id="modalinfo3d" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalinfo3dDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalinfo3dContent">
+      <!--Body-->
+      <div class="modal-body" id="modalinfo3dBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="info3dTable-container"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal" onclick="$('#modal3D').modal('show');"
+>Close</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
 
 <!--Modal: ResultFormat -->
 <div class="modal" id="modalff" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

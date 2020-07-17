@@ -14,6 +14,8 @@ var show_cfm=false;
 // tracking the layer that contains CRM latlon points
 var gfm_crm_layer;
 var show_crm=false;
+// tracking when using pointClick -- on map
+var drawing_point=false;
 
 function setup_tables() {
     document.getElementById('parametersTable').innerHTML=makeParametersTable();
@@ -22,8 +24,23 @@ function setup_tables() {
     document.getElementById('fileFormatTable').innerHTML=makeFileFormatTable();
 }
 
-// XXXX need to figure out how to enable this
+function pointClick() {
+  drawing_point = ! drawing_point;
+
+  if(drawing_point) {
+    $('#pointBtn').addClass('pick');
+    $('#pointBtn').removeClass('glyphicon-ok-sign');
+    $('#pointBtn').addClass('glyphicon-remove-sign');
+    } else {
+      drawing_point = false;
+      $('#pointBtn').removeClass('glyphicon-remove-sign');
+      $('#pointBtn').addClass('glyphicon-ok-sign');
+  }
+}
+
 function in_drawing_point() {
+   if(drawing_point) 
+     return 1;
    return 0;
 }
 

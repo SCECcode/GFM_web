@@ -11,18 +11,18 @@ include ("declare.php");
 $datastr = ($_GET['datastr']); 
 $zmode = ($_GET['zmode']);
 $chunkid = intVal($_GET['chunkid']);
-$ulabel = ($_GET['ulabel']);
+$uid = ($_GET['uid']);
 $lastchunks = intVal($_GET['chunks'])-1;
 $skip = intVal($_GET['skip']);
 
 /* if chunkid == 0, it is first chunk, create 
-   the .json file in result/gfm/GFM_ulabel.json, 
+   the .json file in result/gfm/GFM_uid.json, 
    other ones, just 'append'               */
 
-$fname="$GFM_WEB_LOC/result/GFM_".$ulabel.".json";
+$fname="$GFM_WEB_LOC/result/GFM_".$uid.".json";
 if ($chunkid == 0) {
    $fp= fopen($fname,"w") or die("Unable to open file!");
-   $start=" { \"GFM_".$ulabel."\": [";
+   $start=" { \"GFM_".$uid."\": [";
    fwrite($fp,$start); fwrite($fp,"\n");
    } else {
       $fp= fopen($fname,"a") or die("Unable to open file to append!");

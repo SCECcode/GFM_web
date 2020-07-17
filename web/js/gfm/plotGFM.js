@@ -52,9 +52,9 @@ function plotCannedMaterialProperty() {
 ...
 ] }
 ****/
-function plot3DMaterialProperty(ulabel, json) 
+function plot3DMaterialProperty(uid, json) 
 {
-   var fname="GFM_"+ulabel;
+   var fname="GFM_"+uid;
    var jsonarr = $.parseJSON(json);
    var arrlist=jsonarr[fname];
    var cnt=arrlist.length;

@@ -14,6 +14,7 @@ jQuery(document).ready(function() {
   setup_tables();
   setup_CFM();
   setup_CRM();
+  setup_info3dTable();
 
   $(".popup").hide();
 
@@ -31,9 +32,9 @@ jQuery(document).ready(function() {
 
 /****
   $('#plotbtn').on('click', function() {
-     var ulabel=get_ULABEL();
-     window.console.log("plotbtn got clicked.. set src on iframe again"+ulabel);
-     $('#plotIfram').attr('src',"viz.html?ulabel="+ulabel);
+     var uid=get_ULABEL();
+     window.console.log("plotbtn got clicked.. set src on iframe again"+uid);
+     $('#plotIfram').attr('src',"viz.html?uid="+uid);
   });
 ***/
 

@@ -13,9 +13,8 @@
 //
 
 var MAX_CHUNKS_TO_DISPLAY=1;
-function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_chunks, chunk_step) {
+function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chunks, chunk_step) {
 
-    window.console.log("----- ulabel is ", ulabel);
     if(current_chunk == total_chunks) 
         return;
     var cnt=dataarray.length;
@@ -37,14 +36,14 @@ function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_c
     if( current_chunk >= MAX_CHUNKS_TO_DISPLAY)
       skip=1;
 
-    _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks,chunk_step);
+    _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_chunk, total_chunks,chunk_step);
            
 }
 
 // to be called by getMaterialPropertyByLatlonList
 // this is to process the data file that were created in earlier call and
 // selective extract values to be brought back to be plotted.
-function getValuesFromJsonBlob(plotID,ulabel,xstr, ystr, zstr, targetstr) {
+function getValuesFromJsonBlob(plotID,uid,xstr, ystr, zstr, targetstr) {
 
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -59,18 +58,18 @@ function getValuesFromJsonBlob(plotID,ulabel,xstr, ystr, zstr, targetstr) {
             var str=processSearchResult("getValuesFromJsonBlob");
 // XXX need to trigger a download then do the processing
 //            window.console.log("set the src on iframe..first");
-//            $('#plotIfram').attr('src', "viz.html?ulabel="+ulabel);
+//            $('#plotIfram').attr('src', "viz.html?uid="+uid);
             plotMaterialProperty(plotID,str);
         }
     }
-    xmlhttp.open("GET","php/gfm/getValuesFromJsonBlob.php?ulabel="+ulabel+"&xheader="+xstr+"&yheader="+ystr+"&zheader="+zstr+"&target="+targetstr, true);
+    xmlhttp.open("GET","php/gfm/getValuesFromJsonBlob.php?uid="+uid+"&xheader="+xstr+"&yheader="+ystr+"&zheader="+zstr+"&target="+targetstr, true);
     xmlhttp.send();
 }
 
 
 
 // to be called by getMaterialPropertyByLatlonList
-function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
+function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
     // extract content of a file
     var zmodestr=document.getElementById("ZmodeTxt").value;
     if (window.XMLHttpRequest) {
@@ -87,54 +86,63 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
            
             if(current_chunk==0) { // first one
 /* don't put the data in the table since it is from a file
-               makeMPTable_chunk(ulabel,str);
+               makeMPTable_chunk(uid,str);
 */
-               getMaterialPropertyByLatlonList(ulabel,dataarray, current_chunk+1, total_chunks, chunk_step);
+               getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
             } else {
 // try to limit the size of the table..
 /*
                if( current_chunk < MAX_CHUNKS_TO_DISPLAY) {
-                   makeMPTable_chunk(ulabel,str);
+                   makeMPTable_chunk(uid,str);
                } 
 */
-               getMaterialPropertyByLatlonList(ulabel, dataarray, current_chunk+1, total_chunks, chunk_step);
+               getMaterialPropertyByLatlonList(uid, dataarray, current_chunk+1, total_chunks, chunk_step);
             }
             if(current_chunk==(total_chunks-1)) { // last one
                document.getElementById('spinIconForListProperty').style.display = "none";
 //XXX create a download link to the actual data file
-              var zstr=getGFMZModeNameWithType(zmodestr);
+              var zstr=getZModeNameWithType(zmodestr);
               var mstr="CVM-H 15.1";
-              var uname="GFM_"+ulabel;
+              var uname="GFM_"+uid;
               var mpname=uname+".json";
               var note="Material Property with "+mstr + " search by "+zstr;
               insertResultTable(note, uname, {"materialproperty":mpname});
 /* XXX
               if( dataarray.length < MAX_FILEPOINTS) {
                 reset_point_UID();
-                toggle_a_layergroup(ulabel);
+                toggle_a_layergroup(uid);
               }
 ***/
 
-              set_ULABEL(ulabel);
+              set_ULABEL(uid);
 
             }
        }
     }
-    xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&ulabel="+ulabel+"&chunks="+total_chunks+"&skip="+skip, true);
+    xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&uid="+uid+"&chunks="+total_chunks+"&skip="+skip, true);
     xmlhttp.send();
 }
 
 
 // get material property blob by lat lon z zmode
-function getMaterialPropertyByLatlon(ulabel) {
+function getMaterialPropertyByLatlon() {
     var latstr=document.getElementById("LatTxt").value;
     var lonstr=document.getElementById("LonTxt").value;
     var zstr=document.getElementById("ZTxt").value;
     var zmodestr=document.getElementById("ZmodeTxt").value;
+    var uid=document.getElementById("UIDTxt").value;
 
     if (latstr == "" || lonstr=="") {
         return;
     } else {
+        if(uid == '') {
+          uid=getRnd();
+          set_point_UID(uid);
+          // must be coming from the sidebar and so need to plot on map..
+          add_bounding_point(uid,latstr,lonstr);
+        } else {
+          reset_dirty_uid();
+        }
 
         if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -148,10 +156,10 @@ function getMaterialPropertyByLatlon(ulabel) {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 document.getElementById('spinIconForQuery').style.display ="none";
                 var str=processSearchResult("getMaterialPropertyByLatlon");
-                document.getElementById("searchResult").innerHTML = makeMPTable(ulabel,str);
+                makeMPTable(uid,str);
             }
         }
-        xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr, true);
+        xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&uid="+uid, true);
         xmlhttp.send();
     }
 }

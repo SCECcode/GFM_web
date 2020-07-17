@@ -1,4 +1,4 @@
-/* tracking which ulabel is being setup to run */
+/* tracking which uid is being setup to run */
 
 /*****MAIN*****/
 jQuery(document).ready(function() {
@@ -6,11 +6,11 @@ jQuery(document).ready(function() {
   window.console.log("loading the iframe...");
   // cause data to be plotted into GFM_plot
 
-  var ulabel=getParamValue('ulabel');
-  window.console.log("ulabel",ulabel);
+  var uid=getParamValue('uid');
+  window.console.log("uid",uid);
 
-  if(ulabel != "") {
-    getValuesFromJsonBlob("GFM_plot",ulabel,"X","Y","Z","regionID");
+  if(uid != "") {
+    getValuesFromJsonBlob("GFM_plot",uid,"X","Y","Z","regionID");
   }
 })
 

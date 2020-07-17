@@ -6,9 +6,9 @@
 var SAVE_ULABEL=0;
 var CHUNK_SIZE=20;
 
-function set_ULABEL(ulabel)
+function set_ULABEL(uid)
 {
-  SAVE_ULABEL=ulabel;
+  SAVE_ULABEL=uid;
 }
 
 function get_ULABEL()
@@ -130,12 +130,39 @@ function readAndProcessLocalFile(fobj) {
        chunk_size=cnt;
 
     // use timestamp as unique label
-    var ulabel=$.now();
+    var uid=$.now();
      
-    getMaterialPropertyByLatlonList(ulabel,fdata,0, chunks, chunk_size);
+    getMaterialPropertyByLatlonList(uid,fdata,0, chunks, chunk_size);
   };
   reader.readAsText(fobj);
 
   
 };
+
+/*** util needed by layer.js ***/
+function getRnd() {
+//https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
+    var timestamp = $.now();
+    var rnd="UCVM_"+timestamp;
+    return rnd;
+}
+
+// [[lon1,lat1,z1],...,[lonn,latn,zn]]
+// make sure it is unique
+function makeLatlngs(darray) {
+   var cnt=darray.length;
+   var latlngs=[];
+   var i;
+   for(i=0;i<cnt;i++) {
+      var item=darray[i];
+      var lon=item[0];
+      var lat=item[1];
+      var z=item[2];
+      var nitem= {"lat":lat,"lon":lon}
+      if(latlngs.indexOf(nitem) == -1) {
+        latlngs.push(nitem);
+      }
+   }
+   return latlngs;
+}
 

@@ -194,10 +194,12 @@ function makeGeoGroup(traceList) {
      group.addLayer(geoLayer);
    } 
 
+/* ????
    group.eachLayer(function(layer) {
      var popUp= layer._popup;
      window.console.log("layergroup got a popup...", popUp);
    });
+*/
 
 
    return group;
