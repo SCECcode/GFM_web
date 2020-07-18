@@ -209,6 +209,8 @@ function makeMPTable(uid,str)
               else
                 val2=val2+" (by<br>depth)";
             }
+            if(key2 == "regionID")
+              val2=getRegionNameWithID(parseInt(val2));
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
          row=table.insertRow(1);
@@ -293,6 +295,8 @@ function makeMPTable_chunk(uid,str)
               else
                 val2=val2+" (by<br>depth)";
             }
+            if(key2 == "regionID")
+              val2=getRegionNameWithID(parseInt(val2));
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
          row=table.insertRow(1);

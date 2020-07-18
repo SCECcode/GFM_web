@@ -67,7 +67,7 @@ function makeRegionsTable() {
    tbhtml=tbhtml+"<tr><td style=\"width:5vw\">ID</td><td style=\"width:30vw\">Region Name</td><td style=\"width:8vw\">sliver</td></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
-     var id=item['id']
+     var id=item['domain_id']
      var name=item['name'];
      var sliver=item['sliver'];
      var t="<tr><td style=\"width:5vw\">"+id+"</td><td style=\"width:30vw\">"+name+"</td><td style=\"width:8vw\">"+sliver+"</td></tr>";
@@ -115,8 +115,8 @@ function getRegionNameWithID(id) {
    var i;
    for(i=0; i<cnt;i++) {
       var region=tb[i];
-      if(region['id'] == id) {
-        var n= region['name']+'['+id+']';
+      if(region['domain_id'] == id) {
+        var n= region['name'];
         if(region['sliver'])
             n=n+"*";
         return n;
@@ -131,7 +131,7 @@ function getRegionNameWithID2(id) {
    var i;
    for(i=0; i<cnt;i++) {
       var region=tb[i];
-      if(region['id'] == id) {
+      if(region['domain_id'] == id) {
         var n= region['name'];
         return n;
       }
@@ -145,7 +145,7 @@ function getRegionColorWithID(id) {
    var i;
    for(i=0; i<cnt;i++) {
       var region=tb[i];
-      if(region['id'] == id) 
+      if(region['domain_id'] == id) 
         return region['color'];
    }
    return undefined;
@@ -169,7 +169,7 @@ function getRegionStateWithID(id) {
    var i;
    for(i=0; i<cnt;i++) {
       var region=tb[i];
-      if(region['id'] == id) 
+      if(region['domain_id'] == id) 
         return region['state'];
    }
    return undefined;
@@ -181,7 +181,7 @@ function setRegionStateWithID(id,state) {
    var i;
    for(i=0; i<cnt;i++) {
       var region=tb[i];
-      if(region['id'] == id) 
+      if(region['domain_id'] == id) 
         region['state']=state;
    }
 }

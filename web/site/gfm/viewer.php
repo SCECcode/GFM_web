@@ -115,14 +115,14 @@ $header=getHeader("Viewer")
 
 <!--- MISC --->
     <div id="miscTools">
-        <button class="btn gfm-small-btn" title="display CFM5.2 faults" onclick='toggleShowCFM()'>
-           <span id="gfm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
         <button class="btn gfm-small-btn" title="display GFM regions" onclick='toggleShowCRM()'>
-           <span id="gfm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM</button>
-
-        <button class="btn gfm-small-btn" style="margin-left:70%; padding:0px 0px;" title="display GFM 3D regions" onclick='plotRegionClick()' data-toggle="modal" data-target="#modal3DPoint">
-           <span id="regionBtn" class="glyphicon glyphicon-ok-sign"></span>GFM3d</button>
+           <span id="gfm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM1.0</button>
         <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalRegions"><span class="glyphicon glyphicon-info-sign"></span></button>
+
+        <button class="btn gfm-small-btn" title="display CFM5.2 faults" style="margin-left:68%; padding:0px 0px;" onclick='toggleShowCFM()'>
+           <span id="gfm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
+        <button class="btn gfm-small-btn" title="display GFM 3D regions" onclick='plotRegionClick()' data-toggle="modal" data-target="#modal3DPoint">
+           <span id="regionBtn" class="glyphicon glyphicon-ok-sign"></span>GFM3d</button>
     </div>
 
     <div class="row" style="display:none;">

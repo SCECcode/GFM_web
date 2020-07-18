@@ -1,6 +1,6 @@
 /***
 
-    plot3d_util.js
+    view3d_util.js
 
 ***/
 var MODAL_TS_LIST=[];
@@ -25,33 +25,6 @@ function clear_MODAL_TS_LIST()
   MODAL_TS_PATH=null;
 }
 
-function save_MODAL_TS_LIST(url)
-{
-// https://s3-us-west-2.amazonaws.com/files.scec.org/s3fs-public/projects/cfm/CFM5/CFM52_preferred/500m/CRFA-BPPM-WEST-Big_Pine_fault-CFM2_m500.ts
-  var n;
-  var path;
-  var file;
-  
-  n=url.indexOf('/500m/');
-  if(n == -1) {
-    n=url.indexOf('/1000m/');
-    if( n == -1) {
-      n=url.indexOf('/2000m/');
-      if( n == -1) {
-        n=url.indexOf('/native/');
-      }
-    }
-  }
-  if( n != -1) {
-    path=url.substring(0,n+1);
-    file=url.substring(n+1);
-    MODAL_TS_PATH=path;
-    MODAL_TS_LIST.push(file);
-    } else {
-      MODAL_TS_LIST.push(url);
-  }
-}
-
 function get_MODAL_TS_LIST()
 {
    var str=MODAL_TS_LIST.toString();
@@ -64,15 +37,9 @@ function get_MODAL_TS_LIST()
 }
 
 function executePlot3d() {
-    startPlot3d();
-}
 
-function startPlot3d()
-{
-/*
-  collectURLsFor3d(mlist);
-  var str=get_MODAL_TS_LIST();
-*/
+//  collectURLsFor3d();
+
 //good var str="[http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SierraNevadaE.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SierraNevadaW.ts]";
 
 //OK, var str="[500m/CRFA-BPPM-WEST-Big_Pine_fault-CFM2_m500.ts]&filePATH=[https://s3-us-west-2.amazonaws.com/files.scec.org/s3fs-public/projects/cfm/CFM5/CFM52_preferred/]";
@@ -82,13 +49,11 @@ function startPlot3d()
 //var str="http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/LAB_Vekic_10km.ts";
 //var str="http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SanGabrielS60dip_fit.ts";
 
-//var str="http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SierraNevadaW.ts";
-var str="[http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-BasinAndRange.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-ColoradoPlateau.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-GreatValley.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-GulfRiftedMargin2.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-InnerBorderlandRift2.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-Mojavia.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-OceanicCrust.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-PeninsularRangeE2.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-PeninsularRangeW2.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-RiftAxis1.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-Salinia2.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SanFranciscoBay.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SanGabrielS60dip_fit.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SantaMariaRift2.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SierraNevadaE.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SierraNevadaW.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SouthernWalkerLane.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-WesternTransverseRangesN75dip_fit_extended.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-WesternTransverseRangesS32dip_fit_extended.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-WesternTransverseRangesW.ts]";
 
-
+  var str="[GFM2-BasinAndRange.ts,GFM2-ColoradoPlateau.ts,GFM2-GreatValley.ts,GFM2-GulfRiftedMargin2.ts,GFM2-InnerBorderlandRift2.ts,GFM2-Mojavia.ts,GFM2-OceanicCrust.ts,GFM2-PeninsularRangeE2.ts,GFM2-PeninsularRangeW2.ts,GFM2-RiftAxis1.ts,GFM2-Salinia2.ts,GFM2-SanFranciscoBay.ts,GFM2-SanGabrielS60dip_fit.ts,GFM2-SantaMariaRift2.ts,GFM2-SierraNevadaE.ts,GFM2-SierraNevadaW.ts,GFM2-SouthernWalkerLane.ts,GFM2-WesternTransverseRangesN75dip_fit_extended.ts,GFM2-WesternTransverseRangesS32dip_fit_extended.ts,GFM2-WesternTransverseRangesW.ts]&filePATH=[http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/]";
 
   if(window.location.hostname == "moho.scec.org") {
-str="[http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-BasinAndRange.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-ColoradoPlateau.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-GreatValley.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-GulfRiftedMargin2.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-InnerBorderlandRift2.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-Mojavia.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-OceanicCrust.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-PeninsularRangeE2.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-PeninsularRangeW2.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-RiftAxis1.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-Salinia2.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SanFranciscoBay.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SanGabrielS60dip_fit.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SantaMariaRift2.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SierraNevadaE.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SierraNevadaW.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SouthernWalkerLane.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-WesternTransverseRangesN75dip_fit_extended.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-WesternTransverseRangesS32dip_fit_extended.ts,http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-WesternTransverseRangesW.ts]";
+      str="[GFM2-BasinAndRange.ts,GFM2-ColoradoPlateau.ts,GFM2-GreatValley.ts,GFM2-GulfRiftedMargin2.ts,GFM2-InnerBorderlandRift2.ts,GFM2-Mojavia.ts,GFM2-OceanicCrust.ts,GFM2-PeninsularRangeE2.ts,GFM2-PeninsularRangeW2.ts,GFM2-RiftAxis1.ts,GFM2-Salinia2.ts,GFM2-SanFranciscoBay.ts,GFM2-SanGabrielS60dip_fit.ts,GFM2-SantaMariaRift2.ts,GFM2-SierraNevadaE.ts,GFM2-SierraNevadaW.ts,GFM2-SouthernWalkerLane.ts,GFM2-WesternTransverseRangesN75dip_fit_extended.ts,GFM2-WesternTransverseRangesS32dip_fit_extended.ts,GFM2-WesternTransverseRangesW.ts]&filePATH=[http://moho.scec.org/GFM_web/web/cfm_data/GFM_2020_tsurfs/fault_boundaries/]";
 }
 
 //var str="[http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SierraNevadaE.ts,http://localhost/~mei/gfm/cfm_data/GFM_2020_tsurfs/fault_boundaries/GFM2-SierraNevadaW.ts]";
