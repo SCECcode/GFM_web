@@ -10,6 +10,7 @@ var myIcon = L.divIcon({className: 'blue-div-icon'});
 var small_point_options = { icon : myIcon};
 
 var mymap, baseLayers, layerControl, currentLayer;
+var visibleRegions = new L.FeatureGroup();
 
 function clear_popup()
 {

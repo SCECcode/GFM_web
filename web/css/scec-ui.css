@@ -1,5 +1,21 @@
 /* required styles */
 
+.scec-header-container table {
+  border:1px solid #ced4d5;
+  background:#F2F2F2;
+}
+
+.header-container table {
+  border:none;
+}
+
+.container button.btn-dark {
+    text-transform: uppercase;
+    background-color: grey;
+    border:1px solid grey;
+    font-size: 7pt;
+}
+
 .glyphicon.glyphicon-search {
     font-size: 25px;
 }
@@ -153,10 +169,6 @@ nav.navbar .nav-link.disabled {
 
 .scec-main-container {
     background-color: #FFFFFF;
-}
-
-label { 
-    font-weight: bold;
 }
 
 ul li {

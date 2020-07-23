@@ -1,5 +1,11 @@
 /* required styles */
 
+#gfm-viewer-container {
+  overflow-y:scroll;
+  height:220px;
+  border:1px solid #ced4d5;
+}
+
 .glyphicon.glyphicon-cog {
     font-size: 30px;
 }
@@ -16,7 +22,7 @@ hr {
 }
 
 table { width: 100%; border-collapse: collapse;}
-table, td, th { border: 1px solid grey; padding: 2px;}
+table, td, th { border: 1px solid #ced4d5; padding: 2px 2px 2px 5px;}
 th {text-align: left;}
 
 .gfm-table {
@@ -50,6 +56,13 @@ th {text-align: left;}
 .gfm-small-btn {
           background: transparent;
           color: #990000;
+          border: none;
+          display: inline-block;
+          }
+
+.gfm-small-fix-btn {
+          background: transparent;
+          color: grey;
           border: none;
           display: inline-block;
           }

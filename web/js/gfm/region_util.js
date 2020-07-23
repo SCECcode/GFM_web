@@ -17,6 +17,63 @@ function showInTable(key) {
   return 0;
 }
 
+// create a table with all gfm regions  GFM_tb['regions']
+function makeRegionResultTable()
+{
+    var regions=GFM_tb['regions'];
+
+    var table=document.getElementById("gfmTable");
+    var row;
+
+    var cnt=0;
+    var sz=regions.length;
+    for( var i=0; i< sz; i++) {
+       var s=regions[i];
+       var name=s['name'];
+       var gid=s['domain_id'];
+       var ts=s['ts_files'];
+       var sliver=s['sliver'];
+       if(sliver == 0 ) {
+         var t;
+       /* if there is a ts file, then make it selectable */
+         if(ts == undefined) {
+            window.console.log("did not set ts.length for ", name);
+         }
+         if(ts.length > 0) {
+t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-btn\" id=\"button_id2id_"+gid+"\" title=\"highlight the region\" onclick=toggle_id2id_highlight("+gid+")><span id=\"highlight_id2id_"+gid+"\" class=\"glyphicon glyphicon-unchecked\"></span></button><td><label for=\"button_id2id_"+gid+"\">" + name + "</label></td></tr>";
+         } else  {
+t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-fix-btn\" id=\"button_id2id_"+gid+"\" title=\"unselectable region\"><span id=\"highlight_id2id_"+gid+"\" class=\"glyphicon glyphicon-remove-sign\"></span></button><td><label for=\"button_id2id_"+gid+"\">" + name + "</label></td></tr>";
+         }
+
+         row=table.insertRow();
+         row.innerHTML=t;
+         cnt++;
+       }
+    }
+
+    if (visibleRegions.getBounds().isValid()) {
+        viewermap.fitBounds(visibleRegions.getBounds());
+    }
+    window.console.log("GFM regions from table  ==>",cnt);
+}
+
+function makeTSList(activelist) {
+    var rlist=GFM_tb['regions'];
+    var rcnt=rlist.length;
+    var tslist=[];
+    var cnt=activelist.length;
+    for(var i=0; i<rcnt; i++) {
+      var item=rlist[i]; 
+      var gid=item['domain_id'];
+      if(activelist.includes(gid)) {
+         var ts=item['ts_files'];
+         var nlist=tslist.concat(ts);
+         tslist=nlist;
+      }
+    }
+    return tslist;
+}
+
 function makeFileFormatTable() {
    var tb=GFM_tb['fileformats'];
    var cnt=tb.length;
@@ -147,6 +204,19 @@ function getRegionColorWithID(id) {
       var region=tb[i];
       if(region['domain_id'] == id) 
         return region['color'];
+   }
+   return undefined;
+}
+
+function getRegionIDWithName(n) {
+   var tb=GFM_tb['regions'];
+   var cnt=tb.length;
+   var i;
+   for(i=0; i<cnt;i++) {
+      var region=tb[i];
+      var nn=region['name'];
+      if( nn.replace(/\s+/g, '') == n.replace(/\s+/g, ''))
+        return region['domain_id'];
    }
    return undefined;
 }

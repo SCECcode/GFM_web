@@ -23,6 +23,18 @@ function removeFromList(alist, uid) {
     return undefined;
 }
 
+// found an item from in a list base on its matching 'uid'
+function getFromList(alist, uid) {
+    var cnt=alist.length;
+    var item;
+    for(i=0;i<cnt;i++) {
+       item=alist[i];
+       if(item['uid']==uid) { // found the item to use
+           return item;
+       }
+    }
+    return undefined;
+}
 
 // https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-only-if-necessary
 function round2Four(val) {

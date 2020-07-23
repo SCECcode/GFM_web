@@ -11,17 +11,31 @@ var gfm_resulttb_list=[];
 // tracking the layer that contains CFM5.2 faults
 var gfm_cfm_layer;
 var show_cfm=false;
-// tracking the layer that contains CRM latlon points
-var gfm_crm_layer;
-var show_crm=false;
+// tracking the layer that contains GFM1.0 regions
+var gfm_gfm_layer;
+var show_gfm=false;
 // tracking when using pointClick -- on map
 var drawing_point=false;
 
+// region selecting table
+function setup_gfm_table() {
+    toggleShowGFM();
+    makeRegionResultTable();
+}
+
+// setup information tables
 function setup_tables() {
     document.getElementById('parametersTable').innerHTML=makeParametersTable();
     document.getElementById('regionsTable').innerHTML=makeRegionsTable();
     document.getElementById('zmodeTable').innerHTML=makeZModeTable();
     document.getElementById('fileFormatTable').innerHTML=makeFileFormatTable();
+}
+
+// true, select all regions, false, deselect all region
+var toggle_all_flag=false;
+function toggleAll() {
+   toggle_all_flag = ! toggle_all_flag;
+   select_all_id2id(toggle_all_flag);
 }
 
 function pointClick() {
@@ -61,20 +75,22 @@ function toggleShowCFM() {
    }
 }
 
-function setup_CRM() {
-   gfm_crm_layer=readLocalAndProcessActiveCRMGeo();
+function setup_GFM() {
+   gfm_gfm_layer=readLocalAndProcessActiveGFMGeo();
+   window.console.log("setup gfm_gfm_layer");
 }
 
-function toggleShowCRM() {
-   show_crm=!show_crm;
-   if(show_crm) {
-     viewermap.addLayer(gfm_crm_layer);
-     $('#gfm_crm_btn').removeClass('glyphicon-ok-sign');
-     $('#gfm_crm_btn').addClass('glyphicon-remove-sign');
+// toggle the whole set of them
+function toggleShowGFM() {
+   show_gfm=!show_gfm;
+   if(show_gfm) {
+     viewermap.addLayer(gfm_gfm_layer);
+     $('#gfm_gfm_btn').removeClass('glyphicon-ok-sign');
+     $('#gfm_gfm_btn').addClass('glyphicon-remove-sign');
      } else {
-       viewermap.removeLayer(gfm_crm_layer);
-       $('#gfm_crm_btn').addClass('glyphicon-ok-sign');
-       $('#gfm_crm_btn').removeClass('glyphicon-remove-sign');
+       viewermap.removeLayer(gfm_gfm_layer);
+       $('#gfm_gfm_btn').addClass('glyphicon-ok-sign');
+       $('#gfm_gfm_btn').removeClass('glyphicon-remove-sign');
    }
 }
 

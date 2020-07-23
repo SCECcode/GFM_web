@@ -110,16 +110,16 @@ function toggleTrace3Dview(elt) {
   
   track_trace = !track_trace;
   if(track_trace) {
-    elt.innerHTML="Hide Traces";
+    elt.innerHTML="Show Fault Traces";
     } else {
-      elt.innerHTML="Show Traces";
+      elt.innerHTML="Hide Fault Traces";
   }
 }
 
 function resetTrace3Dview() {
   let elt=document.getElementById("view3DToggleTracebtn");
   var track_trace=1; // 1 is on 0 is off
-  elt.innerHTML="Hide Traces";
+  elt.innerHTML="Show Fault Traces";
 }
 
 
@@ -129,16 +129,16 @@ function toggleShore3Dview(elt) {
   
   track_shore = !track_shore;
   if(track_shore) {
-    elt.innerHTML="Hide Coastline";
+    elt.innerHTML="Show Coastline";
     } else {
-      elt.innerHTML="Show Coastline";
+      elt.innerHTML="Hide Coastline";
   }
 }
 
 function resetShore3Dview() {
   let elt=document.getElementById("view3DToggleShorebtn");
   var track_shore=1; // 1 is on 0 is off
-  elt.innerHTML="Hide Coastline";
+  elt.innerHTML="Show Coastline";
 }
 
 var track_legend=1; // 1 is on 0 is off

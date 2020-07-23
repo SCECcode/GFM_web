@@ -90,10 +90,8 @@ $header=getHeader("Viewer")
 <script type="text/javascript" src="js/gfm/leaflet.js"></script>
 <script type="text/javascript" src="js/gfm/layer.js"></script>
 <script type="text/javascript" src="js/gfm/layer_util.js"></script>
-<script type="text/javascript" src="js/gfm/plot_util.js"></script>
 <script type="text/javascript" src="js/gfm/view3d.js"></script>
 <script type="text/javascript" src="js/gfm/view3d_ui.js"></script>
-<script type="text/javascript" src="js/gfm/MyWebApp.js.js"></script>
 <script type="text/javascript" src="js/gfm/cxm_misc_util.js"></script>
 </head>
 <body>
@@ -115,14 +113,16 @@ $header=getHeader("Viewer")
 
 <!--- MISC --->
     <div id="miscTools">
-        <button class="btn gfm-small-btn" title="display GFM regions" onclick='toggleShowCRM()'>
-           <span id="gfm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM1.0</button>
+<!--
+        <button class="btn gfm-small-btn" title="display GFM regions" onclick='toggleShowGFM()'>
+           <span id="gfm_gfm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM1.0</button>
         <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalRegions"><span class="glyphicon glyphicon-info-sign"></span></button>
+-->
 
-        <button class="btn gfm-small-btn" title="display CFM5.2 faults" style="margin-left:68%; padding:0px 0px;" onclick='toggleShowCFM()'>
+        <button class="btn gfm-small-btn" title="display CFM5.2 faults" style="margin-left:78%; padding:0px 0px;" onclick='toggleShowCFM()'>
            <span id="gfm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
         <button class="btn gfm-small-btn" title="display GFM 3D regions" onclick='plotRegionClick()' data-toggle="modal" data-target="#modal3DPoint">
-           <span id="regionBtn" class="glyphicon glyphicon-ok-sign"></span>GFM3d</button>
+           <span id="regionBtn" class="glyphicon glyphicon-ok-sign"></span>GFM3dMesh</button>
     </div>
 
     <div class="row" style="display:none;">
@@ -199,32 +199,32 @@ $header=getHeader("Viewer")
                     <div class="row" id="fileQuery" style="margin:0 0 0 0;display:"></div>
 -->
                   </div>
-                  <div class="col-2 pr-1">
-                    <button onclick="resetAll();" class="btn btn-dark pl-4 pr-4" type="button">Reset</button>
+                  <div class="col-2 mb-2">
+                    <button onclick="resetAll();" class="btn btn-dark pr-3 pl-3" style="margin-left:3px" type="button">Reset</button>
                   </div>
                 </div>
             </div> <!-- latlon/file input/reset --> 
 
-            <div class="col input-group">
-               <div class="col-12 pr-1 mt-4">
-<button class="btn" title="plot 3D" onclick="executePlot3d()" style="margin-left:30%;" >plot3D</button>
-               </div>
-            </div> 
-
-            <div class="col input-group">
-               <div class="col-12 pr-1 mt-4" style="border:2px solid blue">
-<p>a table here..</p>
-               </div>
-            </div> 
-
-            <div class="col input-group">
-                <div class="row mt-1">
-                  <div class="row col-md-12 ml-auto" style="overflow:hidden;">
-<!-- XXX --->
-                      <div class="col-12" id="GFM_Table"></div>
-                  </div>
+            <div class="row mt-3" id="gfm-table">
+                <div class="col-12 scec-header-container" id="gfm-header-container">
+                    <table id="gfmTableHeader">
+                        <tbody>
+                        <tr>
+                           <td style="width:36px"><button id="allBtn" class="btn btn-sm gfm-small-btn" title="select all available regions" onclick="toggleAll();"><span id="toggle_all" class="glyphicon glyphicon-ok-sign"></span></button></td>
+                           <td style="border:none"><b>GFM Geological Regions</b></td>
+                           <td style="width:35px;border:none;background:#F2F2F2;" > 
+                             <button class="btn btn-dark" title="plot selected regions in 3D viewer" onclick="executePlot3d()">plot3D</button>
+                           </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div> <!-- map area -->
+                <div class="col-12">
+                    <div id="gfm-viewer-container">
+                    <table id="gfmTable" ><tbody></tbody></table>
+                    </div>
+                </div>
+            </div> <!-- gfm-table -->
           </div>
         </div> <!-- control-container -->
 
@@ -250,10 +250,11 @@ $header=getHeader("Viewer")
                 </div>
             </div>
         </div> <!-- map-container -->
+        <div class="col-12 mt-2">
         <div id="result-container" class="col-12">
             <div class="row" id="mp-table">
-                <div class="col-12" id="materialProperty-header-container">
-                    <table id="mpHeaderTable" style="border:none">
+                <div class="col-12 header-container" id="materialProperty-header-container">
+                    <table id="mpHeaderTable">
                         <tbody>
                         <tr>
                             <td style="border:none"><b>Material Property</b>
@@ -262,7 +263,7 @@ $header=getHeader("Viewer")
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12" id="materialProperty-viewer-container" style="overflow:scroll;max-height:20vh">
+                <div class="col-12" id="materialProperty-viewer-container" style="overflow-y:scroll;max-height:20vh">
                     <table id="materialPropertyTable">
                         <tbody>
                         <tr id="mp_placeholder-row">
@@ -273,17 +274,16 @@ $header=getHeader("Viewer")
                 </div>
             </div> <!-- mp-table -->
 <div class="row mt-2 mb-4">
-                <div class="col-12" id="result-header-container">
-                    <table id="resultHeaderTable" style="border:none">
+                <div class="col-12 header-container" id="result-header-container">
+                    <table id="resultHeaderTable">
                         <tbody>
                         <tr>
                             <td style="border:none"><b>Result</b>&nbsp;<button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
-
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12" id="resultTable-container" style="overflow:scroll;max-height:30vh">
+                <div class="col-12" id="resultTable-container" style="overflow-y:scroll;max-height:30vh">
                     <table id="resultTable">
                         <tbody>
                         <tr id="placeholder-row">
@@ -292,6 +292,7 @@ $header=getHeader("Viewer")
                         </tbody> </table>
                 </div>
             </div> <!-- Result table -->
+            </div>
 
             <div id="phpResponseTxt"></div>
 
@@ -309,8 +310,8 @@ $header=getHeader("Viewer")
       <!--Header-->
       <div class="modal-header">
         <button id="view3DToggleReprbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleRepr3Dview(this)">Show Wireframe</button>
-        <button id="view3DToggleTracebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleTrace3Dview(this)">Hide Traces</button>
-        <button id="view3DToggleShorebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleShore3Dview(this)">Hide Coastline</button>
+        <button id="view3DToggleTracebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleTrace3Dview(this)">Show Traces</button>
+        <button id="view3DToggleShorebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleShore3Dview(this)">Show Coastline</button>
         <button id="view3DToggleBoundsbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleBounds3Dview(this)">Show Bounds</button>
         <button id="view3DToggleLegendbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleLegend3Dview(this)">Hide Legend</button>
         <button id="view3DToggleNorthbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleNorth3Dview(this)">Show Mapview</button>

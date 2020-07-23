@@ -10,6 +10,13 @@ c) import external latlon.csv with 'name' and create a group Layerof mulitple gr
 /***
 --> needs gfm_regions.js
 ***/
+var skipPopup=false;
+
+function setSkipPopup(state) {
+    skipPopup=state;
+    window.console.log("setSkipPopup to ",state);
+}
+
 function getGFMRegionColorWithName(name) {
    var tb=GFM_tb['regions'];
    var cnt=tb.length;
@@ -67,15 +74,15 @@ function dumpActiveCFMGeo() {
   }
 }
 
-function dumpActiveCRMGeo() {
+function dumpActiveGFMGeo() {
   var tracelist = [];
   var labellist = [];
 
-  var tsz=crm_trace_list.length;
+  var tsz=gfm_trace_list.length;
   for(var i=0; i< tsz; i++) {
-    var titem=crm_trace_list[i];
+    var titem=gfm_trace_list[i];
     var gid=titem['gid'];
-    var tracename=find_crm_name_by_gid(gid);
+    var tracename=find_gfm_name_by_gid(gid);
     var atrace=titem['trace'];
     // either all, or has a active list
     labellist.push(tracename);
@@ -83,7 +90,7 @@ function dumpActiveCRMGeo() {
   }
 
   if(tracelist.length) {
-     dumpActiveGeo("CRM_geoJson.txt", tracelist, labellist);
+     dumpActiveGeo("GFM1.0_geoJson.txt", tracelist, labellist);
   }
 }
 
@@ -131,7 +138,9 @@ function readLocalAndProcessActiveCFMGeo() {
      var name= atrace.features[0].properties.name;
      window.console.log("adding trace.. ",name);
   }
-  return makeGeoGroup(trace_list);
+ 
+  var group=makeGeoGroup(trace_list);
+  return group;
 }
 
 
@@ -194,14 +203,6 @@ function makeGeoGroup(traceList) {
      group.addLayer(geoLayer);
    } 
 
-/* ????
-   group.eachLayer(function(layer) {
-     var popUp= layer._popup;
-     window.console.log("layergroup got a popup...", popUp);
-   });
-*/
-
-
    return group;
 }
 
@@ -211,6 +212,8 @@ function bindPopupEachFeatureName(feature, layer) {
     var popupContent="";
     layer.on({
         mouseover: function(e) {
+          if(skipPopup == true)
+            return;
           layer.setStyle({weight: 5});
           if (feature.properties != undefined) {
             popupContent = feature.properties.name;
@@ -218,6 +221,8 @@ function bindPopupEachFeatureName(feature, layer) {
           layer.bindPopup(popupContent);
         },
         mouseout: function(e) {
+          if(skipPopup == true)
+            return;
           layer.setStyle({weight: 1});
         },
         click: function(e) {
@@ -231,8 +236,8 @@ function bindPopupEachFeatureName(feature, layer) {
 }
 
 // from a local file
-function readLocalAndProcessActiveCRMGeo() {
-  var url="data/CRM_geoJson.txt";
+function readLocalAndProcessActiveGFMGeo() {
+  var url="data/GFM1.0_geoJson.txt";
   var blob=ckCXMExist(url);
   var jblob=JSON.parse(blob);
 
@@ -247,13 +252,17 @@ function readLocalAndProcessActiveCRMGeo() {
        atrace.features[j].properties.style.weight=0.3;
      }
      var name= atrace.features[0].properties.name;
-     window.console.log("adding trace.. ",name);
+     var p=atrace.features[0].properties;
+     window.console.log("adding gfm trace.. ",name);
   }
-  return makeGeoGroup(trace_list);
+
+  var group=makeGeoGroup(trace_list);
+  make_id2id_list(group);
+  return group;
 }
 
-function loadCRMRegions() {
-  getCRMAllTraces();
+function loadGFMRegions() {
+  getGFMAllTraces();
 }
 
 //domain,xcoord,ycoord

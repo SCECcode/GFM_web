@@ -2,29 +2,14 @@
    gfm_layer.js
 ***/
 
-// control whether the main mouseover control should be active or not
-var skipPopup=false;
-
 /***
    tracking data structure
 ***/
-
-// leaflet layer for gfm model boundaries
-// oidx is the order index, when there are more than 1 model visible, the oidx 
-// denotes the ordering. 1,2,3 etc
-// [ { "model": modelname, "layer": layer, "style":styleblob, 'visible':1, 'oidx':v }, ... ]
-var gfm_model_list =[];
 
 // material properties returned from backend per lat lon point
 // mpblob is what gfm_query returns
 // [ { "uid": uid, "mp": mpblob }, ... ]
 var gfm_mp_list=[];
-
-// meta list for a query, per job,
-// meta is a json blob for timestamp, mode..
-var gfm_meta_list=[];
-// [ { "uid":uid, "meta": metablob }, ... ]
-
 
 // for tracking uid that did not get 'used'
 var dirty_layer_uid=0;
@@ -38,16 +23,23 @@ const EYE_NORMAL=0,
 // [ { "uid": uid, "type": type_enum, "group":group, 'highlight':0/1/2 }, ... ]
 var gfm_layer_list =[];
 
-// { { "uid":uid, "filename":filename}]}
+// [{ "uid":uid, "filename":filename}]
 var gfm_point_file_list=[];
 
 // material property point
-// { { "uid":uid, "latlngs":[{"lat":a,"lon":b}]}
+// [{ "uid":uid, "latlngs":[{"lat":a,"lon":b}]} ]
 var gfm_point_list=[];
 
 // material property by file
-// { { "uid":uid, "latlngs":[{"lat":a,"lon":b},...,{"lat":c,"lon":d}]}
+// [ { "uid":uid, "latlngs":[{"lat":a,"lon":b},...,{"lat":c,"lon":d}]} ]
 var gfm_file_points_list=[];
+
+
+// track the gfm polygon being loaded into viewer via group-layer
+// using domain_id as gid as if it is objgid
+// [ { "uid":duid, "name":dname, "layer":layer, "layer_id":lid, "highlight":0 } ]
+var gfm_id2id_list=[];
+var gfm_region_highlight=0;
 
 /*****************************************************************
 *****************************************************************/
@@ -67,16 +59,6 @@ function get_materialproperty(target_uid) {
     }
   }
   return {};
-}
-
-/* return meta item if id is in the meta list */
-function find_meta_from_list(target_uid) {
-   var found=0;
-   gfm_meta_list.forEach(function(element) {
-     if ( element['uid'] == target_uid )
-        found=element;
-   });
-   return found;
 }
 
 function get_leaflet_id(layer) {
@@ -283,4 +265,83 @@ function add_bounding_point_layer(layer,a,b) {
 
 function remove_bounding_point_layer(uid) {
   remove_a_layer(uid);
+}
+
+
+function make_id2id_list(group) {
+  group.eachLayer(function(layer) {
+    var id=layer._leaflet_id;
+    var layer_id=id -1;
+    var tmp=layer._layers[layer_id];
+    var feature=tmp['feature'];
+    var d_id=feature.id;
+    var d_name=feature.properties['name'];
+    var item={"uid":d_id,"name":d_name, "layer":layer,"layer_id":layer_id, "highlight":0 };
+    gfm_id2id_list.push(item);
+    window.console.log("id2id ",d_name);
+  });
+}
+
+// it is possible that there is no id2id entry per table
+function toggle_id2id_highlight(gid) {
+   var item=getFromList(gfm_id2id_list,gid);
+   if(item != undefined) {
+     var $btn=$(`#highlight_id2id_${gid}`);
+     _toggle_id2id(item,gid);
+   }
+}
+
+function _toggle_id2id(item, gid) {
+   item['highlight']=!item['highlight'];
+   var layer=item['layer'];
+   var $btn=$(`#highlight_id2id_${gid}`);
+   if(item['highlight'] == 1) {
+     layer.setStyle({weight:5});
+     gfm_region_highlight++;
+     setSkipPopup(true);
+     $btn.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+     } else {
+        $btn.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+        gfm_region_highlight--;
+        layer.setStyle({weight:1});
+        if(gfm_region_highlight == 0) {
+          setSkipPopup(false);
+        }
+   }
+} 
+
+
+// [ { "uid":duid, "name":dname, "layer":layer, "layer_id":lid, "highlight":0 } ]
+function select_all_id2id(state) {
+   var $bbtn=$(`#toggle_all`);
+   var cnt=gfm_id2id_list.length;
+   var item;
+   for(var i=0; i<cnt; i++) {
+     item=gfm_id2id_list[i]; 
+     var gid=item['uid'];     
+     var $btn=$(`#highlight_id2id_${gid}`);
+     if($btn != undefined ) { // skip if undefined
+       var highlight=item['highlight'];     
+       if(state && !highlight) { // highlight it
+         _toggle_id2id(item, gid);
+         $bbtn.removeClass('glyphicon-ok-sign').addClass('glyphicon-remove-sign');
+       } else if(!state && highlight) { // unhighlight it
+         _toggle_id2id(item, gid);
+         $bbtn.removeClass('glyphicon-remove-sign').addClass('glyphicon-ok-sign');
+       }
+     }
+   }
+}
+
+function get_active_id2id() {
+   var alist=[]; 
+   var cnt=gfm_id2id_list.length;
+   var item; 
+   for(var i=0; i<cnt; i++) {
+     item=gfm_id2id_list[i];
+     gid=item['uid'];
+     if(item['highlight'])
+       alist.push(gid);
+   }
+   return alist;
 }
