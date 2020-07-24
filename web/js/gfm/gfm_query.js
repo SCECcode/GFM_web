@@ -12,7 +12,6 @@
 // get the material properties of the latlon locations
 //
 
-var MAX_CHUNKS_TO_DISPLAY=1;
 function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chunks, chunk_step) {
 
     if(current_chunk == total_chunks) 
@@ -26,17 +25,15 @@ function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chun
 
     var i;
     var dataset=[];
+window.console.log("number of data in List..",end_idx);
     for( i=start_idx; i<end_idx; i++) {
 // collect up the string
         dataset.push(dataarray[i]);
     }
     var datastr=dataset.toString();
+window.console.log(datastr);
 
-    var skip=0; // skip the transfer of the result
-    if( current_chunk >= MAX_CHUNKS_TO_DISPLAY)
-      skip=1;
-
-    _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_chunk, total_chunks,chunk_step);
+    _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk, total_chunks,chunk_step);
            
 }
 
@@ -69,7 +66,7 @@ function getValuesFromJsonBlob(plotID,uid,xstr, ystr, zstr, targetstr) {
 
 
 // to be called by getMaterialPropertyByLatlonList
-function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
+function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
     // extract content of a file
     var zmodestr=document.getElementById("ZmodeTxt").value;
     if (window.XMLHttpRequest) {
@@ -85,17 +82,10 @@ function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_
             var str=processSearchResult("getMaterialPropertyByLatlonChunk");
            
             if(current_chunk==0) { // first one
-/* don't put the data in the table since it is from a file
-               makeMPTable_chunk(uid,str);
-*/
+               makeMPResult_chunk(uid,current_chunk,str,true);
                getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
             } else {
-// try to limit the size of the table..
-/*
-               if( current_chunk < MAX_CHUNKS_TO_DISPLAY) {
-                   makeMPTable_chunk(uid,str);
-               } 
-*/
+               makeMPResult_chunk(uid,current_chunk, str,false);
                getMaterialPropertyByLatlonList(uid, dataarray, current_chunk+1, total_chunks, chunk_step);
             }
             if(current_chunk==(total_chunks-1)) { // last one
@@ -107,19 +97,13 @@ function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_
               var mpname=uname+".json";
               var note="Material Property with "+mstr + " search by "+zstr;
               insertResultTable(note, uname, {"materialproperty":mpname});
-/* XXX
-              if( dataarray.length < MAX_FILEPOINTS) {
-                reset_point_UID();
-                toggle_a_layergroup(uid);
-              }
-***/
 
               set_ULABEL(uid);
 
             }
        }
     }
-    xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&uid="+uid+"&chunks="+total_chunks+"&skip="+skip, true);
+    xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&uid="+uid+"&chunks="+total_chunks, true);
     xmlhttp.send();
 }
 
@@ -157,6 +141,7 @@ function getMaterialPropertyByLatlon() {
                 document.getElementById('spinIconForQuery').style.display ="none";
                 var str=processSearchResult("getMaterialPropertyByLatlon");
                 makeMPTable(uid,str);
+
             }
         }
         xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&uid="+uid, true);

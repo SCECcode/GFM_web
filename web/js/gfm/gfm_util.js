@@ -47,9 +47,11 @@ function processSearchResult(rlist) {
     }
     if (rlist == 'getMaterialPropertyByLatlonChunk') {
         str = $('[data-side="materialPropertyByLatlonChunk"]').data('params');
+ // insert rock information
     }
     if (rlist == 'getMaterialPropertyByLatlonList') {
         str = $('[data-side="materialPropertyByLatlonList"]').data('params');
+ // insert rock information
     }
     if (rlist == 'getMaterialPropertyByLatlon') {
         str = $('[data-side="materialPropertyByLatlon"]').data('params');
@@ -110,14 +112,14 @@ function readAndProcessLocalFile(fobj) {
        if(is_csv) {
          $.csv.toArray(fline, {}, function(err, data) {
            var v=data;
-           if( v != "" ) {
+           if( v != "" && v[0] != "#" ) {
              fdata.push(v);
            }
          }); 
        } else {
 // space separated format 
            var v=fline.split(' ');
-           if( v != "" ) {
+           if ( v != "" && v[0] != "#" ) {
              fdata.push(v);
            }
        }
@@ -132,6 +134,9 @@ function readAndProcessLocalFile(fobj) {
     // use timestamp as unique label
     var uid=$.now();
      
+window.console.log("length of data found..",cnt);
+window.console.log("size of chunk to do..",chunk_size);
+window.console.log("number of chunks to do..",chunks);
     getMaterialPropertyByLatlonList(uid,fdata,0, chunks, chunk_size);
   };
   reader.readAsText(fobj);

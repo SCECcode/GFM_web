@@ -125,6 +125,9 @@ function selectLocalFiles(_urls) {
 }
 
 function resetAll() {
+  remove_all_layers();
+  refresh_map();
+  clear_popup();
   refreshTxtInput();
   refreshMPTable();
   refreshResultTable();
@@ -132,8 +135,8 @@ function resetAll() {
 }
 
 function refreshTxtInput() {
-  $('#LatTxt').val(34.30);
-  $('#LonTxt').val(-119.20);
+  $('#LatTxt').val(31.70);
+  $('#LonTxt').val(-116.20);
   $('#ZTxt').val(-9700);
   $('#ZmodeTxt').val('e');
 }
@@ -149,11 +152,10 @@ function refreshResultTable() {
     table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Downloadable Result will appear here. </td></tr></tbody>";
 }
 
-// takes 1 or more sets of result
-// of { 'first':{...}, 'second':{...}, ...}
+// takes 1 set of result
+// of { 'mp':{...}, 'second':{...}, ...}
 function makeMPTable(uid,str)
 {
-    var i;
     var blob;
     if( str == undefined || str == "" || str['mp'] == "" ) {
        window.console.log("ERROR: no return result");
@@ -165,11 +167,11 @@ function makeMPTable(uid,str)
          blob=str;
     }
 
-    var dkeys=Object.keys(blob); // dkeys: first, second
-    var dsz=(Object.keys(blob).length); // 2
+    var dkeys=Object.keys(blob);
+    var dsz=(Object.keys(blob).length); 
 
-    if(dsz < 1) {
-       window.console.log("ERROR: expecting at least 1 set of material properties");
+    if(dsz != 1) {
+       window.console.log("ERROR: expecting just 1 set of material properties");
        return;
     }
 
@@ -177,6 +179,19 @@ function makeMPTable(uid,str)
     if( typeof datablob === 'string') { 
        datablob=JSON.parse(datablob);
     }
+
+    var zmode=document.getElementById("ZmodeTxt").value;
+    var depth=datablob['Z'];
+    var topo=datablob['topo'];
+    var regionid=datablob['regionID'];
+    if(zmode == 'e') {  // this is elevation
+      var n_depth= depth - topo;
+      depth= -1 * n_depth;
+    }
+    fillinRockName(datablob, regionid, depth);
+    // write it back
+    blob[dkeys[0]]=datablob;
+
 
     // create the key first
     var labelline="<th style=\"width:4vw\"></th>";
@@ -205,42 +220,32 @@ function makeMPTable(uid,str)
     // now adding the data part..
     var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
 
-    for(j=0; j< dsz; j++) {
-        var datablob=blob[dkeys[j]];
-        if(datablob == "")
-           continue;
-        if( typeof datablob === 'string') { 
-           datablob=JSON.parse(datablob);
+    for(i=0; i<sz; i++) {
+        var key2=datakeys[i];
+        var val2=datablob[key2];
+        if(!showInTable(key2))
+          continue;
+        if(key2 == 'Z') { 
+          if(zmode == "e")
+            val2=val2+" (by<br>elevation)";
+          else
+            val2=val2+" (by<br>depth)";
         }
-
-        for(i=0; i<sz; i++) {
-            var key2=datakeys[i];
-            var val2=datablob[key2];
-            if(!showInTable(key2))
-              continue;
-            if(key2 == 'Z') { 
-              var zmodestr=document.getElementById("ZmodeTxt").value;
-              if(zmodestr == "e")
-                val2=val2+" (by<br>elevation)";
-              else
-                val2=val2+" (by<br>depth)";
-            }
-            if(key2 == "regionID")
-              val2=getRegionNameWithID(parseInt(val2));
-            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
-         }
-         row=table.insertRow(1);
-         row.innerHTML=mpline;
+        if(key2 == "regionID") {
+          val2=getRegionNameWithID(parseInt(val2));
+        }
+        mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
     }
-    return "";
+    row=table.insertRow(1);
+    row.innerHTML=mpline;
+    return;
 }
 
 
-// takes 1 or more sets of result
-// of { 'first':{...}, 'second':{...}, ...}
-function makeMPTable_chunk(uid,str)
+// generate the a new result file with rock information
+function makeMPResult_chunk(uid,current_chunk,str,first)
 {
-    var i;
+    window.console.log("making makeMPResult_chunk call...");
     var blob;
     if( str == undefined || str == "" ) {
        window.console.log("ERROR: no return result");
@@ -252,8 +257,8 @@ function makeMPTable_chunk(uid,str)
          blob=str;
     }
 
-    var dkeys=Object.keys(blob); // dkeys: first, second
-    var dsz=(Object.keys(blob).length); // 2
+    var dkeys=Object.keys(blob); 
+    var dsz=(Object.keys(blob).length); 
 
     if(dsz < 1) {
        window.console.log("ERROR: expecting at least 1 set of material properties");
@@ -265,120 +270,58 @@ function makeMPTable_chunk(uid,str)
        datablob=JSON.parse(datablob);
     }
 
-    // create the key first
-    var labelline="<th style=\"width:4vw\"></th>";
-    var key;
-    
-    var datakeys=Object.keys(datablob);
-    var sz=(Object.keys(datablob).length);
-
-    var table=document.getElementById("materialPropertyTable");
-    
-    if(hold_mptable) {
-        for(i=0; i<sz; i++) {
-            key=datakeys[i];
-            // special case
-            if(!showInTable(key))
-              continue;
-            labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
-        }
-
-        table.deleteRow(0); // delete the holdover
-        hold_mptable=0;
-        row=table.insertRow(-1);
-        row.innerHTML=labelline;
-    }
-
-    // now adding the data part..
-
-    for(j=0; j< dsz; j++) {
+    var zmode=document.getElementById("ZmodeTxt").value;
+    // iterate through data part 
+    for(var j=0; j< dsz; j++) {
         var datablob=blob[dkeys[j]];
         if(datablob == "")
            continue;
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
-        for(i=0; i<sz; i++) {
-            var key2=datakeys[i];
-            var val2=datablob[key2];
-            if(!showInTable(key2))
-                continue;
-            if(key2 == 'Z') {
-              var zmodestr=document.getElementById("ZmodeTxt").value;
-              if(zmodestr == "e")
-                val2=val2+" (by<br>elevation)";
-              else
-                val2=val2+" (by<br>depth)";
-            }
-            if(key2 == "regionID")
-              val2=getRegionNameWithID(parseInt(val2));
-            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
-         }
-         row=table.insertRow(1);
-         row.innerHTML=mpline;
-    }
-
-    return ""; 
-}
-// make rows of the table
-function makeMPTable_next(uid,str)
-{
-    var table=document.getElementById("materialPropertyTable");
-
-    if (str == undefined )
-      return;
-
-    if( typeof str === 'string') { 
-       blob=JSON.parse(str);
-       } else {
-         blob=str;
-    }
-
-    var dkeys=Object.keys(blob); // dkeys: first, second
-    var dsz=(Object.keys(blob).length); // 2
-
-    if(dsz < 1) {
-       window.console.log("ERROR: expecting at least 1 set of material properties");
-       return;
-    }
-
-    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
-    if( typeof datablob === 'string') {
-       datablob=JSON.parse(datablob);
-    }
-
-    var datakeys=Object.keys(datablob);
-    var sz=(Object.keys(datablob).length);
-
-    // now adding the data part..
-    var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
-
-    for(j=0; j< dsz; j++) {
-        var datablob=blob[dkeys[j]];
-        if(datablob == "")
-           continue;
-        if( typeof datablob === 'string') { 
-           datablob=JSON.parse(datablob);
+        var depth=datablob['Z'];
+        var topo=datablob['topo'];
+        var regionid=datablob['regionID'];
+        if(zmode == 'e') {  // this is elevation
+          var n_depth= depth - topo;
+          depth= -1 * n_depth;
         }
-        for(i=0; i<sz; i++) {
-            var key2=datakeys[i];
-            var val2=datablob[key2];
-            if(!showInTable(key2))
-                continue;
-            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
-         }
-         row=table.insertRow(1);
-         row.innerHTML=mpline;
+
+        fillinRockName(datablob,regionid, depth);
+        blob[dkeys[j]]=datablob;
     }
+    var csvblob=getCSVFromJSON(blob);
+    var uuid=uid.toString()+"_"+current_chunk.toString();
+    saveAsCSVBlobFile(csvblob, uuid);
 }
 
-// last bit of the table
-function makeMPTable_last(uid) {
-    var table=document.getElementById("materialPropertyTable");
+// last bit of the result
+function makeMPResult_last(uid) {
     // do nothing
 }
 
+// build up csv format
+function getCSVFromJSON(jblob) {
+    var objs=Object.keys(jblob);
+    var len=objs.length;
+    var last=len-1;
+
+    var jfirst=jblob[0];
+    var keys=Object.keys(jfirst);
+    var csvblob = keys.join(",");
+    csvblob +='\n';
+    for(var i=0; i< len; i++) {
+       var jnext=jblob[i];
+       var values=Object.values(jnext)
+       var vblob=values.join(",");
+       csvblob += vblob;
+       if(i != last) {
+         csvblob +='\n';
+       }
+   }
+//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+    return csvblob;
+}
 
 function saveAsCSVBlobFile(data, timestamp)
 {
@@ -440,10 +383,9 @@ function makeDownloadLinks(str) {
     // a set of them,  obj['key1'] and obj['key2']
     var keys=Object.keys(str);
     var sz=(Object.keys(str).length);
-    var i;
 
     html="<div class=\"links\" style=\"display:inline-block\">";
-    for(i=0;i<sz;i++) {
+    for(var i=0;i<sz;i++) {
        var val=str[keys[i]]; 
        switch(keys[i]) {
           case 'plot':

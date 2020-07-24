@@ -16,7 +16,7 @@ var GFM_rock_tb = {
 "rock":[{"start":0,"end":30,"type":"Granodiorite","rock_id":6}
        ,{"start":30,"end":40,"type":"Quartz Diorite","rock_id":12}
 ]},
-{"domain_id":18,"name":"Great Valley",
+{"domain_id":[18],"name":"Great Valley",
 "rock":[{"start":0,"end":6,"type":"Forearc Sediments","rock_id":2}
        ,{"start":6,"end":9,"type":"Basalt","rock_id":1}
        ,{"start":9,"end":13,"type":"Gabbro","rock_id":5}

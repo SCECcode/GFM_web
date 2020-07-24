@@ -21,7 +21,7 @@ $header=getHeader("Viewer")
 <link rel="stylesheet" href="css/vendor/jquery-ui.css">
 <link rel="stylesheet" href="css/vendor/glyphicons.css">
 <link rel="stylesheet" href="css/vendor/animation.css">
-<link rel="stylesheet" href="css/gfm/ui.css">
+<link rel="stylesheet" href="css/gfm/gfm-ui.css">
 <link rel="stylesheet" href="css/scec-ui.css">
 <link rel="stylesheet" href="css/sidebar.css">
 
@@ -77,22 +77,24 @@ $header=getHeader("Viewer")
 
 <!-- gfm js -->
 <script type="text/javascript" src="js/debug.js"></script>
-<script type="text/javascript" src="js/gfm/util.js"></script>
-<script type="text/javascript" src="js/gfm/main.js"></script>
-<script type="text/javascript" src="js/gfm/query.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_util.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_main.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_query.js"></script>
 <script type="text/javascript" src="js/gfm/viz.js"></script>
 <script type="text/javascript" src="js/gfm/plotGFM.js"></script>
 <script type="text/javascript" src="js/gfm/plotly.js"></script>
 <script type="text/javascript" src="js/gfm/surface_plotly.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_region.js"></script>
-<script type="text/javascript" src="js/gfm/region_util.js"></script>
-<script type="text/javascript" src="js/gfm/ui.js"></script>
-<script type="text/javascript" src="js/gfm/leaflet.js"></script>
-<script type="text/javascript" src="js/gfm/layer.js"></script>
-<script type="text/javascript" src="js/gfm/layer_util.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_region_util.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_ui.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_leaflet.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_layer.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_layer_util.js"></script>
 <script type="text/javascript" src="js/gfm/view3d.js"></script>
 <script type="text/javascript" src="js/gfm/view3d_ui.js"></script>
 <script type="text/javascript" src="js/gfm/cxm_misc_util.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_rock.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_rock_util.js"></script>
 </head>
 <body>
 <?php echo $header; ?>
@@ -156,14 +158,14 @@ $header=getHeader("Viewer")
                               id="LatTxt"
                               placeholder="Latitude"
                               title="lat"
-                              value="34.30"
+                              value="31.70"
                               onfocus="this.value=''"
                               class="form-control">
                       <input type="text" 
                               id="LonTxt" 
                               placeholder="Longitude" 
                               title="lon"
-                              value="-119.20"
+                              value="-116.20"
                               onfocus="this.value=''" 
                               class="form-control mt-1">
                   </div>
