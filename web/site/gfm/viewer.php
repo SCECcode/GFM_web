@@ -138,7 +138,7 @@ $header=getHeader("Viewer")
           <div class="col-12">
             <div class="input-group filters mb-1 mt-1">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="zModeType" >Select Z Mode</label>
+                    <label class="input-group-text" for="ZmodeTxt" >Select Z Mode</label>
                 </div>
                 <select id="ZmodeTxt" class="custom-select">
                     <option value="e">Elevation</option>
@@ -185,7 +185,7 @@ $header=getHeader("Viewer")
                               class="form-control mt-1" style="display:none">
                   </div>
                   <div class="col-2 pl-1">
-                        <button id="pointBtn" type="button" title="query with latlon"
+                        <button id="queryBtn" type="button" title="query with latlon"
                           class="btn btn-default gfm-small-btn " onclick="queryClick()">
                           <span class="glyphicon glyphicon-search"></span>
                         </button>
