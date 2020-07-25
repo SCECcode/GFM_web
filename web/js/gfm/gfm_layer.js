@@ -284,6 +284,7 @@ function make_id2id_list(group) {
 
 // it is possible that there is no id2id entry per table
 function toggle_id2id_highlight(gid) {
+   zap_pointClick(); // always disable the pointClick
    var item=getFromList(gfm_id2id_list,gid);
    if(item != undefined) {
      var $btn=$(`#highlight_id2id_${gid}`);

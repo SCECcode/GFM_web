@@ -38,6 +38,11 @@ function toggleAll() {
    select_all_id2id(toggle_all_flag);
 }
 
+function reset_toggleAll() {
+   toggle_all_flag=false;
+   select_all_id2id(toggle_all_flag);
+}
+
 function pointClick() {
   drawing_point = ! drawing_point;
 
@@ -49,6 +54,12 @@ function pointClick() {
       drawing_point = false;
       $('#pointBtn').removeClass('glyphicon-remove-sign');
       $('#pointBtn').addClass('glyphicon-ok-sign');
+  }
+}
+
+function zap_pointClick() {
+  if(drawing_point) {
+     pointClick();
   }
 }
 
@@ -126,6 +137,7 @@ function selectLocalFiles(_urls) {
 
 function resetAll() {
   remove_all_layers();
+  reset_toggleAll();
   refresh_map();
   clear_popup();
   refreshTxtInput();
