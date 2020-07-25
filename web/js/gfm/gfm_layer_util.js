@@ -97,6 +97,6 @@ function set_point_UID(uid) {
 }
 
 function reset_point_UID() {
-   $( "#pointUIDTxt" ).val('');
+   $( "#UIDTxt" ).val('');
 }
 

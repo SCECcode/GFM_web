@@ -99,7 +99,7 @@ function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk
               insertResultTable(note, uname, {"materialproperty":mpname});
 
               set_ULABEL(uid);
-
+              reset_point_UID();
             }
        }
     }
@@ -117,10 +117,12 @@ function getMaterialPropertyByLatlon() {
     var uid=document.getElementById("UIDTxt").value;
 
     if (latstr == "" || lonstr=="") {
+        reset_point_UID();
         return;
     } else {
         if(uid == '') {
           uid=getRnd();
+          window.console.log("making uid -- ",uid);
           set_point_UID(uid);
           // must be coming from the sidebar and so need to plot on map..
           add_bounding_point(uid,latstr,lonstr);
@@ -141,7 +143,7 @@ function getMaterialPropertyByLatlon() {
                 document.getElementById('spinIconForQuery').style.display ="none";
                 var str=processSearchResult("getMaterialPropertyByLatlon");
                 makeMPTable(uid,str);
-
+                reset_point_UID();
             }
         }
         xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&uid="+uid, true);

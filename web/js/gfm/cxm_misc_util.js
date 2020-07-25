@@ -10,11 +10,15 @@ c) import external latlon.csv with 'name' and create a group Layerof mulitple gr
 /***
 --> needs gfm_regions.js
 ***/
+
 var skipPopup=false;
+
+function getSkipPopup() {
+     return skipPopup;
+}
 
 function setSkipPopup(state) {
     skipPopup=state;
-    window.console.log("setSkipPopup to ",state);
 }
 
 function getGFMRegionColorWithName(name) {
