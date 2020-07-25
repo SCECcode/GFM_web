@@ -41,6 +41,7 @@ function toggleAll() {
 function reset_toggleAll() {
    toggle_all_flag=false;
    select_all_id2id(toggle_all_flag);
+   setSkipPopup(false);
 }
 
 function pointClick() {
