@@ -69,7 +69,7 @@ var GFM_tb={
 {"id":"vs","label":"vs","show":0,"descript":"Shear wave velocity in meters/sec"},
 {"id":"rho","label":"rho","show":0,"descript":"Density in kg/m^3"},
 {"id":"regionID","label":"region domainid","show":0,"descript":"Domain ID of the geological framework model region name as defined in GFM v1.0 Region Name Table"},
-{"id":"temp","label":"temp","show":1,"descript":"GFM v1.0 Temperature in degree Celsius"},
+{"id":"temp","label":"temperature","show":1,"descript":"GFM v1.0 Temperature in degree Celsius"},
 {"id":"rock","label":"rock","show":1,"descript":"Rock type"},
 {"id":"rock_id","label":"rock_id","show":0,"descript":"Rock type id"},
 {"id":"region","label":"region","show":1,"descript":"GFM region Name"}
