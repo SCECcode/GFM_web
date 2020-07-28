@@ -6,6 +6,7 @@
 
 <?php
 include ("declare.php");
+include ("util.php");
 
 /* get string and then need to split and extract triplet out of them */
 $datastr = ($_GET['datastr']); 
@@ -19,12 +20,17 @@ $lastchunks = intVal($_GET['chunks'])-1;
    other ones, just 'append'               */
 
 $fname="$GFM_WEB_LOC/result/GFM_".$uid.".json";
+$ffname="$GFM_WEB_LOC/result/GFM_".$uid.".csv";
 if ($chunkid == 0) {
    $fp= fopen($fname,"w") or die("Unable to open file!");
+   $ffp= fopen($ffname,"w") or die("Unable to open file!");
    $start=" { \"GFM_".$uid."\": [";
    fwrite($fp,$start); fwrite($fp,"\n");
+   fputcsv($ffp, array('X','Y','Z','utmX','utmY','elevX','elevY','topo','mtop','base','moho','src','cellX','cellY','cellZ','tg','vp','vs','rho','regionID','temp','region','rock','rock_id'));
+
    } else {
       $fp= fopen($fname,"a") or die("Unable to open file to append!");
+      $ffp= fopen($ffname,"a") or die("Unable to open file to append!");
 }
 
 $itemlist = new \stdClass();
@@ -53,8 +59,12 @@ for($i=0; $i< $set; $i++) {
 
   $result = exec(escapeshellcmd($query), $retval, $status);
 
-/*  echo $result; */
-  fwrite($fp,$result); 
+  $nresult=insertRockInfo($result,$zmode);
+
+  fwrite($fp,$nresult); 
+  fputcsv($ffp, json_decode($nresult,true));
+ 
+  
   if($i != ($set-1)) {
     fwrite($fp,",\n");
     } else { 
@@ -63,10 +73,11 @@ for($i=0; $i< $set; $i++) {
       }
   }
 
-  $itemlist->$i=$result;
+  $itemlist->$i=$nresult;
 }
 
 fclose($fp);
+fclose($ffp);
 
 $resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
 

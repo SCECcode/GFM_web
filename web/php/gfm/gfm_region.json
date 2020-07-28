@@ -1,10 +1,6 @@
-/****
-
-  gfm_region.js
-
-****/
-
-var GFM_tb={
+{
+"GFM_tb" :
+{
 "regions": [
 {"domain_id":1,"name":"Asthenosphere","sliver":0,"state":1,"color":"#786D5F","ucolor":"grey","ts_files":[]},
 {"domain_id":2,"name":"Upper Mantle","sliver":0,"state":1,"color":"#FF0000","ucolor":"red","ts_files":[]},
@@ -68,11 +64,10 @@ var GFM_tb={
 {"id":"vp","label":"vp","show":0,"descript":"Compressional wave velocity in meters/sec"},
 {"id":"vs","label":"vs","show":0,"descript":"Shear wave velocity in meters/sec"},
 {"id":"rho","label":"rho","show":0,"descript":"Density in kg/m^3"},
-{"id":"regionID","label":"region domainid","show":0,"descript":"Domain ID of the geological framework model region name as defined in GFM v1.0 Region Name Table"},
+{"id":"regionID","label":"region Name","show":1,"descript":"ID of the geological framework model region name as defined in GFM v1.0 Region Name Table"},
 {"id":"temp","label":"temp","show":1,"descript":"GFM v1.0 Temperature in degree Celsius"},
 {"id":"rock","label":"rock","show":1,"descript":"Rock type"},
-{"id":"rock_id","label":"rock_id","show":0,"descript":"Rock type id"},
-{"id":"region","label":"region","show":1,"descript":"GFM region Name"}
+{"id":"rock_id","label":"rock_id","show":0,"descript":"Rock type id"}
 ],
 "zmodes": [
 {"id":1, "mode name":"Depth", "value":"d", "description":"0 at surface and positive depth value"},
@@ -81,5 +76,6 @@ var GFM_tb={
 "fileformats": [
 {"id":1, "format name":"material property data", "suffix":"json", "description":"material property"}
 ]
-};
+}
+}
 

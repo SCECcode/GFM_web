@@ -1,16 +1,6 @@
-/*
-  from regions,
-   domain_id is the domain_id from GFM region,
-   name is the local GFM region name used by the Rock list 
-   rock_id is the locally assigned from Rock list. 
-   * There is a mismatch between GFM region name and local
-     GFM region name
-  from lithos,
-   holds the rock composition. 
-   * There are duplicate rock name with different composition.
-*/
-
-var GFM_rock_tb = {
+{
+"GFM_rock_tb" :
+{
 "regions": [
 {"domain_id":[3],"name":"Sierra Nevada East",
 "rock":[{"start":0,"end":30,"type":"Granodiorite","rock_id":7}
@@ -143,4 +133,6 @@ var GFM_rock_tb = {
        "Quartz":100,"Feldspar":0,"Mica":0,"Pyroxene":0,"Amphibole":0,"Olilvine":0},
 {"rock_id":18,"name":"Sediment",
        "Quartz":90,"Feldspar":10,"Mica":0,"Pyroxene":0,"Amphibole":0,"Olilvine":0}
-]};
+]
+}
+}

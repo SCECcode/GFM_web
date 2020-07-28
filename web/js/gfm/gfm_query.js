@@ -31,7 +31,6 @@ window.console.log("number of data in List..",end_idx);
         dataset.push(dataarray[i]);
     }
     var datastr=dataset.toString();
-window.console.log(datastr);
 
     _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk, total_chunks,chunk_step);
            
@@ -90,22 +89,22 @@ function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk
             }
             if(current_chunk==(total_chunks-1)) { // last one
                document.getElementById('spinIconForListProperty').style.display = "none";
-//XXX create a download link to the actual data file
-              var zstr=getZModeNameWithType(zmodestr);
-              var mstr="CVM-H 15.1";
-              var uname="GFM_"+uid;
-              var mpname=uname+".json";
-              var note="Material Property with "+mstr + " search by "+zstr;
-              insertResultTable(note, uname, {"materialproperty":mpname});
-
-              set_ULABEL(uid);
-              reset_point_UID();
+               var zstr=getZModeNameWithType(zmodestr);
+               var mstr="CVM-H 15.1";
+               var uname="GFM_"+uid;
+               var mpname=uname+".csv";
+               var note="Material Property with "+mstr + " search by "+zstr;
+               insertResultTable(note, uname, {"materialproperty":mpname});
+ 
+               set_ULABEL(uid);
+               reset_point_UID();
             }
        }
     }
     xmlhttp.open("GET","php/gfm/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&uid="+uid+"&chunks="+total_chunks, true);
     xmlhttp.send();
 }
+
 
 
 // get material property blob by lat lon z zmode

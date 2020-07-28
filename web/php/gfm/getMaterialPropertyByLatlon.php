@@ -7,6 +7,7 @@
 <?php
 
 include ("declare.php");
+include ("util.php");
 
 $lat = ($_GET['lat']);
 $lon = ($_GET['lon']);
@@ -21,9 +22,10 @@ if ($zmode == 'd')
      $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z dep ".$lstr;
 
 $result = exec(escapeshellcmd($query), $retval, $status);
+$nresult=insertRockInfo($result,$zmode);
 
 $itemlist = new \stdClass();
-$itemlist->mp=$result;
+$itemlist->mp=$nresult;
 
 $resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
 

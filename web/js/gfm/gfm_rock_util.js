@@ -11,7 +11,7 @@ function fillinRockName(jblob, regionid, depth) {
       var item=tb[i];
       var idlist=item['domain_id'];
       if(idlist.includes(regionid)) {
-         window.console.log("the point is in ",item["name"]);
+//         window.console.log("the point is in ",item["name"]);
          var rocklist=item["rock"];
          var rcnt=rocklist.length;
          if(rcnt == 0)
@@ -25,7 +25,7 @@ function fillinRockName(jblob, regionid, depth) {
            // depth is in meter, start and end is in km
            var kdepth=depth/1000;
            if(kdepth >= start && kdepth <= end) {
-              window.console.log("found the loc...",rockname);
+//              window.console.log("found the loc...",rockname);
               jblob['rock']=rockname;
               jblob['rock_id']=rockid;
               return;
