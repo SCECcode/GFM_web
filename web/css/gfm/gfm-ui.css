@@ -1,5 +1,10 @@
 /* required styles */
 
+#result-container #placeholder-row td {
+    text-align: center;
+    font-style: italic;
+}
+
 #gfm-viewer-container {
   overflow-y:scroll;
   height:230px;
@@ -9,7 +14,6 @@
 .glyphicon.glyphicon-cog {
     font-size: 30px;
 }
-
 
 hr { 
   display: block;

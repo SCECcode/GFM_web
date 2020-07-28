@@ -268,8 +268,8 @@ $header=getHeader("Viewer")
                 <div class="col-12" id="materialProperty-viewer-container" style="overflow-y:scroll;max-height:20vh">
                     <table id="materialPropertyTable">
                         <tbody>
-                        <tr id="mp_placeholder-row">
-                            <td colspan="12">Material Property for selected locations will appear here. </td>
+                        <tr id="placeholder-row">
+                            <td colspan="7">Material Property for selected locations will appear here. </td>
                         </tr>
                         </tbody>
                     </table>
