@@ -56,7 +56,7 @@ function getRockInfo($id, $depth) {
           }
       }
     }
-    return "NA";
+    return array("rockname" => "NA", "rockid" => "NA");
 }
 
 function insertRockInfo($str,$zmode) {
