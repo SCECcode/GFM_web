@@ -1,4 +1,9 @@
 /* required styles */
+#ZmodeTxt {
+   width: 140px;
+   padding: 0px 10px 0px 10px;
+   border-radius: .25rem;
+} 
 
 #result-container #placeholder-row td {
     text-align: center;
@@ -7,7 +12,7 @@
 
 #gfm-viewer-container {
   overflow-y:scroll;
-  height:230px;
+  height:265px;
   border:1px solid #ced4d5;
 }
 

@@ -196,7 +196,7 @@ function makeMPTable(uid,str)
     }
 
     // create the key first
-    var labelline="<th style=\"width:4vw\"></th>";
+    var labelline="<th style=\"width:4vw;background-color:whitesmoke\"></th>";
     
     var datakeys=Object.keys(datablob);
     var sz=datakeys.length;
@@ -208,7 +208,7 @@ function makeMPTable(uid,str)
             var key=datakeys[i];
             if(!showInTable(key))
               continue;
-            labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
+            labelline=labelline+"<td style=\"width:24vw;background-color:whitesmoke\">"+key+"</td>";
         }
 
         table.deleteRow(0); // delete the holdover
@@ -415,7 +415,7 @@ function makeResultTable(note,uid,html) {
       table.deleteRow(0); // delete the holdover
 //label
       var row=table.insertRow(-1);
-      row.innerHTML="<th style=\"width:10vw\"><b>UID</b></th><th style=\"width:2vw\"></th><th style=\"width:24vw\"><b>Links</b></th><th style=\"width:24vw\"><b>Description</b></th>";
+      row.innerHTML="<th style=\"width:10vw;background-color:whitesmoke\"><b>UID</b></th><th style=\"width:2vw;background-color:whitesmoke\"></th><th style=\"width:24vw;background-color:whitesmoke\"><b>Links</b></th><th style=\"width:24vw;background-color:whitesmoke\"><b>Description</b></th>";
 //
     }
 

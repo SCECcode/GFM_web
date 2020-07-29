@@ -1,18 +1,22 @@
 /* required styles */
 
+#selectbtn {
+    border-radius: 0.25rem;
+}
+
 .scec-header-container table {
-  border:1px solid #ced4d5;
-  background:#F2F2F2;
+    border:1px solid #ced4d5;
+    background:#F2F2F2;
 }
 
 .header-container table {
-  border:none;
+    border:none;
 }
 
 .container button.btn-dark {
     text-transform: uppercase;
-    background-color: grey;
-    border:1px solid grey;
+    background-color: #495057;
+    border:1px solid #495057;
     font-size: 7pt;
 }
 
@@ -23,7 +27,6 @@
 .glyphicon.glyphicon-cog {
     font-size: 30px;
 }
-
 
 @media (min-width: 1200px) {
    .modal-xlg {
