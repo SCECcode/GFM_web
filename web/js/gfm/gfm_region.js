@@ -79,7 +79,7 @@ var GFM_tb={
 {"id":2, "mode name":"Elevation", "value":"e", "description":"0 at sealevel and positive value toward the air and negative value toward the center of the earth"}
 ],
 "fileformats": [
-{"id":1, "format name":"material property data", "suffix":"json", "description":"material property"}
+{"id":1, "format name":"material property data", "suffix":"csv", "description":"complete GFM material property"}
 ]
 };
 
