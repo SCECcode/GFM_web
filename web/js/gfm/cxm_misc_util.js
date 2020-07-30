@@ -140,7 +140,7 @@ function readLocalAndProcessActiveCFMGeo() {
 // SPECIAL CASE
 //   atrace.features[0].properties.style.color="red"; // the first one in all traces
      var name= atrace.features[0].properties.name;
-     window.console.log("adding trace.. ",name);
+//     window.console.log("adding trace.. ",name);
   }
  
   var group=makeGeoGroup(trace_list);
@@ -257,7 +257,7 @@ function readLocalAndProcessActiveGFMGeo() {
      }
      var name= atrace.features[0].properties.name;
      var p=atrace.features[0].properties;
-     window.console.log("adding gfm trace.. ",name);
+//     window.console.log("adding gfm trace.. ",name);
   }
 
   var group=makeGeoGroup(trace_list);

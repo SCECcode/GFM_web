@@ -45,6 +45,9 @@ function processSearchResult(rlist) {
     if (rlist == 'getValuesFromJsonBlob') {
         str = $('[data-side="getValuesFromJsonBlob"]').data('params');
     }
+    if (rlist == 'getMaterialPropertyByFiles') {
+        str = $('[data-side="getMaterialPropertyByFiles"]').data('params');
+    }
     if (rlist == 'getMaterialPropertyByLatlonChunk') {
         str = $('[data-side="materialPropertyByLatlonChunk"]').data('params');
  // insert rock information
@@ -137,9 +140,6 @@ function readAndProcessLocalFile(fobj) {
     // use timestamp as unique label
     var uid=$.now();
      
-window.console.log("length of data found..",cnt);
-window.console.log("size of chunk to do..",chunk_size);
-window.console.log("number of chunks to do..",chunks);
     getMaterialPropertyByLatlonList(uid,fdata,0, chunks, chunk_size);
   };
   reader.readAsText(fobj);
@@ -151,7 +151,7 @@ window.console.log("number of chunks to do..",chunks);
 function getRnd() {
 //https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
     var timestamp = $.now();
-    var rnd="UCVM_"+timestamp;
+    var rnd="GFM_"+timestamp;
     return rnd;
 }
 

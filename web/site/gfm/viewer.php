@@ -135,18 +135,18 @@ $header=getHeader("Viewer")
 
     <div id="content-container" class="row">
         <div id="control-container" class="col-5">
-          <div class="col-12 mt-1">
+          <div class="col-12">
             <div class="col input-group" style="background:whitesmoke;">
-                <div class="row d-flex mt-2">
-                  <div class="col-8 pr-0">
+                <div class="row mt-1">
+                  <div class="col-8">
                    <p>Pick a point on map, enter latitude, longitude and Z value below or upload a file with LatLngs and matching Z values</p>
                   </div>
                   <div class="col-2 mb-2">
-                    <button onclick="resetAll();" class="btn btn-dark pr-3 pl-3" 
+                    <button onclick="resetAll();" class="btn btn-dark pr-3 pl-3"
                      style="margin-left:20px" type="button">Reset</button>
-                    <button class="btn gfm-small-btn mt-3" title="enable Map selection" 
+                    <button class="btn gfm-small-btn mt-3" title="enable Map selection"
                      style="margin-left:10px"
-                     onclick='pointClick()'><span id="pointBtn" class="glyphicon glyphicon-ok-sign"></span>useMap</button> 
+                     onclick='pointClick()'><span id="pointBtn" class="glyphicon glyphicon-ok-sign"></span>useMap</button>
                   </div>
                 </div>
                 <div class="row d-flex">
@@ -187,48 +187,46 @@ $header=getHeader("Viewer")
                   </div>
                   <div class="col-2 pr-0">
                         <button id="queryBtn" type="button" title="query with latlon"
-                          style="margin-left:-5px" class="btn btn-default gfm-small-btn" onclick="queryClick()">
+                          class="btn btn-default gfm-small-btn " onclick="queryClick()">
                           <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <button class="btn gfm-top-small-btn mt-2" title="select Z mode"
-                          style="margin-left:-15px"
+                          style="margin-left:-12px"
                           data-toggle="modal" data-target="#modalzm">
                           <span class="glyphicon glyphicon-info-sign"></span>
                         </button>
                   </div>
                 </div>
-                <div class="col-12 d-flex mt-1 mb-2">
-                  <div class="col-10 pr-0">
-                      <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
-                      <button id="selectbtn" class="btn gfm-top-btn" style="width:105%;margin-left:-30px" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
-                      <span class="glyphicon glyphicon-file"></span> Select file to use</button>
+                <div class="row d-flex mt-2">
+                  <div class="col-10 pr-1 mb-2">
+                    <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
+                    <button id="selectbtn" class="btn gfm-top-btn" style="width:130%" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
+                    <span class="glyphicon glyphicon-file"></span>Select file to use</button>
                   </div>
-                  <div class="col-2 pr-0 mt-2">
-                    <button class="btn gfm-top-small-btn" data-toggle="modal" 
-                      style="margin-left:-25px"
-                      data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
+                  <div class="col-2 mt-2">
+                    <button class="btn gfm-top-small-btn" data-toggle="modal" style="margin-left:60px" data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
                   </div>
                 </div>
             </div> <!-- latlon/file input/reset --> 
 
-            <div class="row mt-3" id="gfm-table">
+            <div class="row mt-2" id="gfm-table-header">
                 <div class="col-12 scec-header-container" id="gfm-header-container">
                     <table id="gfmTableHeader">
                         <tbody>
                         <tr>
                            <td style="width:36px"><button id="allBtn" class="btn btn-sm gfm-small-btn" title="select all available regions" onclick="toggleAll();"><span id="toggle_all" class="glyphicon glyphicon-ok-sign"></span></button></td>
                            <td style="border:none"><b>GFM Geological Regions</b></td>
-                           <td style="width:35px;border:none;background:#F2F2F2" > 
-                             <button class="btn btn-dark" style="border:none;background:#495057" title="plot selected regions in 3D viewer" onclick="executePlot3d()">plot3D</button>
+                           <td style="width:35px;border:none;background:#F2F2F2;" > 
+                             <button class="btn btn-dark" title="plot selected regions in 3D viewer" onclick="executePlot3d()">plot3D</button>
                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="col-12">
-                    <div id="gfm-viewer-container">
-                    <table id="gfmTable" ><tbody></tbody></table>
-                    </div>
+                   <div class="gfm-table">
+                     <table id="gfmTable"><tbody></tbody></table>
+                   </div>
                 </div>
             </div> <!-- gfm-table -->
           </div>
@@ -250,20 +248,21 @@ $header=getHeader("Viewer")
                 </div>
             </div>
             <div class="row mapData">
-                <div class="col-12 pr-0 pl-2 pt-1 ">
+                <div class="col-12 pr-0 pl-2 pt-0 ">
                     <div class="row w-100 mb-1" id='GFM_plot'
-                         style="position:relative;border:solid 1px #ced4da; height:576px;"></div>
+                         style="margin-left:-30px;position:relative;border:solid 1px #ced4da; height:576px;"></div>
                 </div>
             </div>
         </div> <!-- map-container -->
-        <div class="col-12 mt-2">
+        <div class="col-12 mt-0">
         <div id="result-container" class="col-12">
             <div class="row" id="mp-table">
                 <div class="col-12 header-container" id="materialProperty-header-container">
                     <table id="mpHeaderTable">
                         <tbody>
                         <tr>
-                            <td style="border:none"><b>Material Property</b>
+                            <td style="border:none;text-align:right;">
+                              <button class="btn gfm-top-small-btn" onclick="downloadMPTable()" ><span class="glyphicon glyphicon-download"></span></button>
                               <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                         </tr>
                         </tbody>
@@ -279,12 +278,12 @@ $header=getHeader("Viewer")
                     </table>
                 </div>
             </div> <!-- mp-table -->
-<div class="row mt-2 mb-4">
+            <div class="row mt-0 mb-4">
                 <div class="col-12 header-container" id="result-header-container">
                     <table id="resultHeaderTable">
                         <tbody>
                         <tr>
-                            <td style="border:none"><b>Result</b>&nbsp;<button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+                            <td style="border:none;text-align:right;"><button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                         </tr>
                         </tbody>
                     </table>
@@ -293,7 +292,7 @@ $header=getHeader("Viewer")
                     <table id="resultTable">
                         <tbody>
                         <tr id="placeholder-row">
-                            <td colspan="3">Downloadable Result will appear here. </td>
+                            <td colspan="12">Downloadable Result will appear here. </td>
                         </tr>
                         </tbody> </table>
                 </div>
@@ -505,4 +504,5 @@ or
 
 </body>
 </html>
+
 

@@ -12,11 +12,11 @@
 // get the material properties of the latlon locations
 //
 
-function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chunks, chunk_step) {
+function _getSubset(inarray,current_chunk, total_chunks, chunk_step) {
 
     if(current_chunk == total_chunks) 
-        return;
-    var cnt=dataarray.length;
+        return "";
+    var cnt=inarray.length;
     // start and last data
     var start_idx=current_chunk * chunk_step;
     var end_idx=current_chunk * chunk_step + chunk_step;
@@ -25,15 +25,30 @@ function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chun
 
     var i;
     var dataset=[];
-window.console.log("number of data in List..",end_idx);
     for( i=start_idx; i<end_idx; i++) {
 // collect up the string
-        dataset.push(dataarray[i]);
+        dataset.push(inarray[i]);
     }
-    var datastr=dataset.toString();
+    return dataset.toString();
+}
 
-    _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk, total_chunks,chunk_step);
+function getMaterialPropertyByFileList(uid,filearray,current_chunk, total_chunks, chunk_step) {
+
+    var datastr=_getSubset(filearray,current_chunk, total_chunks, chunk_step);
+
+    if(datastr != "") {
+      _getMaterialPropertyByFileChunk(uid,datastr, filearray, current_chunk, total_chunks,chunk_step);
+    }       
+}
+
+function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chunks, chunk_step) {
+
+    var datastr=_getSubset(dataarray,current_chunk, total_chunks, chunk_step);
+
+    if(datastr != "") {
+      _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk, total_chunks,chunk_step);
            
+    }
 }
 
 // to be called by getMaterialPropertyByLatlonList
@@ -81,10 +96,10 @@ function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk
             var str=processSearchResult("getMaterialPropertyByLatlonChunk");
            
             if(current_chunk==0) { // first one
-               makeMPResult_chunk(uid,current_chunk,str,true);
+//               makeMPResult_chunk(uid,current_chunk,str,true);
                getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
             } else {
-               makeMPResult_chunk(uid,current_chunk, str,false);
+//               makeMPResult_chunk(uid,current_chunk, str,false);
                getMaterialPropertyByLatlonList(uid, dataarray, current_chunk+1, total_chunks, chunk_step);
             }
             if(current_chunk==(total_chunks-1)) { // last one
@@ -105,6 +120,37 @@ function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk
     xmlhttp.send();
 }
 
+
+// to be called by getMaterialPropertyByLatlonList
+function _getMaterialPropertyByFileChunk(uid,datastr,dataarray, current_chunk, total_chunks, chunk_step) {
+    // extract content of a file
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("getMaterialPropertyByFiles");
+           
+            if(current_chunk==0) { // first one
+               makeMPResult_chunk(uid,current_chunk,str,true);
+               getMaterialPropertyByFileList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
+            } else {
+               makeMPResult_chunk(uid,current_chunk, str,false);
+               getMaterialPropertyByFileList(uid, dataarray, current_chunk+1, total_chunks, chunk_step);
+            }
+            if(current_chunk==(total_chunks-1)) { // last one
+               document.getElementById('spinIconForDownloadMPTable').style.display = "none";
+            }
+       }
+    }
+    xmlhttp.open("GET","php/gfm/getMaterialPropertyByFiles.php?uidlist="+datastr, true);
+    xmlhttp.send();
+}
 
 
 // get material property blob by lat lon z zmode

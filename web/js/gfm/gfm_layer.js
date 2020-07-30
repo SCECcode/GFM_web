@@ -34,7 +34,6 @@ var gfm_point_list=[];
 // [ { "uid":uid, "latlngs":[{"lat":a,"lon":b},...,{"lat":c,"lon":d}]} ]
 var gfm_file_points_list=[];
 
-
 // track the gfm polygon being loaded into viewer via group-layer
 // using domain_id as gid as if it is objgid
 // [ { "uid":duid, "name":dname, "layer":layer, "layer_id":lid, "highlight":0 } ]
@@ -49,6 +48,10 @@ function get_points_mp() {
   return len1;
 }
 
+function insert_materialproperty(uid, mp) {
+   gfm_mp_list.push( { "uid":uid, "mp":mp });
+}
+
 function get_materialproperty(target_uid) {
   var cnt=gfm_mp_list.length;
   for(var i=0; i<cnt; i++) {
@@ -59,6 +62,16 @@ function get_materialproperty(target_uid) {
     }
   }
   return {};
+}
+
+function get_all_materialproperty() {
+  var mplist=[];
+  var cnt=gfm_mp_list.length;
+  for(var i=0; i<cnt; i++) {
+    var element=gfm_mp_list[i];
+    mplist.push(element["mp"]);
+  }
+  return mplist;
 }
 
 function get_leaflet_id(layer) {
@@ -278,7 +291,7 @@ function make_id2id_list(group) {
     var d_name=feature.properties['name'];
     var item={"uid":d_id,"name":d_name, "layer":layer,"layer_id":layer_id, "highlight":0 };
     gfm_id2id_list.push(item);
-    window.console.log("id2id ",d_name);
+//    window.console.log("id2id ",d_name);
   });
 }
 

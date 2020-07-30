@@ -1,4 +1,8 @@
 /* required styles */
+.custom-select {
+  padding: 0.2rem 0.375rem 0.2rem 0.75rem; 
+}
+
 #ZmodeTxt {
    width: 140px;
    padding: 0px 10px 0px 10px;
@@ -10,9 +14,9 @@
     font-style: italic;
 }
 
-#gfm-viewer-container {
-  overflow-y:scroll;
-  height:265px;
+.gfm-table {
+  overflow:auto;
+  max-height:240px;
   border:1px solid #ced4d5;
 }
 
@@ -34,7 +38,7 @@ table { width: 100%; border-collapse: collapse;}
 table, td, th { border: 1px solid #ced4d5; padding: 2px 2px 2px 10px;}
 th {text-align: left;}
 
-.gfm-table {
+.gfm-table-header {
           max-height: 67vh;
           border: 1px solid grey;
           overflow: auto;

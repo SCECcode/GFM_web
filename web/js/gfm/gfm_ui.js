@@ -195,6 +195,8 @@ function makeMPTable(uid,str)
        datablob=JSON.parse(datablob);
     }
 
+    insert_materialproperty(uid,datablob); // save a copy
+
     // create the key first
     var labelline="<th style=\"width:4vw;background-color:whitesmoke\"></th>";
     
@@ -208,7 +210,7 @@ function makeMPTable(uid,str)
             var key=datakeys[i];
             if(!showInTable(key))
               continue;
-            labelline=labelline+"<td style=\"width:24vw;background-color:whitesmoke\">"+key+"</td>";
+            labelline=labelline+"<td style=\"width:24vw;background-color:whitesmoke\"><b>"+key+"</b></td>";
         }
 
         table.deleteRow(0); // delete the holdover
@@ -239,6 +241,17 @@ function makeMPTable(uid,str)
     return;
 }
 
+// go through the table and pick up the label that has valid entry 
+// chunk and extract the old mp date from backend
+function downloadMPTable() {
+    // create a uniq uid also for this tasks.,
+    var uid=$.now();
+    window.console.log("here..");
+
+    var mplist=get_all_materialproperty();
+    var csvblob=getCSVFromJSON(mplist);
+    saveAsCSVBlobFile(csvblob, uid);
+}
 
 // generate the a new result file with rock information
 function makeMPResult_chunk(uid,current_chunk,str,first)
