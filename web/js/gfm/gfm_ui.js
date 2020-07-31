@@ -21,14 +21,15 @@ var drawing_point=false;
 function setup_gfm_table() {
     toggleShowGFM();
     makeRegionResultTable();
+    tableLoadCompleted = true;
 }
 
 // setup information tables
 function setup_tables() {
-    document.getElementById('parametersTable').innerHTML=makeParametersTable();
-    document.getElementById('regionsTable').innerHTML=makeRegionsTable();
-    document.getElementById('zmodeTable').innerHTML=makeZModeTable();
-    document.getElementById('fileFormatTable').innerHTML=makeFileFormatTable();
+    document.getElementById('parametersTable').innerHTML=makeParametersInfoTable();
+    document.getElementById('regionsTable').innerHTML=makeRegionsInfoTable();
+    document.getElementById('zmodeTable').innerHTML=makeZModeInfoTable();
+    document.getElementById('fileFormatTable').innerHTML=makeFileFormatInfoTable();
 }
 
 // true, select all regions, false, deselect all region
@@ -198,30 +199,32 @@ function makeMPTable(uid,str)
     insert_materialproperty(uid,datablob); // save a copy
 
     // create the key first
-    var labelline="<th style=\"width:4vw;background-color:whitesmoke\"></th>";
+    var labelline="<th style=\"width:10vw;background-color:whitesmoke\"></th>";
     
     var datakeys=Object.keys(datablob);
     var sz=datakeys.length;
 
     var table=document.getElementById("materialPropertyTable");
+    var html="";
 
     if(hold_mptable) {
         for(var i=0; i<sz; i++) {
             var key=datakeys[i];
             if(!showInTable(key))
               continue;
-            labelline=labelline+"<td style=\"width:24vw;background-color:whitesmoke\"><b>"+key+"</b></td>";
+            labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+key+"</th>";
         }
-
         table.deleteRow(0); // delete the holdover
         hold_mptable=0;
 
         row=table.insertRow(-1);
-        row.innerHTML=labelline;
+        html="<thead><tr>"+labelline+"</tr></thead>";
+        html=html+"<tbody id=\"materialPropertyTableBody\"></tbody>";
+        row.innerHTML=html;
     }
 
-    // now adding the data part..
-    var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
+    // now adding the data part.. just 1 line
+    html="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
 
     for(var i=0; i<sz; i++) {
         var key2=datakeys[i];
@@ -234,10 +237,11 @@ function makeMPTable(uid,str)
           else
             val2=val2+" (by<br>depth)";
         }
-        mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
+        html=html+"<td style=\"width:24vw\">"+val2+"</td>";
     }
+    
     row=table.insertRow(1);
-    row.innerHTML=mpline;
+    row.innerHTML=html;
     return;
 }
 

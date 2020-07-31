@@ -1,4 +1,69 @@
-/* required styles */
+p {
+   margin-bottom: 10px;
+}
+
+.gfm-info-table table th {
+   background: whitesmoke;
+}
+
+#materialPropertyTable-container {
+   border-top: 2px solid whitesmoke;
+   border-bottom: 2px solid whitesmoke;
+}
+
+#materialPropertyTable {
+   border: 0;
+}
+
+#placeholder-row td {
+    text-align: center;
+    font-style: italic;
+}
+
+#resultTable-container {
+   border-top: 2px solid whitesmoke;
+   border-bottom: 2px solid whitesmoke;
+}
+
+#resultTable {
+   border: 0;
+}
+
+table th {
+   position: -webkit-sticky;
+   position: sticky;
+   top: 0px; 
+   z-index: 100;
+}
+
+.gfm-table table tr:first-child th {
+    border-top: 0;
+}
+
+.gfm-table table {
+    border: 0;
+}
+
+.gfm-table table th:first-child,
+.gfm-table table td:first-child {
+    border-left: 0;
+    border-top: 0;
+}
+
+.gfm-table table th:last-child,
+.gfm-table table td:last-child {
+    border-right: 0;
+    border-top: 0;
+}
+
+#gfmTable {
+  border: none;
+}
+
+#gfmTableHeader {
+  border-bottom: 0;
+}
+
 .custom-select {
   padding: 0.2rem 0.375rem 0.2rem 0.75rem; 
 }
@@ -9,15 +74,11 @@
    border-radius: .25rem;
 } 
 
-#result-container #placeholder-row td {
-    text-align: center;
-    font-style: italic;
-}
-
 .gfm-table {
   overflow:auto;
-  max-height:240px;
-  border:1px solid #ced4d5;
+  max-height:225px;
+  border-left:1px solid #ced4d5;
+  border-bottom:1px solid #ced4d5;
 }
 
 .glyphicon.glyphicon-cog {

@@ -4,7 +4,7 @@
 
 ****/
 function showInTable(key) {
-   var tb=GFM_tb['descript'];
+   var tb=GFM_tb['description'];
    var cnt=tb.length;
    for( i=0; i<cnt; i++) {
      var item=tb[i];
@@ -21,10 +21,13 @@ function showInTable(key) {
 function makeRegionResultTable()
 {
     var regions=GFM_tb['regions'];
+   
+    var htable=document.getElementById("gfmTableHeader");
+    var h="<tr><td style=\"width:36px;\"><button id=\"allBtn\" class=\"btn btn-sm gfm-small-btn\" title=\"select all available regions\" onclick=\"toggleAll();\"><span id=\"toggle_all\" class=\"glyphicon glyphicon-ok-sign\"></span></button></td><td style=\"border-right:0\"><b>GFM Geological Regions</b></td><td style=\"width:35px;background:#F2F2F2;border-left:0;padding:2px 4px 2px 10px;\"><button class=\"btn btn-dark\" title=\"plot selected regions in 3D viewer\" onclick=\"executePlot3d()\">plot3D</button></td></tr>";
+    var row=htable.insertRow();
+    row.innerHTML=h;
 
     var table=document.getElementById("gfmTable");
-    var row;
-
     var cnt=0;
     var sz=regions.length;
     for( var i=0; i< sz; i++) {
@@ -74,39 +77,39 @@ function makeTSList(activelist) {
     return tslist;
 }
 
-function makeFileFormatTable() {
+function makeFileFormatInfoTable() {
    var tb=GFM_tb['fileformats'];
    var cnt=tb.length;
    var i;
-   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">File Format Table</th></tr></tbody></table>";
-   tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:18vw\"><b>Format</b></td><td style=\"width:4vw\"><b>suffix</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
+   var tbhtml="<table><tbody><tr><td style=\"border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;\">File Format Table</td></tr></tbody></table>";
+   tbhtml=tbhtml+"<div class=\"gfm-info-table\"><table><tbody>";
+   tbhtml=tbhtml+"<tr><th style=\"width:18vw\">Format</th><th style=\"width:4vw\">suffix</th><th style=\"width:40vw\">Description</th></tr>";
 
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var fname=item['format name'];
      var suffix=item['suffix'];
-     var descript=item['description'];
-     var t="<tr><td style=\"width:18vw\">"+fname+"</td><td style=\"width:4vw\">"+suffix+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
+     var description=item['description'];
+     var t="<tr><td style=\"width:18vw\">"+fname+"</td><td style=\"width:4vw\">"+suffix+"</td><td style=\"width:40vw\">"+description+"</td></tr>";
      tbhtml=tbhtml+t;
    }
    tbhtml=tbhtml+"</tbody></table></div>";
    return tbhtml;
 }
 
-function makeParametersTable() {
-   var tb=GFM_tb['descript'];
+function makeParametersInfoTable() {
+   var tb=GFM_tb['description'];
    var cnt=tb.length;
    var i;
-   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">CVMH+GFM v1.0 Parameters Table</th></tr></tbody></table>";
-   tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:10vw\">Parameter</td><td style=\"width:45vw\">Description</td></tr>";
+   var tbhtml="<table><tbody><tr><td style=\"border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;\">CVMH+GFM v1.0 Parameters Table</td></tr></tbody></table>";
+   tbhtml=tbhtml+"<div class=\"gfm-info-table\"><table><tbody>";
+   tbhtml=tbhtml+"<tr><th style=\"width:10vw\">Parameter</th><th style=\"width:45vw\">Description</th></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var label=item['id'];
-     var descript=item['descript'];
+     var description=item['description'];
      if( item['show'] ) {
-       var t="<tr><td style=\"width:10vw\">"+label+"</td><td style=\"width:45vw\">"+descript+"</td></tr>";
+       var t="<tr><td style=\"width:10vw\">"+label+"</td><td style=\"width:45vw\">"+description+"</td></tr>";
        tbhtml=tbhtml+t;
      }
    }
@@ -115,12 +118,12 @@ function makeParametersTable() {
 }
 
 
-function makeRegionsTable() {
+function makeRegionsInfoTable() {
    var tb=GFM_tb['regions'];
    var cnt=tb.length;
    var i;
-   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">GFM v1.0 Region Name Table</th></tr></tbody></table>";
-   tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
+   var tbhtml="<table><tbody><tr><td style=\"border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;\">GFM v1.0 Region Name Table</td></tr></tbody></table>";
+   tbhtml=tbhtml+"<div class=\"gfm-info-table\"><table><tbody>";
    tbhtml=tbhtml+"<tr><td style=\"width:5vw\">ID</td><td style=\"width:30vw\">Region Name</td><td style=\"width:8vw\">sliver</td></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
@@ -146,19 +149,19 @@ function getZModeNameWithType(z)
    return "UNKNOWN";
 }
 
-function makeZModeTable() {
+function makeZModeInfoTable() {
    var tb=GFM_tb['zmodes'];
    var cnt=tb.length;
    var i;
-   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">Z Mode Table</th></tr></tbody></table>";
-   tbhtml=tbhtml+"<div class=\"gfm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:8vw\"><b>Mode</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
+   var tbhtml="<table><tbody><tr><td style=\"border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;\">Z Mode Table</td></tr></tbody></table>";
+   tbhtml=tbhtml+"<div class=\"gfm-info-table\"><table><tbody>";
+   tbhtml=tbhtml+"<tr><th style=\"width:8vw\"><b>Mode</b></th><th style=\"width:40vw\"><b>Description</b></th></tr>";
 
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var mname=item['mode name'];
-     var descript=item['description'];
-     var t="<tr><td style=\"width:6vw\">"+mname+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
+     var description=item['description'];
+     var t="<tr><td style=\"width:6vw\">"+mname+"</td><td style=\"width:40vw\">"+description+"</td></tr>";
      tbhtml=tbhtml+t;
    }
    tbhtml=tbhtml+"</tbody></table></div>";
@@ -258,13 +261,13 @@ function setRegionStateWithID(id,state) {
 
 
 function getDescriptWithLabel(label) {
-   var tb=GFM_tb['descript'];
+   var tb=GFM_tb['description'];
    var cnt=tb.length;
    var i;
    for(i=0; i< cnt; i++) {
        var u=tb[i];
        if(u['id']==label) {
-          var n=u['descript'];
+          var n=u['description'];
           if(n == 'NA') 
             return undefined;
           return n;
@@ -275,7 +278,7 @@ function getDescriptWithLabel(label) {
 }
 
 function getDescriptWithLabelAndVal(label,val) {
-   var tb=GFM_tb['descript'];
+   var tb=GFM_tb['description'];
    var cnt=tb.length;
    var i;
    // special case for regionID
@@ -286,7 +289,7 @@ function getDescriptWithLabelAndVal(label,val) {
    for(i=0; i< cnt; i++) {
        var u=tb[i];
        if(u['id']==label) {
-          var n=u['descript'];
+          var n=u['description'];
           if(n == 'NA') 
             return undefined;
           return n;

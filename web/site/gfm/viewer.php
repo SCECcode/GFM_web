@@ -135,18 +135,15 @@ $header=getHeader("Viewer")
 
     <div id="content-container" class="row">
         <div id="control-container" class="col-5">
-          <div class="col-12">
-            <div class="col input-group" style="background:whitesmoke;">
+          <div class="col-12 mt-4" style="padding-top:13px">
+            <div class="col input-group" style="background:whitesmoke;border:1px solid rgb(206,212,218)">
                 <div class="row mt-1">
-                  <div class="col-8">
-                   <p>Pick a point on map, enter latitude, longitude and Z value below or upload a file with LatLngs and matching Z values</p>
+                  <div class="col-9">
+                   <p>Pick a point on map, enter latitude, longitude and Z value below or upload a file with LatLngs and matching Z values<button class="btn gfm-small-btn" title="enable Map selection" style="margin-left:10px" onclick='pointClick()'><span id="pointBtn" class="glyphicon glyphicon-ok-sign"></span>useMap</button></p>
                   </div>
-                  <div class="col-2 mb-2">
+                  <div class="col-2">
                     <button onclick="resetAll();" class="btn btn-dark pr-3 pl-3"
-                     style="margin-left:20px" type="button">Reset</button>
-                    <button class="btn gfm-small-btn mt-3" title="enable Map selection"
-                     style="margin-left:10px"
-                     onclick='pointClick()'><span id="pointBtn" class="glyphicon glyphicon-ok-sign"></span>useMap</button>
+                     style="margin-left:-15px" type="button">Reset</button>
                   </div>
                 </div>
                 <div class="row d-flex">
@@ -203,7 +200,7 @@ $header=getHeader("Viewer")
                     <button id="selectbtn" class="btn gfm-top-btn" style="width:130%" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
                     <span class="glyphicon glyphicon-file"></span>Select file to use</button>
                   </div>
-                  <div class="col-2 mt-2">
+                  <div class="col-2 mt-1">
                     <button class="btn gfm-top-small-btn" data-toggle="modal" style="margin-left:60px" data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
                   </div>
                 </div>
@@ -211,17 +208,7 @@ $header=getHeader("Viewer")
 
             <div class="row mt-2" id="gfm-table-header">
                 <div class="col-12 scec-header-container" id="gfm-header-container">
-                    <table id="gfmTableHeader">
-                        <tbody>
-                        <tr>
-                           <td style="width:36px"><button id="allBtn" class="btn btn-sm gfm-small-btn" title="select all available regions" onclick="toggleAll();"><span id="toggle_all" class="glyphicon glyphicon-ok-sign"></span></button></td>
-                           <td style="border:none"><b>GFM Geological Regions</b></td>
-                           <td style="width:35px;border:none;background:#F2F2F2;" > 
-                             <button class="btn btn-dark" title="plot selected regions in 3D viewer" onclick="executePlot3d()">plot3D</button>
-                           </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <table id="gfmTableHeader"><tbody></tbody></table>
                 </div>
                 <div class="col-12">
                    <div class="gfm-table">
@@ -254,32 +241,30 @@ $header=getHeader("Viewer")
                 </div>
             </div>
         </div> <!-- map-container -->
-        <div class="col-12 mt-0">
-        <div id="result-container" class="col-12">
+        <div class="mt-0" style="width:95%;margin-left:30px">
+        <div id="result-container">
             <div class="row" id="mp-table">
-                <div class="col-12 header-container" id="materialProperty-header-container">
-                    <table id="mpHeaderTable">
-                        <tbody>
+                <div class="col-12 header-container" id="materialPropertyTable-header-container">
+                    <table id="materialPropertyHeaderTable">
                         <tr>
-                            <td style="border:none;text-align:right;">
+                            <td colspan="11" style="border:none;text-align:right;">
                               <button class="btn gfm-top-small-btn" onclick="downloadMPTable()" ><span class="glyphicon glyphicon-download"></span></button>
                               <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                         </tr>
-                        </tbody>
                     </table>
                 </div>
-                <div class="col-12" id="materialProperty-viewer-container" style="overflow-y:scroll;max-height:20vh">
+                <div class="col-12">
+                <div class="row" id="materialPropertyTable-container" style="overflow-y:scroll;max-height:20vh;margin:0px 0px 10px 0px;">
                     <table id="materialPropertyTable">
-                        <tbody>
                         <tr id="placeholder-row">
-                            <td colspan="12">Material Property for selected locations will appear here. </td>
+                            <td colspan="11">Material Property for selected locations will appear here </td>
                         </tr>
-                        </tbody>
                     </table>
+                </div>
                 </div>
             </div> <!-- mp-table -->
             <div class="row mt-0 mb-4">
-                <div class="col-12 header-container" id="result-header-container">
+                <div class="col-12 header-container" id="resultTable-header-container">
                     <table id="resultHeaderTable">
                         <tbody>
                         <tr>
@@ -288,13 +273,16 @@ $header=getHeader("Viewer")
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12" id="resultTable-container" style="overflow-y:scroll;max-height:30vh">
+                <div class="col-12">
+                <div class="row" id="resultTable-container" style="overflow-y:scroll;max-height:30vh;margin:0px 0px 10px 0px;">
                     <table id="resultTable">
                         <tbody>
                         <tr id="placeholder-row">
-                            <td colspan="12">Downloadable Result will appear here. </td>
+                            <td colspan="12">Downloadable Result will appear here </td>
                         </tr>
-                        </tbody> </table>
+                        </tbody>
+                    </table>
+                </div>
                 </div>
             </div> <!-- Result table -->
             </div>
