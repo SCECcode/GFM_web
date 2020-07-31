@@ -243,7 +243,7 @@ $header=getHeader("Viewer")
         </div> <!-- map-container -->
         <div class="mt-0" style="width:95%;margin-left:30px">
         <div id="result-container">
-            <div class="row" id="mp-table">
+            <div class="row mb-0" id="mp-table">
                 <div class="col-12 header-container" id="materialPropertyTable-header-container">
                     <table id="materialPropertyHeaderTable">
                         <tr>
@@ -254,7 +254,7 @@ $header=getHeader("Viewer")
                     </table>
                 </div>
                 <div class="col-12">
-                <div class="row" id="materialPropertyTable-container" style="overflow-y:scroll;max-height:20vh;margin:0px 0px 10px 0px;">
+                <div class="row" id="materialPropertyTable-container" style="overflow-y:scroll;max-height:20vh;margin:0px 0px 0px 0px;">
                     <table id="materialPropertyTable">
                         <tr id="placeholder-row">
                             <td colspan="11">Material Property for selected locations will appear here </td>
@@ -263,7 +263,7 @@ $header=getHeader("Viewer")
                 </div>
                 </div>
             </div> <!-- mp-table -->
-            <div class="row mt-0 mb-4">
+            <div class="row mt-0 mb-4" id="result-table">
                 <div class="col-12 header-container" id="resultTable-header-container">
                     <table id="resultHeaderTable">
                         <tbody>

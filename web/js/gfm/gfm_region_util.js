@@ -155,7 +155,7 @@ function makeZModeInfoTable() {
    var i;
    var tbhtml="<table><tbody><tr><td style=\"border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;\">Z Mode Table</td></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"gfm-info-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><th style=\"width:8vw\"><b>Mode</b></th><th style=\"width:40vw\"><b>Description</b></th></tr>";
+   tbhtml=tbhtml+"<tr><th style=\"width:8vw\">Mode</th><th style=\"width:40vw\">Description</th></tr>";
 
    for( i=0; i<cnt; i++) {
      var item=tb[i];

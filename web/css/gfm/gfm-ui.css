@@ -1,3 +1,9 @@
+
+/* used by info3dTable */
+.ucvm-table table th {
+   background: whitesmoke;
+}
+
 p {
    margin-bottom: 10px;
 }
