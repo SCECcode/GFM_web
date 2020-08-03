@@ -1,0 +1,144 @@
+GOCAD Voxet 1 
+HEADER {
+name: GFM_box_10x10x1km_forPhil
+}
+CLASSIFICATION "3D Survey" Seismic "3D Survey"
+AXIS_O -50000 3300000 -100000 
+AXIS_U 950000 0 0 
+AXIS_V 0 850000 0 
+AXIS_W 0 0 104000 
+AXIS_MIN 0 0 0 
+AXIS_MAX 1 1 1 
+AXIS_N 96 86 105 
+AXIS_NAME Inline Crossline Depth
+AXIS_UNIT "unitless" "unitless" "unitless" 
+AXIS_TYPE even even even
+
+PROPERTY 1 regionID
+PROPERTY_CLASS 1 regionid
+INTERPOLATION_METHOD  Block
+PROPERTY_KIND 1 Number
+PROPERTY_CLASS_HEADER 1 regionid {
+kind: Number
+unit: unitless
+*b61647a3-f57b4b3b-aeca-8d99d05842a0@8aa0b35f-cf664121-a2d8-ff847890f902*colormap*use_intensity_colormap: false
+pclip: 99
+*colormap*nbcolors: 42
+colormap: standard
+last_selected_folder: Property
+high_clip: 21
+low_clip: 1
+
+}
+PROPERTY_SUBCLASS 1 QUANTITY Float
+PROP_ORIGINAL_UNIT 1 none
+PROP_UNIT 1 unitless
+PROP_NO_DATA_VALUE 1 -99999
+PROP_SAMPLE_STATS 1 99936 4.35269 53.9926 1 41
+PROP_ESIZE 1 4
+PROP_ETYPE 1  IEEE
+PROP_FORMAT 1 RAW
+PROP_OFFSET 1 0
+PROP_FILE 1 GFM_box_10x10x1km_forPhil_CTMGFM_box_10x10x1km_forPhil_regionID@@
+
+PROPERTY 2 CTM_unsmoothed
+PROPERTY_CLASS 2 temperature
+PROPERTY_KIND 2 Temperature
+PROPERTY_CLASS_HEADER 2 temperature {
+kind: Temperature
+unit: degC
+pclip: 99
+last_selected_folder: Log Style
+*b61647a3-f57b4b3b-aeca-8d99d05842a0@8aa0b35f-cf664121-a2d8-ff847890f902*colormap*use_intensity_colormap: false
+high_clip: 1573
+low_clip: 20
+colormap: Spectral
+
+}
+PROPERTY_SUBCLASS 2 QUANTITY Float
+PROP_ORIGINAL_UNIT 2 degC
+PROP_UNIT 2 degC
+PROP_NO_DATA_VALUE 2 -99999
+PROP_SAMPLE_STATS 2 99936 1059.55 181949 20 1573
+PROP_ESIZE 2 4
+PROP_ETYPE 2  IEEE
+PROP_PAINTED_FLAG_BIT_POS 2  6 
+PROP_FORMAT 2 RAW
+PROP_OFFSET 2 0
+PROP_FILE 2 GFM_box_10x10x1km_forPhil_CTMGFM_box_10x10x1km_forPhil_CTM_unsmoothed@@
+
+PROPERTY 3 elevation
+PROPERTY_CLASS 3 elevation_2
+PROPERTY_KIND 3 Depth
+PROPERTY_CLASS_HEADER 3 elevation_2 {
+kind: Depth
+unit: m
+high_clip: 3734.424
+low_clip: -4632.455
+pclip: 99
+*colormap*standard*colors: 0 0 0 1 85 0 1 1 170 1 1 0 255 1 0 0 
+}
+PROPERTY_SUBCLASS 3 LINEARFUNCTION Float 1  0 
+PROP_ORIGINAL_UNIT 3 m
+PROP_UNIT 3 m
+PROP_NO_DATA_VALUE 3 -99999
+PROP_SAMPLE_STATS 3 99936 -662.131 3.74708e+06 -4632.45 3734.42
+PROP_ESIZE 3 4
+PROP_ETYPE 3  IEEE
+PROP_FORMAT 3 RAW
+PROP_OFFSET 3 0
+PROP_FILE 3 GFM_box_10x10x1km_forPhil_CTMGFM_box_10x10x1km_forPhil_elevation@@
+
+PROPERTY 4 heatRegionID
+PROPERTY_CLASS 4 regionid
+INTERPOLATION_METHOD  Block
+PROPERTY_KIND 4 Number
+PROPERTY_CLASS_HEADER 4 regionid {
+kind: Number
+unit: unitless
+*b61647a3-f57b4b3b-aeca-8d99d05842a0@8aa0b35f-cf664121-a2d8-ff847890f902*colormap*use_intensity_colormap: false
+pclip: 99
+*colormap*nbcolors: 42
+colormap: standard
+last_selected_folder: Property
+high_clip: 21
+low_clip: 1
+
+}
+PROPERTY_SUBCLASS 4 QUANTITY Float
+PROP_ORIGINAL_UNIT 4 none
+PROP_UNIT 4 unitless
+PROP_NO_DATA_VALUE 4 -99999
+PROP_SAMPLE_STATS 4 99936 13.5132 36.5376 1 21
+PROP_ESIZE 4 4
+PROP_ETYPE 4  IEEE
+PROP_PAINTED_FLAG_BIT_POS 4  7 
+PROP_FORMAT 4 RAW
+PROP_OFFSET 4 0
+PROP_FILE 4 GFM_box_10x10x1km_forPhil_CTMGFM_box_10x10x1km_forPhil_heatRegionID@@
+
+PROPERTY 5 CTM_smoothed
+PROPERTY_CLASS 5 temperature
+PROPERTY_KIND 5 Temperature
+PROPERTY_CLASS_HEADER 5 temperature {
+kind: Temperature
+unit: degC
+pclip: 99
+last_selected_folder: Log Style
+*b61647a3-f57b4b3b-aeca-8d99d05842a0@8aa0b35f-cf664121-a2d8-ff847890f902*colormap*use_intensity_colormap: false
+high_clip: 1573
+low_clip: 20
+colormap: Spectral
+
+}
+PROPERTY_SUBCLASS 5 QUANTITY Float
+PROP_ORIGINAL_UNIT 5 degC
+PROP_UNIT 5 degC
+PROP_NO_DATA_VALUE 5 -99999
+PROP_SAMPLE_STATS 5 99936 1059.6 181317 20 1573
+PROP_ESIZE 5 4
+PROP_ETYPE 5  IEEE
+PROP_FORMAT 5 RAW
+PROP_OFFSET 5 0
+PROP_FILE 5 GFM_box_10x10x1km_forPhil_CTMGFM_box_10x10x1km_forPhil_CTM_smoothed@@
+END
