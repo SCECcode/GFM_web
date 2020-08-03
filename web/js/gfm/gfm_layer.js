@@ -1,4 +1,4 @@
-/***
+toggle_id2id_highlight/***
    gfm_layer.js
 ***/
 
@@ -38,6 +38,11 @@ var gfm_file_points_list=[];
 // using domain_id as gid as if it is objgid
 // [ { "uid":duid, "name":dname, "layer":layer, "layer_id":lid, "highlight":0 } ]
 var gfm_id2id_list=[];
+
+// there are gfm region that does not have matching polygon
+// [ { "uid":duid, "name":dname, "highlight":0 } ]
+var gfm_id2id_special_list=[];
+
 var gfm_region_highlight=0;
 
 /*****************************************************************
@@ -236,7 +241,6 @@ function toggle_a_layergroup(uid) {
    }
 }
 
-
 /*** special handle for a file of points ***/
 function add_file_of_point(uid, fobj) {
   var tmp={"uid":uid,"file":fobj.name};
@@ -281,7 +285,38 @@ function remove_bounding_point_layer(uid) {
 }
 
 
+function add_id2id_special_list(uid,name)
+{
+    var item={"uid":uid,"name":name, "highlight":0 };
+    gfm_id2id_special_list.push(item);
+} 
+
+function toggle_id2id_special_highlight(gid) {
+   zap_pointClick(); // always disable the pointClick
+   var item=getFromList(gfm_id2id_special_list,gid);
+   if(item != undefined) {
+     _toggle_id2id_special(item,gid);
+   }
+}
+
+function _toggle_id2id_special(item, gid) {
+   item['highlight']=!item['highlight'];
+   var $btn=$(`#highlight_id2id_special_${gid}`);
+   if(item['highlight'] == 1) {
+     gfm_region_highlight++;
+     $btn.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+     } else {
+        $btn.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+        gfm_region_highlight--;
+        if(gfm_region_highlight == 0) {
+          setSkipPopup(false);
+        }
+   }
+} 
+
+
 function make_id2id_list(group) {
+  var f=true;
   group.eachLayer(function(layer) {
     var id=layer._leaflet_id;
     var layer_id=id -1;
@@ -289,18 +324,17 @@ function make_id2id_list(group) {
     var feature=tmp['feature'];
     var d_id=feature.id;
     var d_name=feature.properties['name'];
+    
     var item={"uid":d_id,"name":d_name, "layer":layer,"layer_id":layer_id, "highlight":0 };
     gfm_id2id_list.push(item);
-//    window.console.log("id2id ",d_name);
+    window.console.log("id2id ",d_name, d_id);
   });
 }
 
-// it is possible that there is no id2id entry per table
 function toggle_id2id_highlight(gid) {
    zap_pointClick(); // always disable the pointClick
    var item=getFromList(gfm_id2id_list,gid);
    if(item != undefined) {
-     var $btn=$(`#highlight_id2id_${gid}`);
      _toggle_id2id(item,gid);
    }
 }
@@ -345,14 +379,38 @@ function select_all_id2id(state) {
        }
      }
    }
+
+   cnt=gfm_id2id_special_list.length;
+   for(var j=0; j<cnt; j++) {
+     item=gfm_id2id_special_list[j];
+     var gid=item['uid'];
+     var $btn=$(`#highlight_id2id_special_${gid}`);
+     if($btn != undefined ) { // skip if undefined
+       var highlight=item['highlight'];
+       if(state && !highlight) { // highlight it
+         _toggle_id2id_special(item, gid);
+         $bbtn.removeClass('glyphicon-ok-sign').addClass('glyphicon-remove-sign');
+       } else if(!state && highlight) { // unhighlight it
+         _toggle_id2id_special(item, gid);
+         $bbtn.removeClass('glyphicon-remove-sign').addClass('glyphicon-ok-sign');
+       }
+     }
+   }
 }
 
-function get_active_id2id() {
+function get_active_id2id_region() {
    var alist=[]; 
    var cnt=gfm_id2id_list.length;
    var item; 
    for(var i=0; i<cnt; i++) {
      item=gfm_id2id_list[i];
+     gid=item['uid'];
+     if(item['highlight'])
+       alist.push(gid);
+   }
+   cnt=gfm_id2id_special_list.length;
+   for(var j=0; j<cnt; j++) {
+     item=gfm_id2id_special_list[j];
      gid=item['uid'];
      if(item['highlight'])
        alist.push(gid);

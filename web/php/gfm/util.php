@@ -61,16 +61,18 @@ function getRockInfo($id, $depth) {
 
 function insertRockInfo($str,$zmode) {
   $item=json_decode($str); 
-  $X=$item->{'X'};
+  $X=$item->{"X"};
   $Y=$item->{'Y'};
   $Z=$item->{'Z'};
-  $topo=$item->{'topo'};
+  $elevation =$item->{'elevation'};
   $depth=$Z;
   if($zmode == 'e') {  // this is elevation
-      $n_depth= $depth - $topo;
+      $n_depth= $depth - $elevation;
       $depth= -1 * $n_depth;
   }
   $regionID=$item->{'regionID'};
+  echo "<br>";
+  echo $regionID;
   $region=getRegionName($regionID);
   $item->{"region"} = $region;
   $arr=getRockInfo($regionID,$depth);

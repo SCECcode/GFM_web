@@ -37,13 +37,14 @@ function get_MODAL_TS_LIST()
 }
 
 function collectURLFor3d() {
-   var selected=get_active_id2id();
+   var selected=get_active_id2id_region();
    return makeTSList(selected); 
 }
 
 function executePlot3d() {
 
-  var filePath="[http://localhost/~mei/gfm/gfm_data/GFM_2020_tsurfs/fault_boundaries/]";
+//  var filePath="[http://localhost/~mei/gfm/gfm_data/GFM_2020_tsurfs/fault_boundaries/]";
+  var filePath="[http://localhost/~mei/gfm/gfm_data/GFM_2020_tsurfs/block_boundaries/]";
   if(window.location.hostname == "moho.scec.org") {
     filePath="[http://moho.scec.org/GFM_web/web/gfm_data/GFM_2020_tsurfs/fault_boundaries/]";
   }
@@ -53,8 +54,10 @@ function executePlot3d() {
 */
   
   var urls=collectURLFor3d();
+  if(urls.length == 0) { // skip 3d if no region selected
+    return;
+  } 
   var str= "["+urls.toString()+"]"+"&filePATH="+filePath;
-
   show3dView(str);
 }
 

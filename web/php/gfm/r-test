@@ -1,2 +1,1 @@
-../model/cvmh_target/bin/vx_lite -m ../model/cvmh_target/model -g -z elev -l 34.30,-119.20,-9700
-
+../../model/cvmh_target/bin/vx_lite -m ../../model/cvmh_target/model -g -z elev -l 31.70,-116.20,-9700

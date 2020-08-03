@@ -210,9 +210,10 @@ function makeMPTable(uid,str)
     if(hold_mptable) {
         for(var i=0; i<sz; i++) {
             var key=datakeys[i];
-            if(!showInTable(key))
-              continue;
-            labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+key+"</th>";
+            var nkey=showLabelInTable(key);
+            if(nkey) {
+              labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"</th>";
+            }
         }
         table.deleteRow(0); // delete the holdover
         hold_mptable=0;

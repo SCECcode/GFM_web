@@ -17,6 +17,22 @@ function showInTable(key) {
   return 0;
 }
 
+function showLabelInTable(key) {
+   var tb=GFM_tb['description'];
+   var cnt=tb.length;
+   for( i=0; i<cnt; i++) {
+     var item=tb[i];
+     var label=item['id'];
+     if(label == key) {
+       if(item['show'])
+         return item['label'];
+       return 0;
+     }
+  }
+  window.console.log("ERROR, showLabelInTable, no such key",key);
+  return 0;
+}
+
 // create a table with all gfm regions  GFM_tb['regions']
 function makeRegionResultTable()
 {
@@ -43,7 +59,13 @@ function makeRegionResultTable()
             window.console.log("did not set ts.length for ", name);
          }
          if(ts.length > 0) {
-t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-btn\" id=\"button_id2id_"+gid+"\" title=\"highlight the region\" onclick=toggle_id2id_highlight("+gid+")><span id=\"highlight_id2id_"+gid+"\" class=\"glyphicon glyphicon-unchecked\"></span></button><td><label for=\"button_id2id_"+gid+"\">" + name + "</label></td></tr>";
+           // special case, there is no layer associate with the region
+           if(getFromList(gfm_id2id_list,gid)) {
+               t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-btn\" id=\"button_id2id_"+gid+"\" title=\"mark the region\" onclick=toggle_id2id_highlight("+gid+")><span id=\"highlight_id2id_"+gid+"\" class=\"glyphicon glyphicon-unchecked\"></span></button><td><label for=\"button_id2id_"+gid+"\">" + name + "</label></td></tr>";
+               } else {
+                   t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-btn\" id=\"button_id2id_"+gid+"\" title=\"mark the special region\" onclick=toggle_id2id_special_highlight("+gid+")><span id=\"highlight_id2id_special_"+gid+"\" class=\"glyphicon glyphicon-unchecked\" style=\"color:grey\"></span></button><td><label for=\"button_id2id_special"+gid+"\">" + name + "</label></td></tr>";
+                   add_id2id_special_list(gid,name);
+           }
          } else  {
 t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-fix-btn\" id=\"button_id2id_"+gid+"\" title=\"unselectable region\"><span id=\"highlight_id2id_"+gid+"\" class=\"glyphicon glyphicon-remove-sign\"></span></button><td><label for=\"button_id2id_"+gid+"\">" + name + "</label></td></tr>";
          }

@@ -38,7 +38,6 @@ $header=getHeader("Viewer")
 <script type='text/javascript' src='js/vendor/ersi-leaflet.js'></script>
 <script type='text/javascript' src='js/vendor/FileSaver.js'></script>
 <script type='text/javascript' src='js/vendor/jszip.js'></script>
-<script type='text/javascript' src='js/vendor/jquery.floatThead.min.js'></script>
 <script type='text/javascript' src='js/vendor/jquery.tabletojson.min.js'></script>
     <!--
     https://leaflet.github.io/Leaflet.draw/docs/Leaflet.draw-latest.html#l-draw
@@ -184,11 +183,12 @@ $header=getHeader("Viewer")
                   </div>
                   <div class="col-2 pr-0">
                         <button id="queryBtn" type="button" title="query with latlon"
+                          style="margin-left:-15px"
                           class="btn btn-default gfm-small-btn " onclick="queryClick()">
                           <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <button class="btn gfm-top-small-btn mt-2" title="select Z mode"
-                          style="margin-left:-12px"
+                          style="margin-left:-6px"
                           data-toggle="modal" data-target="#modalzm">
                           <span class="glyphicon glyphicon-info-sign"></span>
                         </button>
@@ -254,7 +254,7 @@ $header=getHeader("Viewer")
                     </table>
                 </div>
                 <div class="col-12">
-                <div class="row" id="materialPropertyTable-container" style="overflow-y:scroll;max-height:20vh;margin:0px 0px 0px 0px;">
+                <div class="row" id="materialPropertyTable-container" style="overflow:scroll;max-height:20vh;margin:0px 0px 0px 0px;">
                     <table id="materialPropertyTable">
                         <tr id="placeholder-row">
                             <td colspan="11">Material Property for selected locations will appear here </td>

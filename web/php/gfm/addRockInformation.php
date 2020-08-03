@@ -31,10 +31,6 @@ $instr=file_get_contents($infname);
 if ( $instr === FALSE )
    die("Unable to open input file!");
 
-/* keys
-X,Y,Z,utmX,utmY,elevX,elevY,topo,mtop,base,moho,src,cellX,cellY,cellZ,tg,vp,vs,rho,regionID,temp,rock,rock_id,region
-*/
-
 $jdata=json_decode($instr);
 #var_dump($jdata);
 #echo "<br>";
@@ -44,17 +40,17 @@ $jarray = (array)$jdata->{$key};
 
 $sz=count($jarray);
 
-fputcsv($outfp, array('X','Y','Z','utmX','utmY','elevX','elevY','topo','mtop','base','moho','src','cellX','cellY','cellZ','tg','vp','vs','rho','regionID','temp','region','rock','rock_id'));
+fputcsv($outfp, array('X','Y','Z','utmX','utmY','elevX','elevY','topo','mtop','base','moho','src','cellX','cellY','cellZ','tg','vp','vs','rho','regionID','CTM_smoothed','CTM_unsmoothed','elevation','heatRegionID','region','rock','rock_id'));
 
 for($i=0; $i<$sz; $i++) {
   $item=$jarray[$i];
   $X=$item->{'X'};
   $Y=$item->{'Y'}; 
   $Z=$item->{'Z'}; 
-  $topo=$item->{'topo'}; 
+  $elevation=$item->{'elevation'}; 
   $depth=$Z;
   if($zmode == 'e') {  // this is elevation
-      $n_depth= $depth - $topo;
+      $n_depth= $depth - $elevation;
       $depth= -1 * $n_depth;
   }
   $regionID=$item->{'regionID'};
