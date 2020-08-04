@@ -18,6 +18,26 @@ $rrdata=json_decode($regionstr);
 $tmp = $rrdata->{"GFM_tb"};
 $gfmarray= (array) $tmp -> {"regions"};
 
+$heatfname="ctm_region.json";
+$heatstr=file_get_contents($heatfname);
+if ( $heatstr === FALSE )
+   die("Unable to open heat region file!");
+
+$rrrdata=json_decode($heatstr);
+$tmp = $rrrdata->{"CTM_tb"};
+$ctmarray= (array) $tmp -> {"regions"};
+
+function getHeatRegionName($id) {
+    global $ctmarray;
+    $sz=count($ctmarray);
+    for($i=0; $i<$sz; $i++) {
+      $item=$ctmarray[$i];
+      if( $item -> {"domain_id"} === $id ) {
+        return $item -> {"name"};
+      }
+    }
+    return "NA";
+}
 function getRegionName($id) {
     global $gfmarray;
     $sz=count($gfmarray);
@@ -59,7 +79,7 @@ function getRockInfo($id, $depth) {
     return array("rockname" => "NA", "rockid" => "NA");
 }
 
-function insertRockInfo($str,$zmode) {
+function insertRockAndHeatInfo($str,$zmode) {
   $item=json_decode($str); 
   $X=$item->{"X"};
   $Y=$item->{'Y'};
@@ -71,13 +91,15 @@ function insertRockInfo($str,$zmode) {
       $depth= -1 * $n_depth;
   }
   $regionID=$item->{'regionID'};
-  echo "<br>";
-  echo $regionID;
   $region=getRegionName($regionID);
   $item->{"region"} = $region;
   $arr=getRockInfo($regionID,$depth);
   $item->{"rock"} = $arr["rockname"];
   $item->{"rock_id"} = $arr["rockid"];
+
+  $heatID=$item->{'heatRegionID'};
+  $heat=getHeatRegionName($heatID);
+  $item->{"heatRegion"} = $heat;
   return json_encode($item);
 }
 

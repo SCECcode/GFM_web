@@ -94,6 +94,7 @@ $header=getHeader("Viewer")
 <script type="text/javascript" src="js/gfm/cxm_misc_util.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_rock.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_rock_util.js"></script>
+<script type="text/javascript" src="js/gfm/ctm_region.js"></script>
 </head>
 <body>
 <?php echo $header; ?>

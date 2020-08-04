@@ -3,7 +3,9 @@
   gfm_region.js
 
 ****/
-
+/* JSON
+{"GFM_tb":{
+*/
 var GFM_tb={
 "regions": [
 {"domain_id":1,"name":"Asthenosphere","sliver":0,"state":1,"color":"#786D5F","ucolor":"grey","ts_files":[]},
@@ -49,33 +51,34 @@ var GFM_tb={
 {"domain_id":41,"name":"Above Ground","sliver":0,"state":1,"color":"#FFFFFF","ucolor":"white","ts_files":[]} 
 ],
 "description": [
-{"id":"X","label":"X","show":1,"description":"Input X (longitude or UTM coordinate)"},
-{"id":"Y","label":"Y","show":1,"description":"Input Y (latitude or UTM coordinate)"},
+{"id":"X","label":"Lon","show":1,"description":"Input X (longitude or UTM coordinate)"},
+{"id":"Y","label":"Lat","show":1,"description":"Input Y (latitude or UTM coordinate)"},
 {"id":"Z","label":"Z","show":1,"description":"Input Z (elevation - meters above sea level. Positive numbers above sea-level)<br>(depth - meters below ground surface. Positive numbers below ground surface)"},
 {"id":"utmX","label":"utmX","show":0,"description":"UTM coordinate (zone 11), easting"},
 {"id":"utmY","label":"utmY","show":0,"description":"UTM coordinate (zone 11), northing"},
 {"id":"elevX","label":"elevX","show":0,"description":"X coordinate of center of the cell which provided data value for elevations"},
 {"id":"elevY","label":"elevY","show":0,"description":"Y coordinate of center of the cell which provided data value for elevations"},
-{"id":"topo","label":"topo","show":1,"description":"Topographic/bathymetric elevation in meters"},
-{"id":"mtop","label":"mtop","show":1,"description":"Top of model in meters, below this depth there are data"},
-{"id":"base","label":"base","show":1,"description":"Basement elevation in meters (generaly negative)"},
-{"id":"moho","label":"moho","show":1,"description":"Moho elevation in meters (always negative)"},
+{"id":"topo","label":"topo","show":0,"description":"Topographic/bathymetric elevation in meters"},
+{"id":"mtop","label":"mtop","show":0,"description":"Top of model in meters, below this depth there are data"},
+{"id":"base","label":"base","show":0,"description":"Basement elevation in meters (generaly negative)"},
+{"id":"moho","label":"moho","show":0,"description":"Moho elevation in meters (always negative)"},
 {"id":"src","label":"hr/lr/cm/nr","show":0,"description":"Flag to indicate whether high-resolution(hr), low-resolution(lr) or <br>lower crust.mantle voxet was used(cm); or if no data available(nr)"},
 {"id":"cellX","label":"cellX","show":0,"description":"X coordinate of center of cell which provided velocity data value"},
 {"id":"cellY","label":"cellY","show":0,"description":"Y coordinate of center of cell which provided velocity data value"},
 {"id":"cellZ","label":"cellZ","show":0,"description":"Z coordinate of center of cell which provided velocity data value"},
 {"id":"tg","label":"tg","show":0,"description":"Provenance of data point"},
-{"id":"vp","label":"vp","show":1,"description":"Compressional wave velocity in meters/sec"},
-{"id":"vs","label":"vs","show":1,"description":"Shear wave velocity in meters/sec"},
-{"id":"rho","label":"rho","show":1,"description":"Density in kg/m^3"},
-{"id":"regionID","label":"region domain id","show":0,"description":"Domain ID of the geological framework model region name as defined in GFM v1.0 Region Name Table"},
-{"id":"CTM_smoothed","label":"smoothed CTM","show":1,"description":"CTM smoothed temperature in Celsius"},
-{"id":"CTM_unsmoothed","label":"unsmoothed CTM","show":1,"description":"CTM unsmoothed temperature in Celsius"},
-{"id":"elevation","label":"elevation","show":1,"description":"elevation in meters"},
-{"id":"headRegionID","label":"headRegionID","show":1,"description":"CTM heat Region ID"},
-{"id":"rock","label":"rock","show":1,"description":"Rock type"},
+{"id":"vp","label":"Vp(m/s)","show":1,"description":"Compressional wave velocity in meters/sec"},
+{"id":"vs","label":"Vs(m/s)","show":1,"description":"Shear wave velocity in meters/sec"},
+{"id":"rho","label":"rho(kg/m3)","show":1,"description":"Density in kg/m^3"},
+{"id":"regionID","label":"GFM region ID","show":0,"description":"Domain ID of the geological framework model region name as defined in GFM v1.0 Region Name Table"},
+{"id":"CTM_smoothed","label":"Smoothed CTM(degC)","show":1,"description":"CTM smoothed temperature in Celsius"},
+{"id":"CTM_unsmoothed","label":"Unsmoothed CTM(degC)","show":0,"description":"CTM unsmoothed temperature in Celsius"},
+{"id":"elevation","label":"Elevation(m)","show":1,"description":"elevation in meters"},
+{"id":"heatRegionID","label":"Heat Flow region ID","show":0,"description":"CTM heat flow region ID"},
+{"id":"heatRegion","label":"Heat Flow Region","show":1,"description":"CTM heat flow region name"},
+{"id":"rock","label":"Lithology Type","show":1,"description":"Rock type"},
 {"id":"rock_id","label":"rock_id","show":0,"description":"Rock type id"},
-{"id":"region","label":"region","show":1,"description":"GFM region Name"}
+{"id":"region","label":"GFM Region","show":1,"description":"GFM region name"}
 ],
 "zmodes": [
 {"id":1, "mode name":"Depth", "value":"d", "description":"0 at surface and positive depth value"},
@@ -83,6 +86,8 @@ var GFM_tb={
 ],
 "fileformats": [
 {"id":1, "format name":"material property data", "suffix":"csv", "description":"complete GFM material property"}
-]
-};
+]};
+/* JSON
+]}}
+*/
 

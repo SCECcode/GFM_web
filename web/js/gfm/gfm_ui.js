@@ -166,6 +166,7 @@ function refreshResultTable() {
     table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Downloadable Result will appear here. </td></tr></tbody>";
 }
 
+var MPtb_label_order=['X','Y','Z','elevation','vp','vs','rho','region','rock','heatRegion','CTM_smoothed'];
 // takes 1 set of result
 // of { 'mp':{...}, 'second':{...}, ...}
 function makeMPTable(uid,str)
@@ -207,10 +208,11 @@ function makeMPTable(uid,str)
     var table=document.getElementById("materialPropertyTable");
     var html="";
 
+    var colcnt=MPtb_label_order.length;
     if(hold_mptable) {
-        for(var i=0; i<sz; i++) {
-            var key=datakeys[i];
-            var nkey=showLabelInTable(key);
+        for(var i=0; i<colcnt; i++) {
+            var label=MPtb_label_order[i];
+            var nkey=showLabelInTable(label);
             if(nkey) {
               labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"</th>";
             }
@@ -227,8 +229,8 @@ function makeMPTable(uid,str)
     // now adding the data part.. just 1 line
     html="<td style=\"width:4px\"><button class=\"btn btn-sm gfm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"gfm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
 
-    for(var i=0; i<sz; i++) {
-        var key2=datakeys[i];
+    for(var i=0; i<colcnt; i++) {
+        var key2=MPtb_label_order[i];
         var val2=datablob[key2];
         if(!showInTable(key2))
           continue;
