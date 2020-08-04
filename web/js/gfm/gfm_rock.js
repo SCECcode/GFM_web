@@ -69,7 +69,7 @@ var GFM_rock_tb = {
        ,{"start":8,"end":11,"type":"Basalt","rock_id":1}
        ,{"start":11,"end":15,"type":"Gabbro","rock_id":5}
 ]},
-{"domain_id":[],"name":"Outer Borderland","litho":6,
+{"domain_id":[27],"name":"Outer Borderland","litho":6,
 "rock":[{"start":0,"end":5,"type":"Forearc Sediments","rock_id":2}
        ,{"start":5,"end":8,"type":"Basalt","rock_id":1}
        ,{"start":8,"end":12,"type":"Gabbro","rock_id":5}
