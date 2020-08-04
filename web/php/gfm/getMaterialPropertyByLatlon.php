@@ -21,6 +21,7 @@ if ($zmode == 'e')
 if ($zmode == 'd') 
      $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z dep ".$lstr;
 
+
 $result = exec(escapeshellcmd($query), $retval, $status);
 $nresult=insertRockInfo($result,$zmode);
 
