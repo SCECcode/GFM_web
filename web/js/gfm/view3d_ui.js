@@ -43,10 +43,9 @@ function collectURLFor3d() {
 
 function executePlot3d() {
 
-//  var filePath="[http://localhost/~mei/gfm/gfm_data/GFM_2020_tsurfs/fault_boundaries/]";
   var filePath="[http://localhost/~mei/gfm/gfm_data/GFM_2020_tsurfs/block_boundaries/]";
   if(window.location.hostname == "moho.scec.org") {
-    filePath="[http://moho.scec.org/GFM_web/web/gfm_data/GFM_2020_tsurfs/fault_boundaries/]";
+    filePath="[http://moho.scec.org/GFM_web/web/gfm_data/GFM_2020_tsurfs/block_boundaries/]";
   }
 
 /*
