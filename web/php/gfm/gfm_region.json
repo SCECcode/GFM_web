@@ -67,10 +67,10 @@
 {"id":"CTM_unsmoothed","label":"Unsmoothed CTM(degC)","show":0,"description":"CTM unsmoothed temperature in Celsius"},
 {"id":"elevation","label":"Elevation(m)","show":1,"description":"elevation in meters"},
 {"id":"heatRegionID","label":"Heat Flow region ID","show":0,"description":"CTM heat flow region ID"},
-{"id":"heatRegion","label":"Heat Flow region Name","show":1,"description":"CTM heat flow region name"},
+{"id":"heatRegion","label":"Heat Flow Region","show":1,"description":"CTM heat flow region name"},
 {"id":"rock","label":"Lithology Type","show":1,"description":"Rock type"},
 {"id":"rock_id","label":"rock_id","show":0,"description":"Rock type id"},
-{"id":"region","label":"GFM Region Name","show":1,"description":"GFM region Name"}
+{"id":"region","label":"GFM Region","show":1,"description":"GFM region name"}
 ],
 "zmodes": [
 {"id":1, "mode name":"Depth", "value":"d", "description":"0 at surface and positive depth value"},

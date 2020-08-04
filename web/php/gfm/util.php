@@ -53,7 +53,6 @@ function getRegionName($id) {
 function getRockInfo($id, $depth) {
     global $rockarray;
     $sz=count($rockarray);
-
     for($i=0; $i<$sz; $i++) {
       $item=$rockarray[$i];
       $idlist=$item->{"domain_id"};
