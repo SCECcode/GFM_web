@@ -62,9 +62,6 @@ function processSearchResult(rlist) {
     if (rlist == 'getCanMaterialProperty') {
         str = $('[data-side="materialPropertyByCan"]').data('params');
     }
-    if (rlist == 'addRockInformation') {
-        str = $('[data-side="addRockInformation"]').data('params');
-    }
     if (rlist == undefined) {
        window.console.log("processSearchResult: BAD BAD BAD");
        return (undefined);
