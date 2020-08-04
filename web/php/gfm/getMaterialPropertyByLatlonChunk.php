@@ -58,8 +58,7 @@ for($i=0; $i< $set; $i++) {
   $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g ".$lstr;
 
   $result = exec(escapeshellcmd($query), $retval, $status);
-
-  $nresult=insertRockInfo($result,$zmode);
+  $nresult=insertRockAndHeatInfo($result,$zmode);
 
   fwrite($fp,$nresult); 
   fputcsv($ffp, json_decode($nresult,true));

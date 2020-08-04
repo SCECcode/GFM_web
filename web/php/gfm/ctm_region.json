@@ -1,14 +1,5 @@
-/****
 
-  ctm_region.js
-
-heat flow regions
-****/
-
-/* JSON
 { "CTM_tb":{
-*/
-var CTM_tb={
 "regions":[
 {"domain_id":1,"name":"WBR","full_name":"Western Basin and Range","color":"#D84315","ucolor":"dark orange"},
 {"domain_id":2,"name":"SN","full_name":"Sierra Nevada","color":"#B041FF","ucolor":"purple"},
@@ -31,8 +22,4 @@ var CTM_tb={
 {"domain_id":19,"name":"WBR extension","full_name":"WBR extension","color":"#D84315","ucolor":"dark orange"},
 {"domain_id":20,"name":"ST extension","full_name":"ST extension","color":"#347C17","ucolor":"green"},
 {"domain_id":21,"name":"PR extension","full_name":"PR extension","color":"#7B1FA2","ucolor":"purple"}
-]};
-/* JSON
 ]}}
-*/
-

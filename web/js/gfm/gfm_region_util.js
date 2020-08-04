@@ -119,16 +119,24 @@ function makeFileFormatInfoTable() {
    return tbhtml;
 }
 
+//var MPtb_label_order=['X','Y','Z','elevation','vp','vs','rho','region','rock','heatRegion','CTM_smoothed'];
 function makeParametersInfoTable() {
    var tb=GFM_tb['description'];
+   var colcnt=MPtb_label_order.length;
    var cnt=tb.length;
    var i;
+   var tmp;
    var tbhtml="<table><tbody><tr><td style=\"border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;\">CVMH+GFM v1.0 Parameters Table</td></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"gfm-info-table\"><table><tbody>";
    tbhtml=tbhtml+"<tr><th style=\"width:10vw\">Parameter</th><th style=\"width:45vw\">Description</th></tr>";
-   for( i=0; i<cnt; i++) {
-     var item=tb[i];
-     var label=item['id'];
+   for( i=0; i<colcnt; i++) {
+     var key=MPtb_label_order[i];
+     for(var j=0; j<cnt; j++) {
+        item=tb[j];
+        if(item['id'] == key)
+          break;
+     }
+     var label=item['label'];
      var description=item['description'];
      if( item['show'] ) {
        var t="<tr><td style=\"width:10vw\">"+label+"</td><td style=\"width:45vw\">"+description+"</td></tr>";

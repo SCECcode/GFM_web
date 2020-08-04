@@ -10,6 +10,9 @@
    * There are duplicate rock name with different composition.
 */
 
+/* JSON
+{ "GFM_rock_tb" : {
+*/
 var GFM_rock_tb = {
 "regions": [
 {"domain_id":[3],"name":"Sierra Nevada East",
@@ -144,3 +147,6 @@ var GFM_rock_tb = {
 {"rock_id":18,"name":"Sediment",
        "Quartz":90,"Feldspar":10,"Mica":0,"Pyroxene":0,"Amphibole":0,"Olilvine":0}
 ]};
+/* JSON
+]}}
+*/

@@ -23,7 +23,7 @@ if ($zmode == 'd')
 
 
 $result = exec(escapeshellcmd($query), $retval, $status);
-$nresult=insertRockInfo($result,$zmode);
+$nresult=insertRockAndHeatInfo($result,$zmode);
 
 $itemlist = new \stdClass();
 $itemlist->mp=$nresult;
