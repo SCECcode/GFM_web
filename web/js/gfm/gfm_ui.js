@@ -28,6 +28,8 @@ function setup_gfm_table() {
 function setup_tables() {
     document.getElementById('parametersTable').innerHTML=makeParametersInfoTable();
     document.getElementById('regionsTable').innerHTML=makeRegionsInfoTable();
+    document.getElementById('heatRegionsTable').innerHTML=makeHeatRegionsInfoTable();
+    document.getElementById('rockTypeTable').innerHTML=makeRockTypeInfoTable();
     document.getElementById('zmodeTable').innerHTML=makeZModeInfoTable();
     document.getElementById('fileFormatTable').innerHTML=makeFileFormatInfoTable();
 }
@@ -166,7 +168,7 @@ function refreshResultTable() {
     table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Downloadable Result will appear here. </td></tr></tbody>";
 }
 
-var MPtb_label_order=['X','Y','Z','elevation','vp','vs','rho','region','rock','heatRegion','CTM_smoothed'];
+var MPtb_label_order=['X','Y','Z','elevation','vp','vs','rho','region','rock','heatRegion','CTM_smoothed','regionID','topo'];
 // takes 1 set of result
 // of { 'mp':{...}, 'second':{...}, ...}
 function makeMPTable(uid,str)
@@ -208,12 +210,26 @@ function makeMPTable(uid,str)
     var table=document.getElementById("materialPropertyTable");
     var html="";
 
+// special case, need to give info button to Region Table, Lithology type..
     var colcnt=MPtb_label_order.length;
     if(hold_mptable) {
         for(var i=0; i<colcnt; i++) {
             var label=MPtb_label_order[i];
             var nkey=showLabelInTable(label);
             if(nkey) {
+              // if nekey is ..
+              if(label == "region") {
+                 labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"<br><button class=\"btn gfm-top-small-btn\" data-toggle=\"modal\" data-target=\"#modalRegions\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></th>";
+                 continue;
+              }
+              if(label == "rock") {
+                 labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"<br><button class=\"btn gfm-top-small-btn\" data-toggle=\"modal\" data-target=\"#modalRockType\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></th>";
+                 continue;
+              }
+              if(label == "heatRegion") {
+                 labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"<br><button class=\"btn gfm-top-small-btn\" data-toggle=\"modal\" data-target=\"#modalHeatRegions\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></th>";
+                 continue;
+              }
               labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"</th>";
             }
         }

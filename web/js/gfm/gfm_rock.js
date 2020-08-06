@@ -88,17 +88,17 @@ var GFM_rock_tb = {
        ,{"start":25,"end":30,"type":"Gabbro","rock_id":5}
 ]},
 {"domain_id":[31],"name":"Rift Axis 1","litho":9,
-"rock":[{"start":0,"end":8,"type":"Sediment00","rock_id":17}
+"rock":[{"start":0,"end":8,"type":"Quartz Sediment","rock_id":17}
        ,{"start":8,"end":13,"type":"Sediment & Sills","rock_id":16}
        ,{"start":13,"end":17,"type":"Gabbro","rock_id":5}
 ]},
 {"domain_id":[28],"name":"Rift Axis 2","litho":11,
-"rock":[{"start":0,"end":8,"type":"Sediment00","rock_id":17}
+"rock":[{"start":0,"end":8,"type":"Quartz Sediment","rock_id":17}
        ,{"start":8,"end":13,"type":"Sediment & Sills","rock_id":16}
        ,{"start":13,"end":17,"type":"Gabbro","rock_id":5}
 ]},
 {"domain_id":[33],"name":"Rift Axis 3","litho":23,
-"rock":[{"start":0,"end":8,"type":"Sediment00","rock_id":17}
+"rock":[{"start":0,"end":8,"type":"Quartz Sediment","rock_id":17}
        ,{"start":8,"end":13,"type":"Sediment & Sills","rock_id":16}
        ,{"start":13,"end":17,"type":"Gabbro","rock_id":5}
 ]},
@@ -141,7 +141,7 @@ var GFM_rock_tb = {
        ,{"start":25,"end":40,"type":"Meta-Basic","rock_id":8}
 ]},
 {"domain_id":[22],"name":"Gulf Rifted Margin","litho_id":2,
-"rock":[{"start":0,"end":5,"type":"Sediment00","rock_id":17}
+"rock":[{"start":0,"end":5,"type":"Quartz Sediment","rock_id":17}
        ,{"start":5,"end":25,"type":"Granodiorite05","rock_id":7}
 ]}
 ],
@@ -178,9 +178,9 @@ var GFM_rock_tb = {
        "Quartz":75,"Feldspar":20,"Mica":5,"Pyroxene":0,"Amphibole":0,"Olilvine":0},
 {"rock_id":16,"name":"Sediment & Sills",
        "Quartz":50,"Feldspar":10,"Mica":0,"Pyroxene":35,"Amphibole":0,"Olilvine":5},
-{"rock_id":17,"name":"Sediment00",
+{"rock_id":17,"name":"Quartz Sediment",
        "Quartz":100,"Feldspar":0,"Mica":0,"Pyroxene":0,"Amphibole":0,"Olilvine":0},
-{"rock_id":18,"name":"Sediment10",
+{"rock_id":18,"name":"Sediment",
        "Quartz":90,"Feldspar":10,"Mica":0,"Pyroxene":0,"Amphibole":0,"Olilvine":0}
 ]};
 /* JSON
