@@ -82,7 +82,7 @@ table th {
 
 .gfm-table {
   overflow:auto;
-  max-height:225px;
+  max-height:285px;
   border-left:1px solid #ced4d5;
   border-bottom:1px solid #ced4d5;
 }

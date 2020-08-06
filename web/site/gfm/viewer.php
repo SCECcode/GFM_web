@@ -95,6 +95,7 @@ $header=getHeader("Viewer")
 <script type="text/javascript" src="js/gfm/gfm_rock.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_rock_util.js"></script>
 <script type="text/javascript" src="js/gfm/ctm_region.js"></script>
+<script type="text/javascript" src="js/gfm/ctm_region_util.js"></script>
 </head>
 <body>
 <?php echo $header; ?>
@@ -115,13 +116,9 @@ $header=getHeader("Viewer")
 
 <!--- MISC --->
     <div id="miscTools">
-<!--
-        <button class="btn gfm-small-btn" title="display GFM regions" onclick='toggleShowGFM()'>
-           <span id="gfm_gfm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM1.0</button>
-        <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalRegions"><span class="glyphicon glyphicon-info-sign"></span></button>
--->
-
-        <button class="btn gfm-small-btn" title="display CFM5.2 faults" style="margin-left:78%; padding:0px 0px;" onclick='toggleShowCFM()'>
+        <button class="btn gfm-small-btn" title="display GFM regions" style="margin-left:73%" onclick='toggleShowGFM()'>
+           <span id="gfm_gfm_btn" class="glyphicon glyphicon-remove-sign"></span>GFM1.0</button>
+        <button class="btn gfm-small-btn" title="display CFM5.2 faults" style="padding:0px 0px;" onclick='toggleShowCFM()'>
            <span id="gfm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
         <button class="btn gfm-small-btn" title="display GFM 3D regions" onclick='plotRegionClick()' data-toggle="modal" data-target="#modal3DPoint">
            <span id="regionBtn" class="glyphicon glyphicon-ok-sign"></span>GFM3dMesh</button>
@@ -135,15 +132,15 @@ $header=getHeader("Viewer")
 
     <div id="content-container" class="row">
         <div id="control-container" class="col-5">
-          <div class="col-12 mt-4" style="padding-top:13px">
+          <div class="col-12 mt-4" style="padding-top:10px">
             <div class="col input-group" style="background:whitesmoke;border:1px solid rgb(206,212,218)">
-                <div class="row mt-1">
+                <div class="row mt-2">
                   <div class="col-9">
-                   <p>Pick a point on map, enter latitude, longitude and Z value below or upload a file with LatLngs and matching Z values<button class="btn gfm-small-btn" title="enable Map selection" style="margin-left:10px" onclick='pointClick()'><span id="pointBtn" class="glyphicon glyphicon-ok-sign"></span>useMap</button></p>
+                   Enter latitude, longitude, Z value and<br>Z mode below, upload a file with LatLngs and matching Z values or pick a point on map <button class="btn gfm-small-btn" title="enable Map selection" onclick='pointClick()'><span id="pointBtn" class="glyphicon glyphicon-ok-sign"></span>useMap</button>
                   </div>
-                  <div class="col-2">
+                  <div class="col-3">
                     <button onclick="resetAll();" class="btn btn-dark pr-3 pl-3"
-                     style="margin-left:-15px" type="button">Reset</button>
+                     style="margin-left:0px" type="button">Reset</button>
                   </div>
                 </div>
                 <div class="row d-flex">
@@ -184,25 +181,25 @@ $header=getHeader("Viewer")
                   </div>
                   <div class="col-2 pr-0">
                         <button id="queryBtn" type="button" title="query with latlon"
-                          style="margin-left:-15px"
+                          style="margin-left:0px"
                           class="btn btn-default gfm-small-btn " onclick="queryClick()">
                           <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <button class="btn gfm-top-small-btn mt-2" title="select Z mode"
-                          style="margin-left:-6px"
+                          style="margin-left:-10px"
                           data-toggle="modal" data-target="#modalzm">
                           <span class="glyphicon glyphicon-info-sign"></span>
                         </button>
                   </div>
                 </div>
                 <div class="row d-flex mt-2">
-                  <div class="col-10 pr-1 mb-2">
+                  <div class="col-10 pr-1 mb-3">
                     <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
-                    <button id="selectbtn" class="btn gfm-top-btn" style="width:130%" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
+                    <button id="selectbtn" class="btn gfm-top-btn" style="width:200px;height:3vh;" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
                     <span class="glyphicon glyphicon-file"></span>Select file to use</button>
                   </div>
                   <div class="col-2 mt-1">
-                    <button class="btn gfm-top-small-btn" data-toggle="modal" style="margin-left:60px" data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
+                    <button class="btn gfm-top-small-btn" data-toggle="modal" style="margin-left:-10px" data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
                   </div>
                 </div>
             </div> <!-- latlon/file input/reset --> 
@@ -403,6 +400,48 @@ $header=getHeader("Viewer")
       <div class="modal-body" id="modalParametersBody">
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
           <div class="col-12" id="parametersTable" style="display:inline-block"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: Rock Type Table -->
+<div class="modal" id="modalRockType" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalRockTypeDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalRockTypeContent">
+      <!--Body-->
+      <div class="modal-body" id="modalRockTypeBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="rockTypeTable" style="display:inline-block;"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+
+
+<!--Modal: Heatflow Regions Table -->
+<div class="modal" id="modalHeatRegions" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalHeatRegionsDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalHeatRegionsContent">
+      <!--Body-->
+      <div class="modal-body" id="modalHeatRegionsBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="heatRegionsTable" style="display:inline-block;"></div>
         </div>
       </div>
       <div class="modal-footer justify-content-center">
