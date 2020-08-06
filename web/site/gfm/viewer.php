@@ -181,12 +181,12 @@ $header=getHeader("Viewer")
                   </div>
                   <div class="col-2 pr-0">
                         <button id="queryBtn" type="button" title="query with latlon"
-                          style="margin-left:0px"
+                          style="margin-left:-10px"
                           class="btn btn-default gfm-small-btn " onclick="queryClick()">
                           <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <button class="btn gfm-top-small-btn mt-2" title="select Z mode"
-                          style="margin-left:-10px"
+                          style="margin-left:-5px"
                           data-toggle="modal" data-target="#modalzm">
                           <span class="glyphicon glyphicon-info-sign"></span>
                         </button>
