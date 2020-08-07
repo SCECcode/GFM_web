@@ -219,15 +219,15 @@ function makeMPTable(uid,str)
             if(nkey) {
               // if nekey is ..
               if(label == "region") {
-                 labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"<br><button class=\"btn gfm-top-small-btn\" data-toggle=\"modal\" data-target=\"#modalRegions\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></th>";
+                 labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"<br><button class=\"btn gfm-top-small-btn\" title=\"list all GFM regions\" data-toggle=\"modal\" data-target=\"#modalRegions\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></th>";
                  continue;
               }
               if(label == "rock") {
-                 labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"<br><button class=\"btn gfm-top-small-btn\" data-toggle=\"modal\" data-target=\"#modalRockType\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></th>";
+                 labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"<br><button class=\"btn gfm-top-small-btn\" title=\"list all Lithology types\" data-toggle=\"modal\" data-target=\"#modalRockType\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></th>";
                  continue;
               }
               if(label == "heatRegion") {
-                 labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"<br><button class=\"btn gfm-top-small-btn\" data-toggle=\"modal\" data-target=\"#modalHeatRegions\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></th>";
+                 labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"<br><button class=\"btn gfm-top-small-btn\" title=\"list all CTM heat flow regions\" data-toggle=\"modal\" data-target=\"#modalHeatRegions\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></th>";
                  continue;
               }
               labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\">"+nkey+"</th>";

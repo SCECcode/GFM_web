@@ -322,7 +322,7 @@ $header=getHeader("Viewer")
         <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal">Close</button>
         <button id="view3DExpandbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleExpand3Dview(this)">Expand</button>
         <button id="view3DRefreshbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="refresh3Dview()">Reset</button>
-        <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalinfo3d" onclick="$('#modal3D').modal('hide');">Info</button>
+        <button class="btn btn-outline-primary btn-sm" title="start 3d viewer" data-toggle="modal" data-target="#modalinfo3d" onclick="$('#modal3D').modal('hide');">Info</button>
       </div> <!-- footer -->
 
     </div> <!--Content-->
