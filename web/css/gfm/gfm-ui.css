@@ -35,6 +35,10 @@ p {
    border: 0;
 }
 
+tr.row-selected {
+   background-color: #F2F2F2;
+}
+
 table th {
    position: -webkit-sticky;
    position: sticky;

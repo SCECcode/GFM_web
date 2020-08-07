@@ -44,6 +44,7 @@ function makeRegionResultTable()
     row.innerHTML=h;
 
     var table=document.getElementById("gfmTable");
+    var bodyhtml="<tbody>"; 
     var cnt=0;
     var sz=regions.length;
     for( var i=0; i< sz; i++) {
@@ -70,11 +71,12 @@ function makeRegionResultTable()
 t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-fix-btn\" id=\"button_id2id_"+gid+"\" title=\"unselectable region\"><span id=\"highlight_id2id_"+gid+"\" class=\"glyphicon glyphicon-remove-sign\"></span></button><td><label for=\"button_id2id_"+gid+"\">" + name + "</label></td></tr>";
          }
 
-         row=table.insertRow();
-         row.innerHTML=t;
+         bodyhtml=bodyhtml+t;
          cnt++;
        }
     }
+    bodyhtml=bodyhtml+"</body>";
+    table.innerHTML=bodyhtml;
 
     if (visibleRegions.getBounds().isValid()) {
         viewermap.fitBounds(visibleRegions.getBounds());
