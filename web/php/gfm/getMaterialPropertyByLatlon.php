@@ -15,11 +15,11 @@ $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 
 $lstr = "-l ".$lat.",".$lon.",".$z;
-$query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g ".$lstr;
+$query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -s -m $GFM_WEB_LOC/model/cvmh_target/model -g ".$lstr;
 if ($zmode == 'e') 
-     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z elev ".$lstr;
+     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -s -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z elev ".$lstr;
 if ($zmode == 'd') 
-     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z dep ".$lstr;
+     $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -s -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z dep ".$lstr;
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 $nresult=insertRockAndHeatInfo($result,$zmode);
