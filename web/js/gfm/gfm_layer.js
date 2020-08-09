@@ -302,15 +302,18 @@ function toggle_id2id_special_highlight(gid) {
 function _toggle_id2id_special(item, gid) {
    item['highlight']=!item['highlight'];
    var $btn=$(`#highlight_id2id_special_${gid}`);
+   let $rowSelected = $(`#row_${gid}`);
    if(item['highlight'] == 1) {
      gfm_region_highlight++;
      $btn.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+     $rowSelected.addClass("row-selected");
      } else {
         $btn.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
         gfm_region_highlight--;
         if(gfm_region_highlight == 0) {
           setSkipPopup(false);
         }
+        $rowSelected.removeClass("row-selected");
    }
 } 
 
@@ -343,12 +346,15 @@ function _toggle_id2id(item, gid) {
    item['highlight']=!item['highlight'];
    var layer=item['layer'];
    var $btn=$(`#highlight_id2id_${gid}`);
+   let $rowSelected = $(`#row_${gid}`);
    if(item['highlight'] == 1) {
      layer.setStyle({weight:5});
      gfm_region_highlight++;
      setSkipPopup(true);
      $btn.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+     $rowSelected.addClass("row-selected");
      } else {
+        $rowSelected.removeClass("row-selected");
         $btn.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
         gfm_region_highlight--;
         layer.setStyle({weight:1});

@@ -185,7 +185,7 @@ $header=getHeader("Viewer")
                           class="btn btn-default gfm-small-btn " onclick="queryClick()">
                           <span class="glyphicon glyphicon-search"></span>
                         </button>
-                        <button class="btn gfm-top-small-btn mt-2" title="select Z mode"
+                        <button class="btn gfm-top-small-btn mt-2" title="definition of different Z mode"
                           style="margin-left:-5px"
                           data-toggle="modal" data-target="#modalzm">
                           <span class="glyphicon glyphicon-info-sign"></span>
@@ -199,7 +199,7 @@ $header=getHeader("Viewer")
                     <span class="glyphicon glyphicon-file"></span>Select file to use</button>
                   </div>
                   <div class="col-2 mt-1">
-                    <button class="btn gfm-top-small-btn" data-toggle="modal" style="margin-left:-10px" data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
+                    <button class="btn gfm-top-small-btn" title="about batch file mode" data-toggle="modal" style="margin-left:-10px" data-target="#modalFile"><span class="glyphicon glyphicon-info-sign"></span></button>
                   </div>
                 </div>
             </div> <!-- latlon/file input/reset --> 
@@ -246,8 +246,8 @@ $header=getHeader("Viewer")
                     <table id="materialPropertyHeaderTable">
                         <tr>
                             <td colspan="11" style="border:none;text-align:right;">
-                              <button class="btn gfm-top-small-btn" onclick="downloadMPTable()" ><span class="glyphicon glyphicon-download"></span></button>
-                              <button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+                              <button class="btn gfm-top-small-btn" title="download all the material property in the table" onclick="downloadMPTable()" ><span class="glyphicon glyphicon-download"></span></button>
+                              <button class="btn gfm-top-small-btn" title="GFM parameters displayed in the table" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                         </tr>
                     </table>
                 </div>
@@ -261,22 +261,25 @@ $header=getHeader("Viewer")
                 </div>
                 </div>
             </div> <!-- mp-table -->
-            <div class="row mt-0 mb-4" id="result-table">
+            <div class="row mt-1 mb-4" id="result-table">
                 <div class="col-12 header-container" id="resultTable-header-container">
+<!--
                     <table id="resultHeaderTable">
+
                         <tbody>
                         <tr>
                             <td style="border:none;text-align:right;"><button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                         </tr>
                         </tbody>
                     </table>
+-->
                 </div>
                 <div class="col-12">
                 <div class="row" id="resultTable-container" style="overflow-y:scroll;max-height:30vh;margin:0px 0px 10px 0px;">
                     <table id="resultTable">
                         <tbody>
                         <tr id="placeholder-row">
-                            <td colspan="12">Downloadable Result will appear here </td>
+                            <td colspan="12">Downloadable Batch Result will appear here </td>
                         </tr>
                         </tbody>
                     </table>
@@ -319,7 +322,7 @@ $header=getHeader("Viewer")
         <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal">Close</button>
         <button id="view3DExpandbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleExpand3Dview(this)">Expand</button>
         <button id="view3DRefreshbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="refresh3Dview()">Reset</button>
-        <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalinfo3d" onclick="$('#modal3D').modal('hide');">Info</button>
+        <button class="btn btn-outline-primary btn-sm" title="start 3d viewer" data-toggle="modal" data-target="#modalinfo3d" onclick="$('#modal3D').modal('hide');">Info</button>
       </div> <!-- footer -->
 
     </div> <!--Content-->

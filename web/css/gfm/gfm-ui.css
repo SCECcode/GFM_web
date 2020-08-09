@@ -35,6 +35,10 @@ p {
    border: 0;
 }
 
+tr.row-selected {
+   background-color: #F2F2F2;
+}
+
 table th {
    position: -webkit-sticky;
    position: sticky;
@@ -82,7 +86,7 @@ table th {
 
 .gfm-table {
   overflow:auto;
-  max-height:285px;
+  max-height:290px;
   border-left:1px solid #ced4d5;
   border-bottom:1px solid #ced4d5;
 }

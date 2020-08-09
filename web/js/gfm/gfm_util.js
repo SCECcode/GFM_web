@@ -115,14 +115,14 @@ function readAndProcessLocalFile(fobj) {
        if(is_csv) {
          $.csv.toArray(fline, {}, function(err, data) {
            var v=data;
-           if( v != "" && v[0] != "#" ) {
+           if( v != "" && v[0] != "#" && v[0][0] != '#' ) {
              fdata.push(v);
            }
          }); 
        } else {
 // space separated format 
            var v=fline.split(' ');
-           if ( v != "" && v[0] != "#" ) {
+           if ( v != "" && v[0] != "#" && v[0][0] != '#' ) {
              fdata.push(v);
            }
        }
