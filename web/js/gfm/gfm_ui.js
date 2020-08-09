@@ -168,7 +168,8 @@ function refreshResultTable() {
     table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Downloadable Result will appear here. </td></tr></tbody>";
 }
 
-var MPtb_label_order=['X','Y','Z','elevation','vp','vs','rho','region','rock','heatRegion','CTM_smoothed','regionID','topo'];
+//var MPtb_label_order=['X','Y','Z','elevation','vp','vs','rho','region','rock','heatRegion','CTM_smoothed','regionID','topo'];
+var MPtb_label_order=['X','Y','Z','elevation','vp','vs','rho','region','rock','heatRegion','CTM_smoothed'];
 // takes 1 set of result
 // of { 'mp':{...}, 'second':{...}, ...}
 function makeMPTable(uid,str)
