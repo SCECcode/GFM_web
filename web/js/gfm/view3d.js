@@ -101,7 +101,7 @@ function refresh3Dview() {
 
   var urls=get_MODAL_TS_LIST();
   $('#view3DIfram').attr('src',"");
-  $('#view3DIfram').attr('src',"cfm_3d.html?fileURL="+urls);
+  $('#view3DIfram').attr('src',"view3d.html?fileURL="+urls);
 }
 
 var track_trace=1; // 1 is on 0 is off
