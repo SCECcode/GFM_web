@@ -2,11 +2,9 @@
   from regions,
    domain_id is the domain_id from GFM region,
    name is the local GFM region name used by the Rock list 
+   litho is the index from the litho list
 
    rock_id is the locally assigned from Rock list. 
-
-   * There are some mismatch between GFM region name and local
-     GFM region name
 
   from lithos,
    holds the rock composition. 
@@ -25,11 +23,11 @@ var GFM_rock_tb = {
 "rock":[{"start":0,"end":30,"type":"Granodiorite10","rock_id":6}
        ,{"start":30,"end":40,"type":"Quartz Diorite","rock_id":12}
 ]},
-{"domain_id":[10],"name":"Peninsular Ranges(E)","litho_id":1,
+{"domain_id":[10],"name":"Peninsular Ranges(E)","litho":1,
 "rock":[{"start":0,"end":30,"type":"Granodiorite05","rock_id":7}
        ,{"start":30,"end":35,"type":"Quartz Diorite","rock_id":12}
 ]},
-{"domain_id":[6],"name":"Peninsular Ranges(W)","litho_id":3,
+{"domain_id":[6],"name":"Peninsular Ranges(W)","litho":3,
 "rock":[{"start":0,"end":30,"type":"Granodiorite10","rock_id":6}
        ,{"start":30,"end":40,"type":"Quartz Diorite","rock_id":12}
 ]},
@@ -140,7 +138,7 @@ var GFM_rock_tb = {
        ,{"start":12,"end":25,"type":"Meta-Intermediate","rock_id":10}
        ,{"start":25,"end":40,"type":"Meta-Basic","rock_id":8}
 ]},
-{"domain_id":[22],"name":"Gulf Rifted Margin","litho_id":2,
+{"domain_id":[22],"name":"Gulf Rifted Margin","litho":2,
 "rock":[{"start":0,"end":5,"type":"Quartz Sediment","rock_id":17}
        ,{"start":5,"end":25,"type":"Granodiorite05","rock_id":7}
 ]}
