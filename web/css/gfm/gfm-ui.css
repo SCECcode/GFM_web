@@ -1,4 +1,12 @@
 
+#plot3d-all:not([disabled]):hover {
+   background: red;
+}
+
+#plot3d-all:not([disabled]) {
+   background:#990000;
+}
+
 /* used by info3dTable */
 .ucvm-table table th {
    background: whitesmoke;

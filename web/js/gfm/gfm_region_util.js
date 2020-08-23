@@ -1,6 +1,6 @@
 /****
 
-  gfm_region.js
+  gfm_region_util.js
 
 ****/
 function showInTable(key) {
@@ -39,7 +39,7 @@ function makeRegionResultTable()
     var regions=GFM_tb['regions'];
    
     var htable=document.getElementById("gfmTableHeader");
-    var h="<tr><td style=\"width:36px;\"><button id=\"allBtn\" class=\"btn btn-sm gfm-small-btn\" title=\"select all available regions\" onclick=\"toggleAll();\"><span id=\"toggle_all\" class=\"glyphicon glyphicon-ok-sign\"></span></button></td><td style=\"border-right:0\"><b>GFM Geological Regions</b></td><td style=\"width:40px;background:#F2F2F2;border-left:0;padding:3px 13px 3px 2px;\"><button class=\"btn btn-dark\" title=\"plot selected regions in 3D viewer\" onclick=\"executePlot3d()\">plot3D</button></td></tr>";
+    var h="<tr><td style=\"width:36px;\"><button id=\"allBtn\" class=\"btn btn-sm gfm-small-btn\" title=\"select all available regions\" onclick=\"toggleAll();\"><span id=\"toggle_all\" class=\"glyphicon glyphicon-ok-sign\"></span></button></td><td style=\"border-right:0\"><b>GFM Geological Regions</b></td><td style=\"width:40px;background:#F2F2F2;border-left:0;padding:3px 13px 3px 2px;\"><button id=\"plot3d-all\" class=\"btn btn-dark\" title=\"plot selected regions in 3D viewer\" onclick=\"executePlot3d()\" disabled>Plot3D<span id=\"plot-counter\"></span> </button></td></tr>";
     var row=htable.insertRow();
     row.innerHTML=h;
 
@@ -50,9 +50,12 @@ function makeRegionResultTable()
     for( var i=0; i< sz; i++) {
        var s=regions[i];
        var name=s['name'];
-       var gid=s['domain_id'];
+       var gfm_gid=s['domain_id'];
        var ts=s['ts_files'];
        var sliver=s['sliver'];
+
+       let gid=getCRMgid(gfm_gid); // if 0, means no matching crm id
+
        if(sliver == 0 ) {
          var t;
        /* if there is a ts file, then make it selectable */
@@ -61,10 +64,12 @@ function makeRegionResultTable()
          }
          if(ts.length > 0) {
            // special case, there is no layer associate with the region
+           // gid is gfm's gid, need to find a matching crm gid to match up with the layer index
+           // in the CRM..
            if(getFromList(gfm_id2id_list,gid)) {
-               t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-btn\" id=\"button_id2id_"+gid+"\" title=\"mark the region\" onclick=toggle_id2id_highlight("+gid+")><span id=\"highlight_id2id_"+gid+"\" class=\"glyphicon glyphicon-unchecked\"></span></button><td><label for=\"button_id2id_"+gid+"\">" + name + "</label></td></tr>";
+               t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-btn\" id=\"button_id2id_"+gid+"\" title=\"mark the region\" onclick=toggle_id2id_highlight("+gid+","+gfm_gid+")><span id=\"highlight_id2id_"+gid+"\" class=\"glyphicon glyphicon-unchecked\"></span></button><td><label for=\"button_id2id_"+gid+"\">" + name + "</label></td></tr>";
                } else {
-                   t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-btn\" id=\"button_id2id_"+gid+"\" title=\"mark the special region\" onclick=toggle_id2id_special_highlight("+gid+")><span id=\"highlight_id2id_special_"+gid+"\" class=\"glyphicon glyphicon-unchecked\" style=\"color:grey\"></span></button><td><label for=\"button_id2id_special"+gid+"\">" + name + "</label></td></tr>";
+                   t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-sm gfm-small-btn\" id=\"button_id2id_"+gid+"\" title=\"mark the special region\" onclick=toggle_id2id_special_highlight("+gid+","+gfm_gid+")><span id=\"highlight_id2id_special_"+gid+"\" class=\"glyphicon glyphicon-unchecked\" style=\"color:grey\"></span></button><td><label for=\"button_id2id_special"+gid+"\">" + name + "</label></td></tr>";
                    add_id2id_special_list(gid,name);
            }
          } else  {

@@ -6,49 +6,46 @@ var VIEW3D_tb = {
   "3dview": [
        { 'id':1,
          'name': '3D Navigation',
-         'description': 'Rotate in 3D: left click; Translate: shift key+left click; Zoom in/out: mouse wheel'},
+         'description': 'Rotate in 3D: left click<br>Translate: shift key+left click<br> Zoom in/out: mouse scroll wheel'},
        { 'id':2,
-         'name': 'Surface',
-         'description': 'Selectable representation types: Solid Surface, Wireframe and Surface with Wireframe overlay'},
+         'name': 'Show Wireframe',
+         'description': 'Selects the rendering mode for fault surfaces: Solid Surface, Wireframe or Surface with Wireframe overlay'},
        { 'id':3,
-         'name': 'Traces',
-         'description': 'Control Fault and Blind surface traces'},
+         'name': 'Hide Traces',
+         'description': 'Show/Hide Fault traces and upper tiplines of Blind faults'},
        { 'id':4,
-         'name': 'Coastline',
-         'description': 'Control California Coastline and boundary inclusion'},
+         'name': 'Hide Coastline',
+         'description': 'Show/Hide California outline and coastline'},
        { 'id':5,
-         'name': 'Bounds',
-         'description': 'Selectable Bounding Box types: Unified Bounding Box, Unified Bounding Box with local bounds, No Bounding Box'},
+         'name': 'Hide Bounding Box',
+         'description': 'Show/Hide Bounding Box around the selected faults'},
        { 'id':6,
          'name': 'Legend',
-         'description': 'Control Legend visibility'},
+         'description': 'Show/Hide the Legend<br>Colored boxes in the legend can be clicked on to change surface color<br>Slider bar controls opacity from 0.1 to 1.0<br>Click on the fault name in the legend to toggle on/off surface visibility'},
        { 'id':7,
-         'name': 'Mapview',
-         'description': 'Orient the view in Mapview'},
+         'name': 'Show Mapview',
+         'description': 'Return to the original mapview orientation zoomed to selected faults'},
        { 'id':8,
-         'name': 'Legend.Color',
-         'description': 'Click the color tag on Legend to change color of the corresponding fault'},
-       { 'id':9,
-         'name': 'Legend.Range',
-         'description': 'Slide the range tag on Legend to change opacity of the corresponding fault. Valid range from 0.1 to 1 with 0.1 increment'},
-       { 'id':10,
-         'name': 'Legend.Name',
-         'description': 'Click the name tag on Legend to control visibility of the corresponding fault'},
-       { 'id':11,
          'name': 'Close',
          'description': 'Close the 3D view'},
-       { 'id':12,
+       { 'id':9,
          'name': 'Expand',
-         'description': 'Toggle to expand to full screen view'},
-       { 'id':13,
+         'description': 'Expand to nearly full screen view'},
+       { 'id':10,
          'name': 'Reset',
-         'description': 'Refresh the 3D view' },
-       { 'id':14,
-         'name': 'Info',
-         'description': 'Display the info table'},
-       { 'id':15,
+         'description': 'Refresh the 3D view to the default mapview orientation' },
+       { 'id':11,
+         'name': 'Save',
+         'description': 'Save a copy of 3D view (no legend)' },
+       { 'id':12,
+         'name': 'Help',
+         'description': 'Display this information table'},
+       { 'id':13,
          'name': 'Orientation Marker',
-         'description': 'Green arrow points toward the North'},
+         'description': 'Green arrow points toward the North<br>Pink points east'},
+       { 'id':14,
+         'name': '3D Map Scale?',
+         'description': 'This tool currently has no option for plotting 3D axes, and a map scale in 3D is not reliable because the map scale would only be valid at one given distance from the viewer. This viewer is not designed to replace fully functional CAD software'},
         ]
 };
 
@@ -99,7 +96,7 @@ function refresh3Dview() {
   resetShore3Dview();
   resetTrace3Dview();
 
-  var urls=get_MODAL_TS_LIST();
+  var urls=get_MODAL_TS_URLS();
   $('#view3DIfram').attr('src',"");
   $('#view3DIfram').attr('src',"view3d.html?fileURL="+urls);
 }
@@ -110,16 +107,16 @@ function toggleTrace3Dview(elt) {
   
   track_trace = !track_trace;
   if(track_trace) {
-    elt.innerHTML="Show Fault Traces";
+    elt.innerHTML="Show Traces";
     } else {
-      elt.innerHTML="Hide Fault Traces";
+      elt.innerHTML="Hide Traces";
   }
 }
 
 function resetTrace3Dview() {
   let elt=document.getElementById("view3DToggleTracebtn");
   var track_trace=1; // 1 is on 0 is off
-  elt.innerHTML="Show Fault Traces";
+  elt.innerHTML="Show Traces";
 }
 
 
@@ -129,16 +126,16 @@ function toggleShore3Dview(elt) {
   
   track_shore = !track_shore;
   if(track_shore) {
-    elt.innerHTML="Show Coastline";
+    elt.innerHTML="Hide Coastline";
     } else {
-      elt.innerHTML="Hide Coastline";
+      elt.innerHTML="Show Coastline";
   }
 }
 
 function resetShore3Dview() {
   let elt=document.getElementById("view3DToggleShorebtn");
   var track_shore=1; // 1 is on 0 is off
-  elt.innerHTML="Show Coastline";
+  elt.innerHTML="Hide Coastline";
 }
 
 var track_legend=1; // 1 is on 0 is off
@@ -243,5 +240,10 @@ function resetExpand3Dview() {
     $('#modal3DContent').removeClass('full_modal-content');
     document.getElementById("view3DIfram").height = "400";
   }
+}
+
+
+function save3Dview() {
+  document.getElementById("view3DIfram").contentDocument.getElementById("Downloadbtn").click();
 }
 

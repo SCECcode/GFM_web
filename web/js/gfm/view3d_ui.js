@@ -3,8 +3,7 @@
     view3d_util.js
 
 ***/
-var MODAL_TS_LIST=[];
-var MODAL_TS_PATH=null;
+var MODAL_TS_URLS;
 
 // https://s3-us-west-2.amazonaws.com/files.scec.org/s3fs-public/projects/cfm/CFM5/CFM52_preferred/500m/CRFA-BPPM-WEST-Big_Pine_fault-CFM2_m500.ts
 //    also ... -LEGG-CFM4_m500.ts
@@ -19,25 +18,18 @@ call format,
 
 ***/
 
-function clear_MODAL_TS_LIST()
+function save_MODAL_TS_URLS(urls)
 {
-  MODAL_TS_LIST=[];
-  MODAL_TS_PATH=null;
+  MODAL_TS_URLS=urls;
 }
 
-function get_MODAL_TS_LIST()
+function get_MODAL_TS_URLS()
 {
-   var str=MODAL_TS_LIST.toString();
-   if(MODAL_TS_PATH != null) {
-     var pstr=MODAL_TS_PATH.toString();
-     var ppstr="&filePATH=["+pstr+"]";
-     return "["+str+"]"+ppstr;
-   }
-   return "["+str+"]";
+   return MODAL_TS_URLS;
 }
 
 function collectURLFor3d() {
-   var selected=get_active_id2id_region();
+   var selected=get_active_id2id_gfm_region();
    return makeTSList(selected); 
 }
 
@@ -57,6 +49,7 @@ function executePlot3d() {
     return;
   } 
   var str= "["+urls.toString()+"]"+"&filePATH="+filePath;
+  save_MODAL_TS_URLS(str);
   show3dView(str);
 }
 

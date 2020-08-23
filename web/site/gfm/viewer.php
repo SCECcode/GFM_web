@@ -83,6 +83,8 @@ $header=getHeader("Viewer")
 <script type="text/javascript" src="js/gfm/plotGFM.js"></script>
 <script type="text/javascript" src="js/gfm/plotly.js"></script>
 <script type="text/javascript" src="js/gfm/surface_plotly.js"></script>
+<script type="text/javascript" src="js/gfm/crm_region.js"></script>
+<script type="text/javascript" src="js/gfm/crm_region_util.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_region.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_region_util.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_ui.js"></script>
@@ -110,7 +112,7 @@ $header=getHeader("Viewer")
 
     <div class="row">
 	<div class="col-12">
-<p>The <a href="https://www.scec.org/re_utilsearch/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1 and GFM v1.0 and also generate a 3D visualization of the Geological Framework model.</p>
+<p>The <a href="https://www.scec.org/re_utilsearch/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1, GFM v1.0 and CTM.  It can also generate a 3D visualization of selected geological regions from the Geological Framework model.</p>
         </div>
     </div>
 
@@ -305,7 +307,7 @@ $header=getHeader("Viewer")
       <div class="modal-header">
         <button id="view3DToggleReprbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleRepr3Dview(this)">Show Wireframe</button>
         <button id="view3DToggleTracebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleTrace3Dview(this)">Show Traces</button>
-        <button id="view3DToggleShorebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleShore3Dview(this)">Show Coastline</button>
+        <button id="view3DToggleShorebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleShore3Dview(this)">Hide Coastline</button>
         <button id="view3DToggleBoundsbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleBounds3Dview(this)">Show Bounds</button>
         <button id="view3DToggleLegendbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleLegend3Dview(this)">Hide Legend</button>
         <button id="view3DToggleNorthbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleNorth3Dview(this)">Show Mapview</button>
@@ -322,7 +324,8 @@ $header=getHeader("Viewer")
         <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal">Close</button>
         <button id="view3DExpandbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleExpand3Dview(this)">Expand</button>
         <button id="view3DRefreshbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="refresh3Dview()">Reset</button>
-        <button class="btn btn-outline-primary btn-sm" title="start 3d viewer" data-toggle="modal" data-target="#modalinfo3d" onclick="$('#modal3D').modal('hide');">Info</button>
+        <button id="view3DSavebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="save3Dview()">Save Image</button>
+        <button class="btn btn-outline-primary btn-sm" title="start 3d viewer" data-toggle="modal" data-target="#modalinfo3d" onclick="$('#modal3D').modal('hide');">Help</button>
       </div> <!-- footer -->
 
     </div> <!--Content-->

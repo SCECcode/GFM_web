@@ -34,13 +34,15 @@ var gfm_point_list=[];
 // [ { "uid":uid, "latlngs":[{"lat":a,"lon":b},...,{"lat":c,"lon":d}]} ]
 var gfm_file_points_list=[];
 
-// track the gfm polygon being loaded into viewer via group-layer
+// track the crm polygon being loaded into viewer via group-layer
 // using domain_id as gid as if it is objgid
-// [ { "uid":duid, "name":dname, "layer":layer, "layer_id":lid, "highlight":0 } ]
+// need to track gfm_gid when get highlighted
+// [ { "uid":duid, "name":dname, "layer":layer, "layer_id":lid, "highlight":0, "gfm_gid": undefined } ]
 var gfm_id2id_list=[];
 
-// there are gfm region that does not have matching polygon
-// [ { "uid":duid, "name":dname, "highlight":0 } ]
+// there are gfm region that does not have matching CRM polygon
+// but may still have ts gocad 3d file
+// [ { "uid":duid, "name":dname, "highlight":0, "gfm_gid": undefined } ]
 var gfm_id2id_special_list=[];
 
 var gfm_region_highlight=0;
@@ -291,10 +293,11 @@ function add_id2id_special_list(uid,name)
     gfm_id2id_special_list.push(item);
 } 
 
-function toggle_id2id_special_highlight(gid) {
+function toggle_id2id_special_highlight(gid,gfm_gid) {
    zap_pointClick(); // always disable the pointClick
    var item=getFromList(gfm_id2id_special_list,gid);
    if(item != undefined) {
+     item["gfm_gid"]=gfm_gid;
      _toggle_id2id_special(item,gid);
    }
 }
@@ -303,6 +306,8 @@ function _toggle_id2id_special(item, gid) {
    item['highlight']=!item['highlight'];
    var $btn=$(`#highlight_id2id_special_${gid}`);
    let $rowSelected = $(`#row_${gid}`);
+   let plotCounterElem = $("#plot-counter");
+   let button2Elem = $("#plot3d-all"); // linked with download-all
    if(item['highlight'] == 1) {
      gfm_region_highlight++;
      $btn.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
@@ -315,7 +320,15 @@ function _toggle_id2id_special(item, gid) {
         }
         $rowSelected.removeClass("row-selected");
    }
-} 
+   if(gfm_region_highlight > 0) {
+     plotCounterElem.show();
+     button2Elem.prop("disabled", false);
+     } else {
+       plotCounterElem.hide();
+       button2Elem.prop("disabled", true);
+   }
+   plotCounterElem.html("(" + gfm_region_highlight  + ")");
+}
 
 
 function make_id2id_list(group) {
@@ -334,10 +347,11 @@ function make_id2id_list(group) {
   });
 }
 
-function toggle_id2id_highlight(gid) {
+function toggle_id2id_highlight(gid, gfm_gid) {
    zap_pointClick(); // always disable the pointClick
    var item=getFromList(gfm_id2id_list,gid);
    if(item != undefined) {
+     item["gfm_gid"]=gfm_gid;
      _toggle_id2id(item,gid);
    }
 }
@@ -362,6 +376,17 @@ function _toggle_id2id(item, gid) {
           setSkipPopup(false);
         }
    }
+
+   let plotCounterElem = $("#plot-counter");
+   let button2Elem = $("#plot3d-all"); // linked with download-all
+   if(gfm_region_highlight > 0) {
+     plotCounterElem.show();
+     button2Elem.prop("disabled", false);
+     } else {
+       plotCounterElem.hide();
+       button2Elem.prop("disabled", true);
+   }
+   plotCounterElem.html("(" + gfm_region_highlight  + ")");
 } 
 
 
@@ -373,14 +398,17 @@ function select_all_id2id(state) {
    for(var i=0; i<cnt; i++) {
      item=gfm_id2id_list[i]; 
      var gid=item['uid'];     
-     var $btn=$(`#highlight_id2id_${gid}`);
+     var $btn=$(`#button_id2id_${gid}`);
      if($btn != undefined ) { // skip if undefined
        var highlight=item['highlight'];     
        if(state && !highlight) { // highlight it
-         _toggle_id2id(item, gid);
+         $btn.click();
+         //_toggle_id2id(item, gid);
+
          $bbtn.removeClass('glyphicon-ok-sign').addClass('glyphicon-remove-sign');
        } else if(!state && highlight) { // unhighlight it
-         _toggle_id2id(item, gid);
+         $btn.click();
+         //_toggle_id2id(item, gid);
          $bbtn.removeClass('glyphicon-remove-sign').addClass('glyphicon-ok-sign');
        }
      }
@@ -390,36 +418,40 @@ function select_all_id2id(state) {
    for(var j=0; j<cnt; j++) {
      item=gfm_id2id_special_list[j];
      var gid=item['uid'];
-     var $btn=$(`#highlight_id2id_special_${gid}`);
+     var $btn=$(`#button_id2id_special_${gid}`);
      if($btn != undefined ) { // skip if undefined
        var highlight=item['highlight'];
        if(state && !highlight) { // highlight it
-         _toggle_id2id_special(item, gid);
+         //_toggle_id2id_special(item, gid);
+         $btn.click();
          $bbtn.removeClass('glyphicon-ok-sign').addClass('glyphicon-remove-sign');
        } else if(!state && highlight) { // unhighlight it
-         _toggle_id2id_special(item, gid);
+         //_toggle_id2id_special(item, gid);
+         $btn.click();
          $bbtn.removeClass('glyphicon-remove-sign').addClass('glyphicon-ok-sign');
        }
      }
    }
 }
 
-function get_active_id2id_region() {
+// return active gfm id list
+function get_active_id2id_gfm_region() {
    var alist=[]; 
    var cnt=gfm_id2id_list.length;
-   var item; 
    for(var i=0; i<cnt; i++) {
-     item=gfm_id2id_list[i];
-     gid=item['uid'];
-     if(item['highlight'])
+     let item=gfm_id2id_list[i];
+     let gid=item['gfm_gid'];
+     if(item['highlight']) {
        alist.push(gid);
+     }
    }
    cnt=gfm_id2id_special_list.length;
    for(var j=0; j<cnt; j++) {
-     item=gfm_id2id_special_list[j];
-     gid=item['uid'];
-     if(item['highlight'])
+     let item=gfm_id2id_special_list[j];
+     let gid=item['gfm_gid'];
+     if(item['highlight']) {
        alist.push(gid);
+     }
    }
    return alist;
 }
