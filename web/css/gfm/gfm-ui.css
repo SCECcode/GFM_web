@@ -1,6 +1,10 @@
+.btn-outline-primary {
+  color: black;
+  border-color:#990000;
+}
 
 #plot3d-all:not([disabled]):hover {
-   background: red;
+   background: #770000;
 }
 
 #plot3d-all:not([disabled]) {
