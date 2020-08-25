@@ -11,6 +11,10 @@ var gfm_resulttb_list=[];
 // tracking the layer that contains CFM5.2 faults
 var gfm_cfm_layer;
 var show_cfm=false;
+// tracking the layer that contains CTM regions
+var gfm_ctm_layer;
+var show_ctm=false;
+
 // tracking the layer that contains GFM1.0 regions
 var gfm_gfm_layer;
 var show_gfm=false;
@@ -87,6 +91,23 @@ function toggleShowCFM() {
        viewermap.removeLayer(gfm_cfm_layer);
        $('#gfm_cfm_btn').addClass('glyphicon-ok-sign');
        $('#gfm_cfm_btn').removeClass('glyphicon-remove-sign');
+   }
+}
+
+function setup_CTM() {
+   gfm_ctm_layer=readLocalAndProcessActiveCTMGeo();
+}
+
+function toggleShowCTM() {
+   show_ctm=!show_ctm;
+   if(show_ctm) {
+     viewermap.addLayer(gfm_ctm_layer);
+     $('#gfm_ctm_btn').removeClass('glyphicon-ok-sign');
+     $('#gfm_ctm_btn').addClass('glyphicon-remove-sign');
+     } else {
+       viewermap.removeLayer(gfm_ctm_layer);
+       $('#gfm_ctm_btn').addClass('glyphicon-ok-sign');
+       $('#gfm_ctm_btn').removeClass('glyphicon-remove-sign');
    }
 }
 

@@ -13,6 +13,7 @@ jQuery(document).ready(function() {
   viewermap=setup_viewer();
   setup_tables();
   setup_CFM();
+  setup_CTM();
   setup_GFM();
   setup_gfm_table();
   setup_info3dTable();
