@@ -78,6 +78,7 @@ function dumpActiveCFMGeo() {
   }
 }
 
+// GFM is same as CRM --> surface layer
 function dumpActiveGFMGeo() {
   var tracelist = [];
   var labellist = [];
@@ -268,6 +269,33 @@ function readLocalAndProcessActiveGFMGeo() {
 function loadGFMRegions() {
   getGFMAllTraces();
 }
+
+// from a local file
+function readLocalAndProcessActiveCTMGeo() {
+  var url="data/CTM_geoJson.txt";
+  var blob=ckCXMExist(url);
+  var jblob=JSON.parse(blob);
+
+  var trace_list= jblob["trace_list"];
+  var cnt=trace_list.length;
+  var i;
+  for(i=0;i<cnt;i++) {
+     var atrace=trace_list[i];
+     var tcnt=atrace.features.length;
+     for(var j=0; j<tcnt; j++) {
+// make it lighter
+       atrace.features[j].properties.style.weight=0.3;
+     }
+     var name= atrace.features[0].properties.name;
+     window.console.log("adding trace.. ",name);
+  }
+  return makeGeoGroup(trace_list);
+}
+
+function loadCTMRegions() {
+  getCTMAllTraces();
+}
+
 
 //domain,xcoord,ycoord
 //Peninsular Range (E),-114.53244,29.43361
