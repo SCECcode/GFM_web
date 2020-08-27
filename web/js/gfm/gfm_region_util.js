@@ -39,7 +39,7 @@ function makeRegionResultTable()
     var regions=GFM_tb['regions'];
    
     var htable=document.getElementById("gfmTableHeader");
-    var h="<tr><td style=\"width:36px;\"><button id=\"allBtn\" class=\"btn btn-sm gfm-small-btn\" title=\"select all available regions\" onclick=\"toggleAll();\"><span id=\"toggle_all\" class=\"glyphicon glyphicon-ok-sign\"></span></button></td><td style=\"border-right:0\"><b>GFM Geological Regions</b></td><td style=\"width:40px;background:#F2F2F2;border-left:0;padding:3px 13px 3px 2px;\"><button id=\"plot3d-all\" class=\"btn btn-dark\" title=\"plot selected regions in 3D viewer\" onclick=\"executePlot3d()\" disabled>Plot3D<span id=\"plot-counter\"></span> </button></td></tr>";
+    var h="<tr><td style=\"width:36px;\"><button id=\"allBtn\" class=\"btn btn-sm gfm-small-btn\" title=\"select all available regions\" onclick=\"toggleAll();\"><span id=\"toggle_all\" class=\"glyphicon glyphicon-ok-sign\"></span></button></td><td style=\"border-right:0\"><b>GFM Geologic Regions</b></td><td style=\"width:40px;background:#F2F2F2;border-left:0;padding:3px 13px 3px 2px;\"><button id=\"plot3d-all\" class=\"btn btn-dark\" title=\"plot selected regions in 3D viewer\" onclick=\"executePlot3d()\" disabled>Plot3D<span id=\"plot-counter\"></span> </button></td></tr>";
     var row=htable.insertRow();
     row.innerHTML=h;
 
