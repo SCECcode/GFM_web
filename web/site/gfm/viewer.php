@@ -6,7 +6,7 @@ $header=getHeader("Viewer")
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html>
 <head>
-<title>Geological Framework Model Viewer</title>
+<title>Geologic Framework Model Viewer</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,20 +112,22 @@ $header=getHeader("Viewer")
 
     <div class="row">
 	<div class="col-12">
-<p>The <a href="https://www.scec.org/re_utilsearch/cxm">SCEC Geological Framework Model (GFM)</a> Viewer is a prototype that provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1, GFM v1.0 and CTM.  It can also generate a 3D visualization of selected geological regions from the Geological Framework model.</p>
+<p>The <a href="https://www.scec.org/re_utilsearch/cxm">SCEC Geologic Framework Model (GFM)</a> Viewer provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1, GFM v1.0 and CTM.  It can also generate a 3D visualization of selected geological regions from the Geologic Framework model.</p>
         </div>
     </div>
 
 <!--- MISC --->
     <div id="miscTools">
+      <div class="col-6 d-flex offset-4 align-items-end">
         <button class="btn gfm-small-btn" title="display GFM regions" style="margin-left:60%" onclick='toggleShowGFM()'>
            <span id="gfm_gfm_btn" class="glyphicon glyphicon-remove-sign"></span>GFM1.0</button>
-        <button class="btn gfm-small-btn" title="display CTM regions" style="padding:0px 0px;" onclick='toggleShowCTM()'>
+        <button class="btn gfm-small-btn" title="display CTM regions" onclick='toggleShowCTM()'>
            <span id="gfm_ctm_btn" class="glyphicon glyphicon-ok-sign"></span>CTM</button>
         <button class="btn gfm-small-btn" title="display CFM5.2 faults" onclick='toggleShowCFM()'>
            <span id="gfm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
         <button class="btn gfm-small-btn" title="display GFM 3D regions" onclick='plotRegionClick()' data-toggle="modal" data-target="#modal3DPoint">
            <span id="regionBtn" class="glyphicon glyphicon-ok-sign"></span>GFM3dMesh</button>
+      </div>
     </div>
 
     <div class="row" style="display:none;">
