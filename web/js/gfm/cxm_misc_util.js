@@ -287,7 +287,7 @@ function readLocalAndProcessActiveCTMGeo() {
        atrace.features[j].properties.style.weight=0.3;
      }
      var name= atrace.features[0].properties.name;
-     window.console.log("adding trace.. ",name);
+     window.console.log("adding CTM trace.. ",name);
   }
   return makeGeoGroup(trace_list);
 }
