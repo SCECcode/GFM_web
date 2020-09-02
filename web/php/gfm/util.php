@@ -99,6 +99,8 @@ function insertRockAndHeatInfo($str,$zmode) {
   $heatID=$item->{'heatRegionID'};
   $heat=getHeatRegionName($heatID);
   $item->{"heatRegion"} = $heat;
+
+  $item->{"Zmode"} = $zmode;
   return json_encode($item);
 }
 
