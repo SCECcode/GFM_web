@@ -21,6 +21,7 @@ function getHeader($this_page) {
         if( $bcwd == $dirbase) {
 	$all_pages = [
 		"../../viewer.php" => "Viewer",
+		"guide.php" => "User Guide",
 		"disclaimer.php" => "Disclaimer",
 		"contact.php" => "Contact"
 	];
@@ -28,6 +29,7 @@ function getHeader($this_page) {
         } else {
 	$all_pages = [
 		"viewer.php" => "Viewer",
+                "site/gfm/guide.php" => "User Guide",
 		"site/gfm/disclaimer.php" => "Disclaimer",
 		"site/gfm/contact.php" => "Contact"
 	];

@@ -25,7 +25,10 @@ var drawing_point=false;
 function setup_gfm_table() {
     toggleShowGFM();
     makeRegionResultTable();
-    tableLoadCompleted = true;
+    $.event.trigger({
+      type: "tableLoadCompleted",
+      "message": "completed",
+    })
 }
 
 // setup information tables

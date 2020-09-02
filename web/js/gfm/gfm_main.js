@@ -17,6 +17,7 @@ jQuery(document).ready(function() {
   setup_GFM();
   setup_gfm_table();
   setup_info3dTable();
+  setup_warn3dTable();
 
   $(".popup").hide();
 
