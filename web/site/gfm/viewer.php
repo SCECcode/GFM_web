@@ -39,6 +39,8 @@ $header=getHeader("Viewer")
 <script type='text/javascript' src='js/vendor/FileSaver.js'></script>
 <script type='text/javascript' src='js/vendor/jszip.js'></script>
 <script type='text/javascript' src='js/vendor/jquery.tabletojson.min.js'></script>
+<script type='text/javascript' src='js/vendor/jquery.floatThead.min.js'></script>
+
     <!--
     https://leaflet.github.io/Leaflet.draw/docs/Leaflet.draw-latest.html#l-draw
     this is for including the Leaflet.draw plugin
@@ -91,13 +93,29 @@ $header=getHeader("Viewer")
 <script type="text/javascript" src="js/gfm/gfm_leaflet.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_layer.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_layer_util.js"></script>
+<script type="text/javascript" src="js/gfm/gfm_view3d_util.js"></script>
 <script type="text/javascript" src="js/gfm/view3d.js"></script>
-<script type="text/javascript" src="js/gfm/view3d_ui.js"></script>
 <script type="text/javascript" src="js/gfm/cxm_misc_util.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_rock.js"></script>
 <script type="text/javascript" src="js/gfm/gfm_rock_util.js"></script>
 <script type="text/javascript" src="js/gfm/ctm_region.js"></script>
 <script type="text/javascript" src="js/gfm/ctm_region_util.js"></script>
+    <script type="text/javascript">
+        $ = jQuery;
+        var tableLoadCompleted = false;
+
+        $(document).on("tableLoadCompleted", function () {
+            tableLoadCompleted = true;
+            var $gfm_table = $('#gfm-table');
+            $gfm_table.floatThead({
+                scrollContainer: function ($table) {
+                    return $table.closest('div#gfm-table-container');
+                },
+            });
+
+        });
+    </script>
+
 </head>
 <body>
 <?php echo $header; ?>
@@ -118,8 +136,8 @@ $header=getHeader("Viewer")
 
 <!--- MISC --->
     <div id="miscTools">
-      <div class="col-6 d-flex offset-4 align-items-end">
-        <button class="btn gfm-small-btn" title="display GFM regions" style="margin-left:60%" onclick='toggleShowGFM()'>
+      <div class="d-flex flex-row justify-content-end">
+        <button class="btn gfm-small-btn" title="display GFM regions" onclick='toggleShowGFM()'>
            <span id="gfm_gfm_btn" class="glyphicon glyphicon-remove-sign"></span>GFM1.0</button>
         <button class="btn gfm-small-btn" title="display CTM regions" onclick='toggleShowCTM()'>
            <span id="gfm_ctm_btn" class="glyphicon glyphicon-ok-sign"></span>CTM</button>
@@ -130,13 +148,11 @@ $header=getHeader("Viewer")
       </div>
     </div>
 
-    <div class="row" style="display:none;">
-        <div class="col justify-content-end custom-control-inline">
-            <div style="display:none;" id="external_leaflet_control"></div>
-        </div>
+    <div class="justify-content-end custom-control-inline" style="display:none">
+      <div style="display:none;" id="external_leaflet_control"></div>
     </div>
 
-    <div id="content-container" class="row">
+    <div id="content-container" class="row flex-row flex-wrap">
         <div id="control-container" class="col-5">
           <div class="col-12 mt-4" style="padding-top:10px">
             <div class="col input-group" style="background:whitesmoke;border:1px solid rgb(206,212,218)">
@@ -149,7 +165,7 @@ $header=getHeader("Viewer")
                      style="margin-left:0px" type="button">Reset</button>
                   </div>
                 </div>
-                <div class="row d-flex">
+                <div class="row">
                   <div class="col-5 pr-0">
                       <input type="text"
                               id="LatTxt"
@@ -198,7 +214,7 @@ $header=getHeader("Viewer")
                         </button>
                   </div>
                 </div>
-                <div class="row d-flex mt-2">
+                <div class="row mt-2">
                   <div class="col-10 pr-1 mb-3">
                     <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
                     <button id="selectbtn" class="btn gfm-top-btn" style="width:200px;height:3vh;" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
@@ -209,17 +225,27 @@ $header=getHeader("Viewer")
                   </div>
                 </div>
             </div> <!-- latlon/file input/reset --> 
-
-            <div class="row mt-2" id="gfm-table-header">
-                <div class="col-12 scec-header-container" id="gfm-header-container">
-                    <table id="gfmTableHeader"><tbody></tbody></table>
-                </div>
-                <div class="col-12">
-                   <div class="gfm-table">
-                     <table id="gfmTable"><tbody></tbody></table>
-                   </div>
-                </div>
-            </div> <!-- gfm-table -->
+          </div>
+          <div class="col-12 mt-2" id="gfm-table-wrap" style="overflow:hidden" >
+              <div id="gfm-table-container" style="max-height:330px">
+                <table id="gfm-table">
+                  <thead>
+                    <tr style="background:#F2F2F2">
+                       <th style="width:35px"> 
+                          <button id="allBtn" class="btn btn-sm gfm-small-btn" title="select all available regions" onclick="toggleAll();"> <span id="toggle_all" class="glyphicon glyphicon-ok-sign"></span></button>
+                       </th>
+                       <th style="border-right:0">
+                          <b>GFM Geologic Regions</b>
+                      </th>
+                      <th style="width:50px;border-left:0;padding:3px 13px 3px 44px;">
+                          <button id="plot3d-all" class="btn btn-dark" title="plot selected regions in 3D viewer" onclick="executePlot3d()" disabled>Plot3D<span id="plot-counter"></span></button>
+                       </th>
+                    </tr>
+                  </thead>
+                  <tbody id="gfm-table-body">
+                  </tbody>
+                </table> <!-- gfm-table -->
+             </div> <!-- gfm-table-container --> 
           </div>
         </div> <!-- control-container -->
 
@@ -245,43 +271,25 @@ $header=getHeader("Viewer")
                 </div>
             </div>
         </div> <!-- map-container -->
+
         <div class="mt-0" style="width:95%;margin-left:30px">
-        <div id="result-container">
-            <div class="row mb-0" id="mp-table">
-                <div class="col-12 header-container" id="materialPropertyTable-header-container">
-                    <table id="materialPropertyHeaderTable">
-                        <tr>
-                            <td colspan="11" style="border:none;text-align:right;">
-                              <button class="btn gfm-top-small-btn" title="download all the material property in the table" onclick="downloadMPTable()" ><span class="glyphicon glyphicon-download"></span></button>
-                              <button class="btn gfm-top-small-btn" title="GFM parameters displayed in the table" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-12">
-                <div class="row" id="materialPropertyTable-container" style="overflow:scroll;max-height:20vh;margin:0px 0px 0px 0px;">
+
+        <div id="result-container" class="row d-flex flex-column">
+           <div class="col-12 flex-row" align="end">
+               <button class="btn gfm-top-small-btn" title="download all the material property in the table" onclick="downloadMPTable()" ><span class="glyphicon glyphicon-download"></span></button>
+               <button class="btn gfm-top-small-btn" title="GFM parameters displayed in the table" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+            </div>
+            <div class="col-12 mb-0" id="mp-table">
+                <div id="materialPropertyTable-container" style="overflow:auto;max-height:20vh;margin:0px 0px 0px 0px;">
                     <table id="materialPropertyTable">
                         <tr id="placeholder-row">
                             <td colspan="11">Material Property for selected locations will appear here </td>
                         </tr>
                     </table>
                 </div>
-                </div>
             </div> <!-- mp-table -->
-            <div class="row mt-1 mb-4" id="result-table">
-                <div class="col-12 header-container" id="resultTable-header-container">
-<!--
-                    <table id="resultHeaderTable">
-
-                        <tbody>
-                        <tr>
-                            <td style="border:none;text-align:right;"><button class="btn gfm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
-                        </tr>
-                        </tbody>
-                    </table>
--->
-                </div>
-                <div class="col-12">
-                <div class="row" id="resultTable-container" style="overflow-y:scroll;max-height:30vh;margin:0px 0px 10px 0px;">
+            <div class="col-12 mt-1 mb-4" id="result-table">
+                <div id="resultTable-container" style="overflow:auto;max-height:30vh;margin:0px 0px 10px 0px;">
                     <table id="resultTable">
                         <tbody>
                         <tr id="placeholder-row">
@@ -290,12 +298,10 @@ $header=getHeader("Viewer")
                         </tbody>
                     </table>
                 </div>
-                </div>
             </div> <!-- Result table -->
             </div>
 
             <div id="phpResponseTxt"></div>
-
         </div> <!-- result-container -->
     </div> <!-- content-container -->
 
@@ -320,17 +326,44 @@ $header=getHeader("Viewer")
       <!--Body-->
       <div class="modal-body" id="modal3DBody">
         <div id="iframe-container" class="row col-12" style="overflow:hidden">
-          <iframe id="view3DIfram" src="" height="500" width="100%" allowfullscreen></iframe>
+          <iframe id="view3DIfram" src="" onload="setIframHeight(this.id)" height="10" width="100%" allowfullscreen></iframe>
         </div>
       </div>
 
       <div class="modal-footer justify-content-center" id="modal3DFooter">
+        <div class="spinDialog" style="position:absolute;top:40%;left:50%; z-index:9999;">
+          <div id="spinIconFor3D" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+        </div>
+
         <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal">Close</button>
+<!--
         <button id="view3DExpandbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="toggleExpand3Dview(this)">Expand</button>
+-->
         <button id="view3DRefreshbtn" class="btn btn-outline-primary btn-sm" type="button" onclick="refresh3Dview()">Reset</button>
         <button id="view3DSavebtn" class="btn btn-outline-primary btn-sm" type="button" onclick="save3Dview()">Save Image</button>
         <button class="btn btn-outline-primary btn-sm" title="start 3d viewer" data-toggle="modal" data-target="#modalinfo3d" onclick="$('#modal3D').modal('hide');">Help</button>
+       <button id="view3DWarnbtn" class="btn btn-outline-primary btn-sm" style="display:none" data-toggle="modal" data-target="#modalwarn3d"></button>
       </div> <!-- footer -->
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: ModelType -->
+<div class="modal" id="modalwarn3d" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalwarn3dDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalwarn3dContent">
+      <!--Body-->
+      <div class="modal-body" id="modalwarn3dBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="warn3dTable-container"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal">Close</button>
+      </div>
 
     </div> <!--Content-->
   </div>
@@ -527,7 +560,7 @@ or
       <!--Body-->
       <div class="modal-body" id="modal3DPointBody">
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
-          <div class="col-12" id="3DPointPlot" style="display:inline-block;"></div>
+          <div class="col-12" id="threeDPointPlot" style="display:inline-block;"></div>
         </div>
       </div>
 

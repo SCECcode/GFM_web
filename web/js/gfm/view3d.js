@@ -6,7 +6,7 @@ var VIEW3D_tb = {
   "3dview": [
        { 'id':1,
          'name': '3D Navigation',
-         'description': 'Rotate in 3D: left click<br>Translate: shift key+left click<br> Zoom in/out: mouse scroll wheel'},
+         'description': '<b>Rotate in 3D:</b> left click<br><b>Translate:</b> shift key+left click<br> <b>Zoom in/out:</b> mouse scroll wheel'},
        { 'id':2,
          'name': 'Show Wireframe',
          'description': 'Selects the rendering mode for fault surfaces: Solid Surface, Wireframe or Surface with Wireframe overlay'},
@@ -28,33 +28,35 @@ var VIEW3D_tb = {
        { 'id':8,
          'name': 'Close',
          'description': 'Close the 3D view'},
+/***
        { 'id':9,
          'name': 'Expand',
          'description': 'Expand to nearly full screen view'},
-       { 'id':10,
+***/
+       { 'id':9,
          'name': 'Reset',
          'description': 'Refresh the 3D view to the default mapview orientation' },
-       { 'id':11,
+       { 'id':10,
          'name': 'Save',
          'description': 'Save a copy of 3D view (no legend)' },
-       { 'id':12,
+       { 'id':11,
          'name': 'Help',
          'description': 'Display this information table'},
-       { 'id':13,
+       { 'id':12,
          'name': 'Orientation Marker',
          'description': 'Green arrow points toward the North<br>Pink points east'},
-       { 'id':14,
-         'name': '3D Map Scale?',
-         'description': 'This tool currently has no option for plotting 3D axes, and a map scale in 3D is not reliable because the map scale would only be valid at one given distance from the viewer. This viewer is not designed to replace fully functional CAD software'},
+       { 'id':13,
+         'name': 'Disclaimer',
+         'description': '<p>This viewer is intended to provide potential users with a quick and convenient way to view Geologic Regions in their native 3D environment (UTM zone 11s).</p><p>This tool currently does not have the ability to plot 3D axes, and a map scale in 3D is not useful because any scale would only be valid at one given distance from the viewer.</p><p>For location purposes, the 3D viewer shows the coastline and state boundaries in black. In the bottom right corner, the green arrow points North, pink points East, and yellow points up vertically.</p><p>Learning to navigate in 3D takes some practice, so if you get lost or disoriented, try clicking on the “Show Mapview” button in the top right corner to reset to the original mapview.</p>'},
         ]
 };
 
 function setup_info3dTable() {
    var tb=VIEW3D_tb['3dview'];
-   var cnt=tb.length;
+   var cnt=tb.length-1;
    var i;
-   var tbhtml="<div class=\"ucvm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><th style=\"width:8vw\">Name</th><th style=\"width:40vw\">Description</th></tr>";
+   var tbhtml="<div class=\"ucvm-table\"><table>";
+   tbhtml=tbhtml+"<thead><tr><th style=\"width:8vw\">Name</th><th style=\"width:40vw\"><b>Description</b></th></tr></thead><tbody>";
 
    for( i=0; i<cnt; i++) {
      var item=tb[i];
@@ -69,11 +71,45 @@ function setup_info3dTable() {
    html.innerHTML=tbhtml;
 }
 
+var skip_warning=false;
+function setup_warn3dTable() {
+   var tb=VIEW3D_tb['3dview'];
+   var last=tb.length-1;
+   var tbhtml="<div class=\"ucvm-table\"><table>";
+   tbhtml=tbhtml+"<thead></thead><tbody>";
+
+   // grab from first, and last
+   var item=tb[0];
+   var mname=item['name'];
+   var descript=item['description'];
+   var t="<tr><td style=\"width:60vw;\"><b>3D Navigation Instructions</b><br>"+descript+"</td></tr>";
+   tbhtml=tbhtml+t;
+
+   var item=tb[last];
+   var mname=item['name'];
+   var descript=item['description'];
+   var t="<tr><td style=\"width:30vw\"><b>Intended Uses and Limitations</b><br>"+descript+"</td></tr>";
+   tbhtml=tbhtml+t;
+
+   tbhtml=tbhtml+"</tbody></table></div>";
+
+   var html=document.getElementById('warn3dTable-container');
+   html.innerHTML=tbhtml;
+}
+
+
 /*** iframe housekeeping ***/
-/* fileURL=[file1, file2]&filePATH=[path] */
-/* [native/WTRA-USAV-UPLD-Upland_fault_dipslip-CFM1.ts]&filePATH=[https://s3-us-west-2.amazonaws.com/files.scec.org/s3f-public/projects/cfm/CFM5/CFM52_preferred/]
-*/
-function show3dView(urls) {
+/* viewerType=viewerType&fileURL=[file1, file2]&name=[name1, name2]&filePATH=[path] */
+var PARAMS;
+function set_PARAMS(params) {
+  PARAMS=params;
+}
+function get_PARAMS() {
+  return PARAMS;
+}
+
+function show3dView(urls,nstr,path) {
+  reset_search_selection();
 
   resetLegend3Dview();
   resetRepr3Dview();
@@ -83,12 +119,79 @@ function show3dView(urls) {
   resetTrace3Dview();
 
   $('#modal3D').modal('show');
-  $('#view3DIfram').attr('src',"view3d.html?fileURL="+urls);
+
+// urls causing problem when it is too large
+  var params;
+  if(path == undefined) {
+     params= "viewerType="+viewerType+"&fileURL="+urls+"&name="+nstr;
+     } else {
+       params="viewerType="+viewerType+"&fileURL="+urls+"&name="+nstr+"&filePATH="+path;
+  }
+  set_PARAMS(params);
+
+  if(params.length > 1000) {
+    $('#view3DIfram').attr('src',"view3d.html?2Long");
+    } else {
+      $('#view3DIfram').attr('src',"view3d.html?"+params);
+  }
+}
+
+function sendParams3Dview() {
+    var params=get_PARAMS();
+    var iwindow=document.getElementById('view3DIfram').contentWindow;
+    var eparams=encodeURI(params);
+    window.console.log("service, sending a message to iframe.");
+    iwindow.postMessage({call:'fromSCEC',value:eparams},"*");
+}
+
+
+window.addEventListener("DOMContentLoaded", function () {
+
+  window.addEventListener('message', function(event) {
+
+    window.console.log(" SERVER Side>>>> got a message..");
+    var origin = event.origin;
+    if (origin != "http://localhost" && origin != "http://asperity.scec.org") {
+        window.console.log("service, bad message origin:", origin);
+        return;
+    }
+
+    if (typeof event.data == 'object' && event.data.call=='from3DViewer') {
+        if(event.data.value == "send params") {
+          sendParams3Dview();
+          return;
+        }
+        if(event.data.value == "done with loading") {
+          window.console.log(" SERVER, turn off load spinner");
+          document.getElementById('spinIconFor3D').style.display = "none";
+          return;
+        }
+        if(event.data.value == "start loading") {
+          document.getElementById('spinIconFor3D').style.display = "block";
+          window.console.log(" SERVER, turn on loading spinner");
+          return;
+        }
+        if(event.data.value == "ready") {
+          window.console.log(" SERVER, 3d viewer is ready");
+          return;
+        }
+        window.console.log("service, what the heck ..",event.data.value);
+      } else {
+      window.console.log("service, what the heck 2 ..",event.data);
+    }
+ })
+}, false);
+
+function showPlot3dWarning() {
+  if(!skip_warning) {
+    skip_warning=true;
+    let elt=document.getElementById("view3DWarnbtn");
+    elt.click();
+  }
 }
 
 // should be able to track the initial state and then return to it
 function refresh3Dview() {
-
   resetLegend3Dview();
   resetRepr3Dview();
   resetBounds3Dview();
@@ -96,27 +199,33 @@ function refresh3Dview() {
   resetShore3Dview();
   resetTrace3Dview();
 
-  var urls=get_MODAL_TS_URLS();
-  $('#view3DIfram').attr('src',"");
-  $('#view3DIfram').attr('src',"view3d.html?fileURL="+urls);
+  var params=get_PARAMS();
+
+  if(params.length > 1000) {
+//    $('#view3DIfram').attr('src',"view3d.html?2Long");
+    $('#view3DIfram').attr('src',"view3d.html?"+fixparam);
+    } else {
+      $('#view3DIfram').attr('src',"view3d.html?"+params);
+  }
 }
 
-var track_trace=1; // 1 is on 0 is off
+
+var track_trace=initial_track_trace; // 1 is on 0 is off
 function toggleTrace3Dview(elt) {
   document.getElementById("view3DIfram").contentDocument.getElementById("Tracebtn").click();
   
   track_trace = !track_trace;
   if(track_trace) {
-    elt.innerHTML="Show Traces";
+    elt.innerHTML=initial_trace_html;
     } else {
-      elt.innerHTML="Hide Traces";
+      elt.innerHTML=initial_not_trace_html;
   }
 }
 
 function resetTrace3Dview() {
   let elt=document.getElementById("view3DToggleTracebtn");
-  var track_trace=1; // 1 is on 0 is off
-  elt.innerHTML="Show Traces";
+  var track_trace=initial_track_trace;
+  elt.innerHTML=initial_trace_html;
 }
 
 
@@ -210,7 +319,15 @@ function resetBounds3Dview() {
   elt.innerHTML="Show All Bounds";
 }
 
-var track_full=1; // 1 is on 0 is off
+// footer is about 58px
+function setIframHeight(id) {
+  let top = document.documentElement.clientHeight;
+  var f_h=58;
+  var height=top -(f_h* 4);
+  document.getElementById(id).height = height;
+}
+
+var track_full=0; // 1 is on 0 is off
 function toggleExpand3Dview(elt) {
   
   track_full = !track_full;
@@ -231,19 +348,25 @@ function toggleExpand3Dview(elt) {
       document.getElementById("view3DIfram").height = n_h;
   }
 }
+
 function resetExpand3Dview() {
   let elt=document.getElementById("view3DExpandbtn");
-  if(track_full == 0) {
-    track_full=1;
-    elt.innerHTML="Expand";
-    $('#modal3DDialog').removeClass('full_modal-dialog');
-    $('#modal3DContent').removeClass('full_modal-content');
-    document.getElementById("view3DIfram").height = "400";
+  if(track_full == 1) {
+    track_full=0;
+    elt.innerHTML="Shrink";
+    $('#modal3DDialog').addClass('full_modal-dialog');
+    $('#modal3DContent').addClass('full_modal-content');
+    var c=document.getElementById("modal3DContent");
+    var f=document.getElementById("modal3DFooter");
+    var c_h=c.scrollHeight;
+    var f_h=f.scrollHeight;
+    var n_h=c_h -(f_h* 2.5);
+    document.getElementById("view3DIfram").height = n_h;
   }
 }
-
 
 function save3Dview() {
   document.getElementById("view3DIfram").contentDocument.getElementById("Downloadbtn").click();
 }
+
 

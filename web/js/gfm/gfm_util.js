@@ -6,6 +6,12 @@
 var SAVE_ULABEL=0;
 var CHUNK_SIZE=20;
 
+var viewerType="GFM";
+function reset_search_selection() {
+   // set the search button to initial state without
+   // refresh the map view
+}
+
 function set_ULABEL(uid)
 {
   SAVE_ULABEL=uid;
