@@ -27,7 +27,7 @@ if ($chunkid == 0) {
    $start=" { \"GFM_".$uid."\": [";
    fwrite($fp,$start); fwrite($fp,"\n");
 
-   fputcsv($ffp, array("X","Y","Z","utmX","utmY","elevX","elevY","topo","mtop","base","moho","src","cellX","cellY","cellZ","tg","vp","vs","rho","regionID","CTM_unsmoothed","elevation","heatRegionID","CTM_smoothed","region","rock","rock_id","heatRegion"));
+   fputcsv($ffp, array("X","Y","Z","utmX","utmY","elevX","elevY","topo","mtop","base","moho","src","cellX","cellY","cellZ","tg","vp","vs","rho","regionID","CTM_unsmoothed","elevation","heatRegionID","CTM_smoothed","region","rock","rock_id","heatRegion","Zmode"));
 
    } else {
       $fp= fopen($fname,"a") or die("Unable to open file to append!");
