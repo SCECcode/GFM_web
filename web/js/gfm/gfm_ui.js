@@ -185,6 +185,7 @@ function refreshMPTable() {
     var table=document.getElementById("materialPropertyTable");
     table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Material Property for selected locations will appear here. </td></tr></tbody>";
     hold_mptable=1;
+    clear_materialproperty();
 }
 
 function refreshResultTable() {
@@ -297,6 +298,7 @@ function downloadMPTable() {
     window.console.log("here..");
 
     var mplist=get_all_materialproperty();
+    window.console.log(">>mp downloading..cnt is",mplist.length);
     var csvblob=getCSVFromJSON(mplist);
     saveAsCSVBlobFile(csvblob, uid);
 }

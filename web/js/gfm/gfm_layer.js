@@ -59,6 +59,10 @@ function insert_materialproperty(uid, mp) {
    gfm_mp_list.push( { "uid":uid, "mp":mp });
 }
 
+function clear_materialproperty() {
+   gfm_mp_list=[];
+}
+
 function get_materialproperty(target_uid) {
   var cnt=gfm_mp_list.length;
   for(var i=0; i<cnt; i++) {
