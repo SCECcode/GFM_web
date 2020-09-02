@@ -176,6 +176,7 @@ function readAndProcessActiveGeo(urls) {
 }
 
 function addGeoGroupToMap(traceList, mymap) {
+   window.console.log("calling addGeoGroupToMap..");
    var group=makeGeoGroup(traceList);
    mymap.addLayer(group);
    return group;
