@@ -6,7 +6,7 @@ $header=getHeader("Viewer")
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html>
 <head>
-<title>Geologic Framework Model Viewer (Beta)</title>
+<title>Geological Framework Model Viewer (Beta)</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,7 +130,7 @@ $header=getHeader("Viewer")
 
     <div class="row">
 	<div class="col-12">
-<p>The <a href="https://www.scec.org/re_utilsearch/cxm">SCEC Geologic Framework Model (GFM)</a> Viewer provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1, GFM v1.0 and CTM.  It can also generate a 3D visualization of selected geological regions from the Geologic Framework model.</p>
+<p>The <a href="https://www.scec.org/re_utilsearch/cxm">SCEC Geological Framework Model (GFM)</a> Viewer provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1, GFM v1.0 and CTM.  It can also generate a 3D visualization of selected geological regions from the Geological Framework model.</p>
         </div>
     </div>
 
@@ -235,7 +235,7 @@ $header=getHeader("Viewer")
                           <button id="allBtn" class="btn btn-sm gfm-small-btn" title="select all available regions" onclick="toggleAll();"> <span id="toggle_all" class="glyphicon glyphicon-ok-sign"></span></button>
                        </th>
                        <th style="border-right:0">
-                          <b>GFM Geologic Regions</b>
+                          <b>GFM Geological Regions</b>
                       </th>
                       <th style="width:50px;border-left:0;padding:3px 13px 3px 44px;">
                           <button id="plot3d-all" class="btn btn-dark" title="plot selected regions in 3D viewer" onclick="executePlot3d()" disabled>Plot3D<span id="plot-counter"></span></button>

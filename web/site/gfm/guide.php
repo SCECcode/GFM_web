@@ -20,7 +20,7 @@ $header = getHeader("User Guide");
     <script type='text/javascript' src='../../js/vendor/jquery.min.js'></script>
     <script type='text/javascript' src='../../js/vendor/bootstrap.min.js'></script>
     <script type='text/javascript' src='../../js/vendor/jquery-ui.js'></script>
-    <title>Geologic Framework Model Viewer (Beta): User Guide</title>
+    <title>Geological Framework Model Viewer (Beta): User Guide</title>
 </head>
 <body>
 <?php echo $header; ?>
@@ -35,7 +35,7 @@ $header = getHeader("User Guide");
                 <img src="../../img/gfm-viewer.png" class="figure-img img-fluid" alt="Screen capture of GFM Viewer interface">
                 <figcaption class="figure-caption">Screen capture of GFM Viewer interface</figcaption>
             </figure>
-            <h4>Geologic Framework Model (GFM) Viewer Overview</h4>
+            <h4>Geological Framework Model (GFM) Viewer Overview</h4>
             <p>The GFM Viewer provides a map-based view of <a href="https://www.scec.org/research/gfm">GFM version 1.0</a> dataset. The pages on this site are the <a href="<?php echo $host_site_actual_path; ?>">GFM viewer page</a>, this user guide, <a href="disclaimer">a disclaimer</a>, and a <a href="contact">contact information</a> page.
             </p>
 
@@ -64,7 +64,7 @@ $header = getHeader("User Guide");
 
             <h4>Viewing in 3D and the Plot3D tool</h4>
             <p>
-               This “Plot3D” option is intended to provide potential GFM users with a quick and convenient way to view Geologic regions in their native 3D environment (UTM zone 11s).  This tool currently does not have the ability to plot 3D axes, and a map scale in 3D is not useful because any scale would only be valid at one given distance from the viewer. 
+               This “Plot3D” option is intended to provide potential GFM users with a quick and convenient way to view geological regions in their native 3D environment (UTM zone 11s).  This tool currently does not have the ability to plot 3D axes, and a map scale in 3D is not useful because any scale would only be valid at one given distance from the viewer. 
              </p>
              <p>The coastline and state boundaries in black. In the bottom right corner, the green arrow points North, pink points East, and yellow points up vertically.
              </p>
@@ -75,7 +75,7 @@ $header = getHeader("User Guide");
             <h4>Browser Requirements</h4>
             <p>This site supports the latest versions of <a href="https://www.mozilla.org/en-US/firefox/">Firefox</a>, <a href="https://www.google.com/chrome/">Chrome</a>, <a href="https://www.apple.com/safari/">Safari</a>, and <a href="https://www.microsoft.com/en-us/windows/microsoft-edge">Microsoft Edge</a>.</p>
 
-            <h4>About the SCEC Geologic Framework Model (GFM) </h4>
+            <h4>About the SCEC Geological Framework Model (GFM) </h4>
         </div>
     </div>
 </body>
