@@ -2,6 +2,8 @@
    gfm_leaflet.js
 ***/
 
+var scecAttribution ='<a href="https://www.scec.org">SCEC</a>';
+
 var point_icon = L.AwesomeMarkers.icon({ icon: 'record', markerColor: 'blue'});
 var point_options = { icon : point_icon };
 var pointDrawer;
@@ -59,6 +61,7 @@ function setup_viewer()
 // ==> mymap <==
   mymap = L.map('GFM_plot', { drawControl:false, layers: [esri_topographic, basemap], zoomControl:true} );
   mymap.setView([33.3, -118.4], 6);
+  mymap.attributionControl.addAttribution(scecAttribution);
 
 // basemap selection
   var ctrl_div=document.getElementById('external_leaflet_control');
