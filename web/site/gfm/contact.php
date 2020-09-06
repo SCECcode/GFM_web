@@ -18,7 +18,7 @@ $header = getHeader("Contact");
     <script type='text/javascript' src='../../js/vendor/jquery.min.js'></script>
     <script type='text/javascript' src='../../js/vendor/bootstrap.min.js'></script>
     <script type='text/javascript' src='../../js/vendor/jquery-ui.js'></script>
-    <title>Geologic Framework Viewer: Contact</title>
+    <title>Geological Framework Viewer: Contact</title>
 </head>
 <body>
 <?php echo $header; ?>
