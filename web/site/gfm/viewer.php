@@ -267,7 +267,8 @@ $header=getHeader("Viewer")
             <div class="row mapData">
                 <div class="col-12 pr-0 pl-2 pt-0 ">
                     <div class="row w-100 mb-1" id='GFM_plot'
-                         style="margin-left:-30px;position:relative;border:solid 1px #ced4da; height:576px;"></div>
+                         style="margin-left:-30px;position:relative;border:solid 1px #ced4da; height:576px;">     
+                    </div>
                 </div>
             </div>
         </div> <!-- map-container -->
@@ -526,19 +527,12 @@ $header=getHeader("Viewer")
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
 
           <div class="col-10" id="file-container">
-<p>
-Format of input file :
+<h5>Local input file format is 3 columns of Longitude, Latitude and Z separated by a comma or a space </h5>
 <pre>
-      lon1 lat1 z1
-      lon2 lat2 z1
-
-or
-      lon1,lat1,z1
-      lon2.lat2,z1
-
+lon1 lat1 z1             lon1,lat1,z1
+lon2 lat2 z2      or     lon2,lat2,z2
 </pre>
-
-</p>
+<h5>Z value should match the Z mode selection from the main viewer </h5>
           </div>
         </div>
       </div>
