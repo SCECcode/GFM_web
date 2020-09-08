@@ -76,6 +76,56 @@ $header = getHeader("User Guide");
             <p>This site supports the latest versions of <a href="https://www.mozilla.org/en-US/firefox/">Firefox</a>, <a href="https://www.google.com/chrome/">Chrome</a>, <a href="https://www.apple.com/safari/">Safari</a>, and <a href="https://www.microsoft.com/en-us/windows/microsoft-edge">Microsoft Edge</a>.</p>
 
             <h4>About the SCEC Geological Framework Model (GFM) </h4>
+            <h4>References</h4>
+            <ul class="references">
+                <li><a href="https://www.scec.org/user/plesch">Plesch, A.</a>,
+                    <a href="https://www.scec.org/user/jshaw">Shaw, J. H.</a>,
+                    <a href="https://www.scec.org/user/oskin">Oskin,M.E.</a>, &
+                    <a href="https://www.scec.org/user/maechlin">Maechling, P. J.</a> (2019,08).
+                    A volumetric, CFM compatible, Geologic Framework Model (GFM) . Poster Presentation at 2019 SCEC Annual Meeting.
+                    <a href="https://www.scec.org/publication/9706">SCEC Contribution 9706</a>
+                </li>
+                <li>Shinevar, W. J., Behn, M. D., 
+                    <a href="https://www.scec.org/user/hirth">Hirth, G.</a>,
+                    & Jagoutz, O. (2018). 
+                    Inferring crustal viscosity from seismic velocity: Application to the lower crust of Southern California. Earth and Planetary Science Letters, 494, 83-91. 
+                    <a href="https://www.scec.org/publication/8944">SCEC Contribution 8944</a>
+                </li>
+                <li><a href="https://www.scec.org/user/thatcher">Thatcher, W.</a> 
+                    and Chapman, D. (2020), The SCEC Community Thermal Model, in preparation for J. Geophys. Res.
+                <li><a href="https://www.scec.org/user/thatcher">Thatcher, W.</a>, 
+                     <a href="https://www.scec.org/user/ehearn">Hearn, E. H.</a>,
+                     <a href="https://www.scec.org/user/oskin">Oskin, M. E.</a>,
+                     <a href="https://www.scec.org/user/montesi">Montesi, L. G.</a>,
+                     <a href="https://www.scec.org/user/hirth">Hirth, G.</a>, 
+                     <a href="https://www.scec.org/user/behr">Behr, W. M.</a>,
+                     <a href="https://www.scec.org/user/plesch">Plesch, A.</a>, &
+                     <a href="https://www.scec.org/user/jshaw">Shaw, J. H.</a> (2019, 08). 
+                     Preliminary SCEC Community Rheology Model. Poster Presentation at 2019 SCEC Annual Meeting.
+                    <a href="https://www.scec.org/publication/9833">SCEC Contribution 9833</a>
+                </li>
+                <li><a href="https://www.scec.org/user/jshaw">Shaw, J. H.</a>,
+                    <a href="https://www.scec.org/user/plesch">Plesch, A.</a>,
+                    <a href="https://www.scec.org/user/carltape">Tape, C.</a>,
+                    Suess, M.,
+                    <a href="https://www.scec.org/user/tjordan">Jordan, T. H.</a>,
+                    <a href="https://www.scec.org/user/gely">Ely, G.</a>,
+                    <a href="https://www.scec.org/user/hauksson">Hauksson, E.</a>,
+                    <a href="https://www.scec.org/user/jtromp">Tromp, J.</a>,
+                    <a href="https://www.scec.org/user/toshiro">Tanimoto, T.</a>,
+                    <a href="https://www.scec.org/user/rgraves">Graves, R.</a>,
+                    <a href="https://www.scec.org/user/kbolsen">Olsen, K.</a>,
+                    <a href="https://www.scec.org/user/nicholson"> Nicholson, C.</a>,
+                    <a href="https://www.scec.org/user/machelin">Maechling, P. J.</a>,
+                    <a href="https://www.scec.org/user/rivero">Rivero, C.</a>,
+                    <a href="https://www.scec.org/user/plovely">Lovely, P.</a>,
+                    <a href="https://www.scec.org/user/brankman">Brankman, C. M.</a>,
+                    & Munster, J. (2015). 
+                    Unified Structural Representation of the southern California crust and upper mantle. Earth and Planetary Science Letters, 415, 1-15.
+                    <a href="https://dx.doi.org/10.1016/j.epsl.2015.01.016">doi: 10.1016/j.epsl.2015.01.016</a>.  
+                    <a href="https://www.scec.org/publication/2068">SCEC Contribution 2068</a>
+                </li>
+            </ul>
         </div>
     </div>
 </body>
