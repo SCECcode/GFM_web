@@ -76,6 +76,55 @@ $header = getHeader("User Guide");
             <p>This site supports the latest versions of <a href="https://www.mozilla.org/en-US/firefox/">Firefox</a>, <a href="https://www.google.com/chrome/">Chrome</a>, <a href="https://www.apple.com/safari/">Safari</a>, and <a href="https://www.microsoft.com/en-us/windows/microsoft-edge">Microsoft Edge</a>.</p>
 
             <h4>About the SCEC Geological Framework Model (GFM) </h4>
+<p>
+The SCEC Geologic Framework Model (GFM) viewer provides researchers with access to two 
+essential components of the SCEC Community Rheology model. The current GFM viewer 
+displays two components that include a three-dimensional geologic framework model (GFM) of 
+southern California's crust, and the SCEC Community Thermal Model (CTM) which provide a 
+model of temperatures and pressure in the region. This information provides essential 
+components for a model of southern California's ductile rheology. By combining these model 
+parameters with given strain rate(s), the SCEC CRM will be able to calculate effective viscosity 
+and differential stress throughout the region.
+</p>
+<p>
+The preliminary GFM comprises 23 provinces, each with a set of lithologic layers. It is shared as 
+lat-lon files of province boundaries, tables with depth intervals and rock types for each 
+province, and petrological descriptions for each rock type.
+This GFM model is based on an initial definition of 23 lithotectonic units separated by 
+major faults or contrasts in basement lithology and tectonic affinity. In addition, 
+several lateral interfaces are represented: topography/bathymetry, base of basins,
+base of seismogenic zone, the Moho, and the lithosphere-asthenosphere boundary (LAB).
+The base of model is the 100km depth level. The surfaces defining the GFM regions can be
+viewed using the webviewers 3D plotting capabilities.
+</p>
+<p>
+From the GFM bounding surfaces, a gridded GFM volume was subdivided into regions. The grid 
+has about 900K 10km x 10km x 1km large cells. This gridded volume is accessible through the 
+GFM Webviewer under the GFM3dMesh display options. The gridded volume currently has 
+three layers: crust, upper mantle and asthenosphere. The crustal layer contains all 23 
+lithotectonic units. Each cell is parameterized with a region identification number 
+from 1 to 41 which is mapped to region name. The large number of regions stems from 
+separation of small slivers at acute corner points of blocks. 
+</p>
+<p>
+The GFM viewer allows users to query 3D points in southern California for lithology 
+type (rock type) based on the GFM region and the depth in the region. 
+</p>
+<p>
+This GFM viewer also provides access to a SCEC CTM that provides estimates of temperatures 
+and thermal properties of the southern California lithosphere. The CTM model accessible 
+through the viewer is described by Thatcher and Chapman (2020), and comprises a suite of 
+geotherms for fourteen distinct heat flow regions (HFRs).  These heat flow regions have been 
+extended into to 24 regions to ensure the coverage regions for the GFM and CTM models are 
+equivalent.
+</p>
+<p>
+CTM data include longitude-latitude coordinates of the heatflow region (HFR) boundaries, and 
+within each HFR, temperatures as a function of depth at 1 km increments from the surface 
+to 100 km. The CTM values returned by the viewer are smoothed to reduce lateral 
+discontinuities in temperature between adjoining HFR's using Gaussian kernels.
+</p>
+
             <h4>References</h4>
             <ul class="references">
                 <li><a href="https://www.scec.org/user/plesch">Plesch, A.</a>,
