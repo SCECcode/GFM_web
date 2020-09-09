@@ -130,7 +130,17 @@ $header=getHeader("Viewer")
 
     <div class="row">
 	<div class="col-12">
-<p>The <a href="https://www.scec.org/re_utilsearch/cxm">SCEC Geological Framework Model (GFM)</a> Viewer provides a browser access to GFM version 1.0 dataset. Users can query for properties from CVM-H v15.1, GFM v1.0 and CTM.  It can also generate a 3D visualization of selected geological regions from the Geological Framework model.</p>
+<p>
+The <a href="https://www.scec.org/research/cxm">SCEC Geologic Framework Model (GFM)</a> viewer 
+provides researchers with access to two essential components of 
+the <a href="https://www.scec.org/research/crm">SCEC Community Rheology model (CRM)</a>.
+The current GFM viewer displays two components that include a three-dimensional Geological 
+Framework model (GFM) of southern California's crust, and the 
+<a href="https://www.scec.org/research/ctm">SCEC Community Thermal Model (CTM)</a> which provide a
+model of temperatures and pressure in the region.  The viewer allows user to view and download the 
+material properties from CVM-H v15.1, geological regions and rock types from GFM v1.0 and 
+smoothed temperature from CTM. Selected geological regions can also be view in a basic 3D tool. </p>
+</p>
         </div>
     </div>
 
