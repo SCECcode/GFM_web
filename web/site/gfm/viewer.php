@@ -156,8 +156,8 @@ SCEC Community Rheology Model (CRM)</a>. This viewer provides a graphic-based qu
       <div style="display:none;" id="external_leaflet_control"></div>
     </div>
 
-    <div id="content-container" class="row flex-row flex-wrap">
-        <div id="control-container" class="col-5">
+    <div id="content-container" class="row flex-row flex-wrap" style="border:2px solid blue">
+        <div id="control-container" class="col-5" style="border:2px solid green">
           <div class="col-12 mt-4" style="padding-top:10px">
             <div class="col input-group" style="background:whitesmoke;border:1px solid rgb(206,212,218)">
                 <div class="row mt-2">
@@ -230,6 +230,7 @@ SCEC Community Rheology Model (CRM)</a>. This viewer provides a graphic-based qu
                 </div>
             </div> <!-- latlon/file input/reset --> 
           </div>
+
           <div class="col-12 mt-2" id="gfm-table-wrap" style="overflow:hidden" >
               <div id="gfm-table-container" style="max-height:330px">
                 <table id="gfm-table">
