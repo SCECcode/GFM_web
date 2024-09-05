@@ -1,7 +1,7 @@
 /**
     cxm_misc_util.c
 
-a) export 'active' fault's geo out into an external file CFM5.2_geoJson.txt
+a) export 'active' fault's geo out into an external file CFM7.0_geoJson.txt
 b) import external geoJson.txt and create a groupLayer with optional name popup
 c) import external latlon.csv with 'name' and create a group Layerof mulitple groups of points with different color 
 
@@ -55,7 +55,7 @@ function ckCXMExist(url) {
 
 
 // *** specifically for CFM_web ***
-// create CFM5.2_geoJson.txt json file from cfm_trace_list.json
+// create CFMXgeoJson.txt json file from cfm_trace_list.json
 function dumpActiveCFMGeo() {
   var tracelist = [];
   var labellist = [];
@@ -74,7 +74,7 @@ function dumpActiveCFMGeo() {
     }
   }
   if(tracelist.length) {
-    dumpActiveGeo("CFM5.2_geoJson.txt", tracelist, labellist);
+    dumpActiveGeo("CFM_geoJson.txt", tracelist, labellist);
   }
 }
 
@@ -122,7 +122,7 @@ function dumpActiveGeo(dumpname, trace_list, label_list) {
 
 // from a local file
 function readLocalAndProcessActiveCFMGeo() {
-  var url="data/CFM5.2_geoJson.txt";
+  var url="data/CFM7.0_geoJson.txt";
   var blob=ckCXMExist(url);
   var jblob=JSON.parse(blob);
 

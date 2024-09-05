@@ -5,6 +5,9 @@ source setup/setup_cvmh.sh
 ## uid is used to extract cvmh model files from hypocenter,
 uid=`whoami`
 
+mkdir -p $TOP_GFM_DIR/model
+mkdir -p $TOP_GFM_DIR/web/model
+
 ## open up ther permission on result directory
 chmod og+rw $TOP_GFM_DIR/web/result 
 

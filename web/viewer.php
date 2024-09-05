@@ -146,8 +146,8 @@ SCEC Community Rheology Model (CRM)</a>. This viewer provides a graphic-based qu
            <span id="gfm_gfm_btn" class="glyphicon glyphicon-remove-sign"></span>GFM1.0</button>
         <button class="btn gfm-small-btn" title="display CTM regions" onclick='toggleShowCTM()'>
            <span id="gfm_ctm_btn" class="glyphicon glyphicon-ok-sign"></span>CTM</button>
-        <button class="btn gfm-small-btn" title="display CFM5.2 faults" onclick='toggleShowCFM()'>
-           <span id="gfm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
+        <button class="btn gfm-small-btn" title="display CFM7.0 faults" onclick='toggleShowCFM()'>
+           <span id="gfm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM7.0</button>
         <button class="btn gfm-small-btn" title="display GFM 3D regions" onclick='plotRegionClick()' data-toggle="modal" data-target="#modal3DPoint">
            <span id="regionBtn" class="glyphicon glyphicon-ok-sign"></span>GFM3dMesh</button>
       </div>

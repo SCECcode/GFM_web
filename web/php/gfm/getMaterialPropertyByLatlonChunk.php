@@ -56,8 +56,6 @@ for($i=0; $i< $set; $i++) {
   if ($zmode == 'd') 
      $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -s -m $GFM_WEB_LOC/model/cvmh_target/model -g "."-z dep ".$lstr;
 
-  $query="$GFM_WEB_LOC/model/cvmh_target/bin/vx_lite -s -m $GFM_WEB_LOC/model/cvmh_target/model -g ".$lstr;
-
   $result = exec(escapeshellcmd($query), $retval, $status);
   $nresult=insertRockAndHeatInfo($result,$zmode);
 
