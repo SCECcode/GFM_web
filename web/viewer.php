@@ -7,7 +7,7 @@ $header=getHeader("Viewer")
 <html lang="en">
 <head>
 
-<title>Geological Framework Model Viewer (Beta)</title>
+<title>Geological Framework Model Viewer (Provisional)</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
