@@ -20,7 +20,7 @@ $header = getHeader("User Guide");
     <script type='text/javascript' src='../../js/vendor/jquery.min.js'></script>
     <script type='text/javascript' src='../../js/vendor/bootstrap.min.js'></script>
     <script type='text/javascript' src='../../js/vendor/jquery-ui.js'></script>
-    <title>Geological Framework Model Viewer (Beta): User Guide</title>
+    <title>Geological Framework Model Viewer (Provisional): User Guide</title>
 </head>
 <body>
 <?php echo $header; ?>
